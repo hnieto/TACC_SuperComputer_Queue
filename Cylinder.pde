@@ -42,37 +42,37 @@ class Cylinder {
       e.printStackTrace();
     }
     
-    long diff = currentDate.getTime() - jobStartDate.getTime();
+    long elapsedTime = currentDate.getTime() - jobStartDate.getTime();
 
     if (jobType.equals("normal")) {                  // normal       = 24hrs
       h = 50;
-      if(diff > 8.64e7) percentFull = 1; 
-      else percentFull = diff/8.64e7;
+      if(elapsedTime > 8.64e7) percentFull = 1; 
+      else percentFull = elapsedTime/8.64e7;
     } 
     else if (jobType.equals("long")) {             // long           = 48hrs
       h = 100;
-      if(diff > 1.72e8) percentFull = 1;
-      else percentFull = diff/1.72e8;
+      if(elapsedTime > 1.72e8) percentFull = 1;
+      else percentFull = elapsedTime/1.72e8;
     } 
     else if (jobType.equals("largemem")) {         // large          = 24hrs
       h = 50;
-      if(diff > 8.64e7) percentFull = 1;
-      else percentFull = diff/8.64e7;
+      if(elapsedTime > 8.64e7) percentFull = 1;
+      else percentFull = elapsedTime/8.64e7;
     } 
     else if (jobType.equals("development")) {      // development    = 02hrs
       h = 5;
-      if(diff > 7.2e6) percentFull = 1;
-      else percentFull = diff/7.2e6;  
+      if(elapsedTime > 7.2e6) percentFull = 1;
+      else percentFull = elapsedTime/7.2e6;  
     } 
     else if (jobType.equals("serial")) {           // serial         = 16hrs
       h = 35;
-      if(diff > 5.76e7) percentFull = 1;
-      else percentFull = diff/5.76e7;
+      if(elapsedTime > 5.76e7) percentFull = 1;
+      else percentFull = elapsedTime/5.76e7;
     } 
     else if (jobType.equals("vis")) {              // vis            = 24hrs
       h = 50;
-      if(diff > 8.64e7) percentFull = 1;      
-      else percentFull = diff/8.64e7;
+      if(elapsedTime > 8.64e7) percentFull = 1;      
+      else percentFull = elapsedTime/8.64e7;
     }
   }
 

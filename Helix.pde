@@ -3,8 +3,8 @@ class Helix {
   private float helixRadius, z;
 
   // used for helix movement
-  private float rotx = PI/3; // arbitrary initial value
-  private float roty = -PI/4; // arbitrary initial value
+  // private float rotx = PI/3; // arbitrary initial value
+  // private float roty = -PI/4; // arbitrary initial value
   private float rotz = 0;
 
   Helix(List<JobToShapes> _jobsList) {
@@ -13,8 +13,8 @@ class Helix {
   }
   
   void spin() {
-    rotateX(rotx);
-    rotateY(roty);
+  //  rotateX(rotx);
+  //  rotateY(roty);
     rotateZ(rotz);
   }
 

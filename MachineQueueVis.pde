@@ -1,3 +1,5 @@
+import processing.opengl.*;
+
 // JAXB is part of Java 6.0, but needs to be imported manually
 import javax.xml.bind.*;
 
@@ -7,23 +9,26 @@ import peasy.*;
 // our class for parsing xml file
 // this class is defined in its own tab in the Processing PDE
 XMLparse file;
+
+// each Job object will be converted to a JobToShapes object consisting
+// of a sphere and a cylinder
 List<JobToShapes> js = new ArrayList<JobToShapes>();
+
 Helix h1;
 PeasyCam cam;
 
 void setup() {
-  size(1000, 700, P3D); 
+  size(1000, 700, OPENGL); 
   cam = new PeasyCam(this, 0, 0, 0, 7000);
-
   parseFile();
-  createShapesFromFile();
+  createShapesFromFile();  // create sphere+cylinder objects from each Job object acquired from XML
   h1 = new Helix(js);
-//  printList();
 }
 
 void draw() {
   background(0);
   lights();
+  h1.spin();
   h1.display();
 } 
 
@@ -34,14 +39,13 @@ void parseFile() {
     // setup object mapper using the XMLparse class
     JAXBContext context = JAXBContext.newInstance(XMLparse.class);
     // parse the XML and return an instance of the XMLparse class
-    file = (XMLparse) context.createUnmarshaller().unmarshal(createInput("rangerQSTAT-long.xml"));
-  } 
-  catch(JAXBException e) {
-    // if things went wrong...
-    println("error parsing xml: ");
-    e.printStackTrace();
-    // force quit
-    System.exit(1);
+    file = (XMLparse) context.createUnmarshaller().unmarshal(createInput("rangerQSTAT-short.xml"));
+  } catch(JAXBException e) {
+      // if things went wrong...
+      println("error parsing xml: ");
+      e.printStackTrace();
+      // force quit
+      System.exit(1);
   }
 }
 
@@ -66,6 +70,17 @@ void createShapesFromFile() {
   }
 }
 
+float calculateRadius(int jobSlots, int _maxSlots) {
+  float minSlots = 1;   // x0
+  float minRadius = 5;  // y0
+
+  float maxSlots = _maxSlots; // x1
+  float maxRadius = 15;   // y1
+
+  // interpolate sphere radius
+  return minRadius + (((jobSlots-minSlots)*maxRadius-(jobSlots-minSlots)*minRadius)/(maxSlots-minSlots));
+}
+
 void printList() {
   for (Job jbs : file.jobs) {  // for each Job Object jbs in file.jobs
   
@@ -76,15 +91,4 @@ void printList() {
     // print job state
     println(jbs.state);
   }
-}
-
-float calculateRadius(int jobSlots, int _maxSlots) {
-  float minSlots = 1;   // x0
-  float minRadius = 5;  // y0
-
-  float maxSlots = _maxSlots; // x1
-  float maxRadius = 15;   // y1
-
-  // interpolate sphere radius
-  return minRadius + (((jobSlots-minSlots)*maxRadius-(jobSlots-minSlots)*minRadius)/(maxSlots-minSlots));
 }
