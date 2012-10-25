@@ -1,43 +1,38 @@
 class Helix {
-  List<JobToShapes> jobsList = new ArrayList<JobToShapes>();
+  List<SphereRodCombo> nodesList = new ArrayList<SphereRodCombo>();
   private float helixRadius, z;
 
   // used for helix movement
-  // private float rotx = PI/3; // arbitrary initial value
-  // private float roty = -PI/4; // arbitrary initial value
   private float rotz = 0;
 
-  Helix(List<JobToShapes> _jobsList) {
-    jobsList = _jobsList;
+  Helix(List<SphereRodCombo> _nodesList) {
+    nodesList = _nodesList;
     helixRadius = 200;
   }
   
   void spin() {
-  //  rotateX(rotx);
-  //  rotateY(roty);
     rotateZ(rotz);
   }
 
   void display () {
     z = 0;
     float theta = 0;
-  
-    for (int listCntr=0; listCntr<jobsList.size(); listCntr++) {
+    for (int listCntr=0; listCntr<nodesList.size(); listCntr++) {
       float cosTheta = cos(theta);
       float sinTheta = sin(theta);  
 
       // convert from polar to cartesian coordinates
       float x = helixRadius * cosTheta;
       float y = helixRadius * sinTheta;
-      z += 1.5; 
-
+      z += 2; 
+      
       pushMatrix();
       translate(x, y, z); 
-      jobsList.get(listCntr).display(theta);
+      nodesList.get(listCntr).display(theta);
       popMatrix();
-
+      
       // distance between the radii of neighboring spheres dictates theta
-      if (listCntr != jobsList.size()-1) theta += asin((jobsList.get(listCntr).getOrbRadius()+jobsList.get(listCntr+1).getOrbRadius())/helixRadius);  
+      if (listCntr != nodesList.size()-1) theta += asin((nodesList.get(listCntr).getOrbRadius()+nodesList.get(listCntr+1).getOrbRadius())/helixRadius);  
     } 
     rotz += PI/500;
   }  

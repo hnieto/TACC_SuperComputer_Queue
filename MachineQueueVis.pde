@@ -10,19 +10,18 @@ import peasy.*;
 // this class is defined in its own tab in the Processing PDE
 XMLparse file;
 
-// each Job object will be converted to a JobToShapes object consisting
-// of a sphere and a cylinder
-List<JobToShapes> js = new ArrayList<JobToShapes>();
+// each Job object will be converted to a SphereRodCombo object
+List<SphereRodCombo> src = new ArrayList<SphereRodCombo>();
 
 Helix h1;
 PeasyCam cam;
 
 void setup() {
   size(1000, 700, OPENGL); 
-  cam = new PeasyCam(this, 0, 0, 0, 7000);
+  cam = new PeasyCam(this, 0, 0, 0, 9000);
   parseFile();
   createShapesFromFile();  // create sphere+cylinder objects from each Job object acquired from XML
-  h1 = new Helix(js);
+  h1 = new Helix(src);
 }
 
 void draw() {
@@ -39,13 +38,14 @@ void parseFile() {
     // setup object mapper using the XMLparse class
     JAXBContext context = JAXBContext.newInstance(XMLparse.class);
     // parse the XML and return an instance of the XMLparse class
-    file = (XMLparse) context.createUnmarshaller().unmarshal(createInput("rangerQSTAT-short.xml"));
-  } catch(JAXBException e) {
-      // if things went wrong...
-      println("error parsing xml: ");
-      e.printStackTrace();
-      // force quit
-      System.exit(1);
+    file = (XMLparse) context.createUnmarshaller().unmarshal(createInput("rangerQSTAT-short.xml"));  // specify full path when using MPE
+  } 
+  catch(JAXBException e) {
+    // if things went wrong...
+    println("error parsing xml: ");
+    e.printStackTrace();
+    // force quit
+    System.exit(1);
   }
 }
 
@@ -58,14 +58,24 @@ void createShapesFromFile() {
   JobComparator comparator = new JobComparator();
   int currMaxSlots = Collections.max(file.jobs, comparator).slots;
 
-  for (Job j : file.jobs) {  // for each Job Object j in file.jobs
-    if(j.state.equals("r")){  // only use running states. ignore pending (qw) and transitional (dr) states
+  for (Job j : file.jobs) {  // for each Job Object j in file.jobs, create a sphere and rod
+    if (j.state.equals("r")) {  // only use running states. ignore pending (qw) and transitional (dr) states
       color jobColor = color(random(255), random(255), random(255)); 
       String[] parseQueueName = split(j.queue_name, '@'); 
-  
+
+      // create orb for each job
+      float newOrbRadius = calculateRadius(j.slots, currMaxSlots);
+      PShape newOrb = createShape(SPHERE, newOrbRadius);
+      newOrb.noStroke();
+      newOrb.fill(jobColor); 
+
+      // create rod
+      Cylinder newRod = new Cylinder(jobColor, parseQueueName[0], j.JAT_start_time, newOrbRadius/5, newOrbRadius);
+
       for (int i=0; i<(j.slots/RANGER_SLOTS_PER_NODE); i++) {
-        js.add(new JobToShapes(calculateRadius(j.slots, currMaxSlots), parseQueueName[0], j.JAT_start_time, jobColor));
+        src.add(new SphereRodCombo(newOrb, newRod, newOrbRadius));
       }
+      
     }
   }
 }
@@ -75,20 +85,8 @@ float calculateRadius(int jobSlots, int _maxSlots) {
   float minRadius = 5;  // y0
 
   float maxSlots = _maxSlots; // x1
-  float maxRadius = 15;   // y1
+  float maxRadius = 20;   // y1
 
   // interpolate sphere radius
   return minRadius + (((jobSlots-minSlots)*maxRadius-(jobSlots-minSlots)*minRadius)/(maxSlots-minSlots));
-}
-
-void printList() {
-  for (Job jbs : file.jobs) {  // for each Job Object jbs in file.jobs
-  
-    // print start time
-    String[] parseTime = split(jbs.JAT_start_time, 'T');
-    println(parseTime[0] + " " + parseTime[1]); 
-    
-    // print job state
-    println(jbs.state);
-  }
 }
