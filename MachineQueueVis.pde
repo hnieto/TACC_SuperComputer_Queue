@@ -1,24 +1,16 @@
 import processing.opengl.*;
-
-// JAXB is part of Java 6.0, but needs to be imported manually
-import javax.xml.bind.*;
-
-// zoom, pan, spin
 import peasy.*;
 
-// our class for parsing xml file
-// this class is defined in its own tab in the Processing PDE
-XMLparse file;
-
-// each Job object will be converted to a SphereRodCombo object
-List<SphereRodCombo> src = new ArrayList<SphereRodCombo>();
+String FILE = "rangerQSTAT-long.xml";
+Job[] jobs; // array of Job Objects created from XML
+List<SphereRodCombo> src = new ArrayList<SphereRodCombo>(); // each Job object will be converted to a SphereRodCombo object
 
 Helix h1;
 PeasyCam cam;
 
 void setup() {
   size(1000, 700, OPENGL); 
-  cam = new PeasyCam(this, 0, 0, 0, 9000);
+  cam = new PeasyCam(this, 0, 0, 0, 5000);
   parseFile();
   createShapesFromFile();  // create sphere+cylinder objects from each Job object acquired from XML
   h1 = new Helix(src);
@@ -32,21 +24,34 @@ void draw() {
   h1.display();
 } 
 
-void parseFile() {
-  // the following 2 lines of code will load the xml file and map its contents
-  // to the nested object hierarchy defined in the XMLparse class (see below)
-  try {
-    // setup object mapper using the XMLparse class
-    JAXBContext context = JAXBContext.newInstance(XMLparse.class);
-    // parse the XML and return an instance of the XMLparse class
-    file = (XMLparse) context.createUnmarshaller().unmarshal(createInput("rangerQSTAT-short.xml"));  // specify full path when using MPE
-  } 
-  catch(JAXBException e) {
-    // if things went wrong...
-    println("error parsing xml: ");
-    e.printStackTrace();
-    // force quit
-    System.exit(1);
+void parseFile(){
+  // Load an XML document
+  XML xml = loadXML(FILE);
+
+  // Get all the child elements
+  XML[] jobList = xml.getChild("queue_info").getChildren("job_list");
+  jobs = new Job[jobList.length];
+
+  for (int i=0; i < jobList.length; i++ ) {
+    XML jobNumElem = jobList[i].getChild("JB_job_number"); 
+    XML jobPrioElem = jobList[i].getChild("JAT_prio"); 
+    XML jobNameElem = jobList[i].getChild("JB_name"); 
+    XML jobOwnerElem = jobList[i].getChild("JB_owner");
+    XML jobStateElem = jobList[i].getChild("state");
+    XML jobStartTimeElem = jobList[i].getChild("JAT_start_time");
+    XML jobQueueNameElem = jobList[i].getChild("queue_name");
+    XML jobSlotsElem = jobList[i].getChild("slots"); 
+
+    int num = int(jobNumElem.getContent());
+    float prio = float(jobPrioElem.getContent());
+    String name = jobNameElem.getContent();
+    String owner = jobOwnerElem.getContent();
+    String currState = jobStateElem.getContent();  
+    String startTime = jobStartTimeElem.getContent();
+    String queue = jobQueueNameElem.getContent(); 
+    int slotNum = int(jobSlotsElem.getContent()); 
+
+    jobs[i] = new Job(num, prio, name, owner, currState, startTime, queue, slotNum);
   }
 }
 
@@ -56,28 +61,37 @@ void createShapesFromFile() {
   int STAMPEDE_SLOTS_PER_NODE = 16;
 
   // find the largest slot count in the current qstat xml file
-  JobComparator comparator = new JobComparator();
-  int currMaxSlots = Collections.max(file.jobs, comparator).slots;
+  int currMaxSlots = getMaxSlots();
 
-  for (Job j : file.jobs) {  // for each Job Object j in file.jobs, create a sphere and rod
-    if (j.state.equals("r")) {  // only use running states. ignore pending (qw) and transitional (dr) states
+  for (int i=0; i<jobs.length; i++) {  // for each Job Object, create a sphere and rod
+    if (jobs[i].getState().equals("r")) {  // only use running states. ignore pending (qw) and transitional (dr) states
       color jobColor = color(random(255), random(255), random(255)); 
-      String[] parseQueueName = split(j.queue_name, '@'); 
+      String[] parseQueueName = split(jobs[i].getQueueName(), '@'); 
 
       // create orb for each job
-      float newOrbRadius = calculateRadius(j.slots, currMaxSlots);
+      float newOrbRadius = calculateRadius(jobs[i].getSlots(), currMaxSlots);
       PShape newOrb = createShape(SPHERE, newOrbRadius);
       newOrb.noStroke();
       newOrb.fill(jobColor); 
 
       // create rod
-      Cylinder newRod = new Cylinder(jobColor, parseQueueName[0], j.JAT_start_time, newOrbRadius/5, newOrbRadius);
+      Cylinder newRod = new Cylinder(jobColor, parseQueueName[0], jobs[i].getStartTime(), newOrbRadius/5, newOrbRadius);
 
-      for (int i=0; i<(j.slots/RANGER_SLOTS_PER_NODE); i++) {
+      for (int j=0; j<(jobs[j].getSlots()/RANGER_SLOTS_PER_NODE); j++) {
         src.add(new SphereRodCombo(newOrb, newRod, newOrbRadius));
       }
-      
     }
+  } 
+}
+
+int getMaxSlots() {
+  if (jobs.length == 0) return -1;
+  else {
+    int maxSlots = jobs[0].getSlots();
+    for (int i=1; i<jobs.length; i++) {
+      if (jobs[i].getSlots() > maxSlots) maxSlots = jobs[i].getSlots();
+    }
+    return maxSlots;
   }
 }
 

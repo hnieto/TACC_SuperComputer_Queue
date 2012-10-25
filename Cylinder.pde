@@ -40,7 +40,7 @@ class Cylinder {
       if(elapsedTime > 1.72e8) percentFull = 1;
       else percentFull = elapsedTime/1.72e8;
     } 
-    else if (jobType.equals("largemem")) {         // large          = 24hrs
+    else if (jobType.equals("large")) {         // large          = 24hrs
       h = 100;
       if(elapsedTime > 8.64e7) percentFull = 1;
       else percentFull = elapsedTime/8.64e7;
