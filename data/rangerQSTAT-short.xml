@@ -3,7 +3,7 @@
   <queue_info>
     <job_list state="running">
       <JB_job_number>2849503</JB_job_number>
-      <JAT_prio>0.64324</JAT_prio>
+      <JAT_prio>0.64612</JAT_prio>
       <JB_name>rles_prot18.conf</JB_name>
       <JB_owner>pochao</JB_owner>
       <state>r</state>
@@ -12,28 +12,28 @@
       <slots>80</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2855399</JB_job_number>
-      <JAT_prio>0.61445</JAT_prio>
+      <JB_job_number>2855400</JB_job_number>
+      <JAT_prio>0.61766</JAT_prio>
       <JB_name>PW_COOL_DPPC</JB_name>
       <JB_owner>jsx</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-22T23:08:35</JAT_start_time>
-      <queue_name>long@i124-309.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-24T22:44:58</JAT_start_time>
+      <queue_name>long@i119-410.ranger.tacc.utexas.edu</queue_name>
       <slots>48</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2872428</JB_job_number>
-      <JAT_prio>0.57316</JAT_prio>
+      <JB_job_number>2872429</JB_job_number>
+      <JAT_prio>0.57683</JAT_prio>
       <JB_name>TBS_130_26</JB_name>
       <JB_owner>ostoich1</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-24T05:15:28</JAT_start_time>
-      <queue_name>normal@i101-102.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-25T04:06:33</JAT_start_time>
+      <queue_name>normal@i125-310.ranger.tacc.utexas.edu</queue_name>
       <slots>1712</slots>
     </job_list>
     <job_list state="running">
       <JB_job_number>2872467</JB_job_number>
-      <JAT_prio>0.63295</JAT_prio>
+      <JAT_prio>0.63641</JAT_prio>
       <JB_name>m-33</JB_name>
       <JB_owner>rgamini</JB_owner>
       <state>r</state>
@@ -43,7 +43,7 @@
     </job_list>
     <job_list state="running">
       <JB_job_number>2873394</JB_job_number>
-      <JAT_prio>0.56031</JAT_prio>
+      <JAT_prio>0.56413</JAT_prio>
       <JB_name>eq10</JB_name>
       <JB_owner>heldenbr</JB_owner>
       <state>r</state>
@@ -53,7 +53,7 @@
     </job_list>
     <job_list state="running">
       <JB_job_number>2873672</JB_job_number>
-      <JAT_prio>0.52952</JAT_prio>
+      <JAT_prio>0.53368</JAT_prio>
       <JB_name>highz_hr_f_di</JB_name>
       <JB_owner>phopkins</JB_owner>
       <state>r</state>
@@ -63,7 +63,7 @@
     </job_list>
     <job_list state="running">
       <JB_job_number>2873730</JB_job_number>
-      <JAT_prio>0.54392</JAT_prio>
+      <JAT_prio>0.54793</JAT_prio>
       <JB_name>smd.8.conf</JB_name>
       <JB_owner>mahmoud</JB_owner>
       <state>r</state>
@@ -72,18 +72,18 @@
       <slots>768</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2873777</JB_job_number>
-      <JAT_prio>0.62545</JAT_prio>
-      <JB_name>t-600-35</JB_name>
+      <JB_job_number>2873778</JB_job_number>
+      <JAT_prio>0.62898</JAT_prio>
+      <JB_name>t-600-36</JB_name>
       <JB_owner>rgamini</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-23T22:18:10</JAT_start_time>
-      <queue_name>normal@i179-406.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-24T22:27:06</JAT_start_time>
+      <queue_name>normal@i124-301.ranger.tacc.utexas.edu</queue_name>
       <slots>2592</slots>
     </job_list>
     <job_list state="running">
       <JB_job_number>2873971</JB_job_number>
-      <JAT_prio>0.61934</JAT_prio>
+      <JAT_prio>0.62250</JAT_prio>
       <JB_name>K11342880m135.run</JB_name>
       <JB_owner>ikitiash</JB_owner>
       <state>r</state>
@@ -93,7 +93,7 @@
     </job_list>
     <job_list state="running">
       <JB_job_number>2874672</JB_job_number>
-      <JAT_prio>0.61548</JAT_prio>
+      <JAT_prio>0.61868</JAT_prio>
       <JB_name>KepID5466537_1.52_102Mm1.run</JB_name>
       <JB_owner>ikitiash</JB_owner>
       <state>r</state>
@@ -103,7 +103,7 @@
     </job_list>
     <job_list state="running">
       <JB_job_number>2874675</JB_job_number>
-      <JAT_prio>0.61547</JAT_prio>
+      <JAT_prio>0.61867</JAT_prio>
       <JB_name>KepID9962653_147_102Mm1.run</JB_name>
       <JB_owner>ikitiash</JB_owner>
       <state>r</state>
@@ -112,18 +112,8 @@
       <slots>4096</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2874909</JB_job_number>
-      <JAT_prio>0.52136</JAT_prio>
-      <JB_name>q13-18</JB_name>
-      <JB_owner>kesfarja</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-23T09:15:44</JAT_start_time>
-      <queue_name>long@i177-112.ranger.tacc.utexas.edu</queue_name>
-      <slots>64</slots>
-    </job_list>
-    <job_list state="running">
       <JB_job_number>2874947</JB_job_number>
-      <JAT_prio>0.52122</JAT_prio>
+      <JAT_prio>0.52548</JAT_prio>
       <JB_name>q19-24</JB_name>
       <JB_owner>kesfarja</JB_owner>
       <state>r</state>
@@ -132,118 +122,88 @@
       <slots>64</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2874949</JB_job_number>
-      <JAT_prio>0.52560</JAT_prio>
-      <JB_name>apo_POPC</JB_name>
-      <JB_owner>njohner</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-23T20:38:20</JAT_start_time>
-      <queue_name>long@i148-109.ranger.tacc.utexas.edu</queue_name>
-      <slots>256</slots>
-    </job_list>
-    <job_list state="running">
-      <JB_job_number>2874981</JB_job_number>
-      <JAT_prio>0.54313</JAT_prio>
+      <JB_job_number>2874992</JB_job_number>
+      <JAT_prio>0.54714</JAT_prio>
       <JB_name>AM10mm_PW</JB_name>
       <JB_owner>ayilmaz</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-24T14:09:05</JAT_start_time>
-      <queue_name>long@i178-108.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-25T01:27:00</JAT_start_time>
+      <queue_name>long@i110-110.ranger.tacc.utexas.edu</queue_name>
       <slots>1024</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2874982</JB_job_number>
-      <JAT_prio>0.54313</JAT_prio>
+      <JB_job_number>2874993</JB_job_number>
+      <JAT_prio>0.54714</JAT_prio>
       <JB_name>AM10mm_PW</JB_name>
       <JB_owner>ayilmaz</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-24T14:09:05</JAT_start_time>
-      <queue_name>long@i143-106.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-25T02:45:42</JAT_start_time>
+      <queue_name>long@i159-403.ranger.tacc.utexas.edu</queue_name>
       <slots>1024</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2874983</JB_job_number>
-      <JAT_prio>0.54313</JAT_prio>
+      <JB_job_number>2874994</JB_job_number>
+      <JAT_prio>0.54714</JAT_prio>
       <JB_name>AM10mm_PW</JB_name>
       <JB_owner>ayilmaz</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-24T14:09:05</JAT_start_time>
-      <queue_name>long@i128-101.ranger.tacc.utexas.edu</queue_name>
-      <slots>1024</slots>
-    </job_list>
-    <job_list state="running">
-      <JB_job_number>2874984</JB_job_number>
-      <JAT_prio>0.54313</JAT_prio>
-      <JB_name>AM10mm_PW</JB_name>
-      <JB_owner>ayilmaz</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-24T14:09:05</JAT_start_time>
+      <JAT_start_time>2012-10-25T02:50:19</JAT_start_time>
       <queue_name>long@i171-304.ranger.tacc.utexas.edu</queue_name>
       <slots>1024</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2874986</JB_job_number>
-      <JAT_prio>0.54313</JAT_prio>
+      <JB_job_number>2874995</JB_job_number>
+      <JAT_prio>0.54714</JAT_prio>
       <JB_name>AM10mm_PW</JB_name>
       <JB_owner>ayilmaz</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-24T14:11:52</JAT_start_time>
-      <queue_name>long@i134-309.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-25T04:46:24</JAT_start_time>
+      <queue_name>long@i178-206.ranger.tacc.utexas.edu</queue_name>
       <slots>1024</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2874987</JB_job_number>
-      <JAT_prio>0.54313</JAT_prio>
+      <JB_job_number>2874996</JB_job_number>
+      <JAT_prio>0.54714</JAT_prio>
       <JB_name>AM10mm_PW</JB_name>
       <JB_owner>ayilmaz</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-24T17:28:36</JAT_start_time>
-      <queue_name>long@i144-204.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-25T04:55:46</JAT_start_time>
+      <queue_name>long@i140-109.ranger.tacc.utexas.edu</queue_name>
       <slots>1024</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2874988</JB_job_number>
-      <JAT_prio>0.54313</JAT_prio>
+      <JB_job_number>2874997</JB_job_number>
+      <JAT_prio>0.54714</JAT_prio>
       <JB_name>AM10mm_PW</JB_name>
       <JB_owner>ayilmaz</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-24T18:46:28</JAT_start_time>
-      <queue_name>long@i112-410.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-25T05:32:19</JAT_start_time>
+      <queue_name>long@i110-411.ranger.tacc.utexas.edu</queue_name>
       <slots>1024</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2874989</JB_job_number>
-      <JAT_prio>0.54313</JAT_prio>
+      <JB_job_number>2874998</JB_job_number>
+      <JAT_prio>0.54714</JAT_prio>
       <JB_name>AM10mm_PW</JB_name>
       <JB_owner>ayilmaz</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-24T19:23:55</JAT_start_time>
-      <queue_name>long@i129-112.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-25T06:06:47</JAT_start_time>
+      <queue_name>long@i174-401.ranger.tacc.utexas.edu</queue_name>
       <slots>1024</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2874990</JB_job_number>
-      <JAT_prio>0.54313</JAT_prio>
+      <JB_job_number>2874999</JB_job_number>
+      <JAT_prio>0.54714</JAT_prio>
       <JB_name>AM10mm_PW</JB_name>
       <JB_owner>ayilmaz</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-24T20:04:37</JAT_start_time>
-      <queue_name>long@i181-212.ranger.tacc.utexas.edu</queue_name>
-      <slots>1024</slots>
-    </job_list>
-    <job_list state="running">
-      <JB_job_number>2874991</JB_job_number>
-      <JAT_prio>0.54313</JAT_prio>
-      <JB_name>AM10mm_PW</JB_name>
-      <JB_owner>ayilmaz</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-24T22:04:59</JAT_start_time>
-      <queue_name>long@i129-203.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-25T06:46:30</JAT_start_time>
+      <queue_name>long@i129-303.ranger.tacc.utexas.edu</queue_name>
       <slots>1024</slots>
     </job_list>
     <job_list state="running">
       <JB_job_number>2875102</JB_job_number>
-      <JAT_prio>0.52825</JAT_prio>
+      <JAT_prio>0.53244</JAT_prio>
       <JB_name>md.29.conf</JB_name>
       <JB_owner>mahmoud</JB_owner>
       <state>r</state>
@@ -253,7 +213,7 @@
     </job_list>
     <job_list state="running">
       <JB_job_number>2875166</JB_job_number>
-      <JAT_prio>0.52083</JAT_prio>
+      <JAT_prio>0.52510</JAT_prio>
       <JB_name>PDZ_memb4</JB_name>
       <JB_owner>njohner</JB_owner>
       <state>r</state>
@@ -263,7 +223,7 @@
     </job_list>
     <job_list state="running">
       <JB_job_number>2875171</JB_job_number>
-      <JAT_prio>0.52082</JAT_prio>
+      <JAT_prio>0.52509</JAT_prio>
       <JB_name>PDZ_memb1</JB_name>
       <JB_owner>njohner</JB_owner>
       <state>r</state>
@@ -273,7 +233,7 @@
     </job_list>
     <job_list state="running">
       <JB_job_number>2875294</JB_job_number>
-      <JAT_prio>0.52020</JAT_prio>
+      <JAT_prio>0.52447</JAT_prio>
       <JB_name>x8</JB_name>
       <JB_owner>mars2003</JB_owner>
       <state>r</state>
@@ -283,7 +243,7 @@
     </job_list>
     <job_list state="running">
       <JB_job_number>2875302</JB_job_number>
-      <JAT_prio>0.52018</JAT_prio>
+      <JAT_prio>0.52446</JAT_prio>
       <JB_name>stag8</JB_name>
       <JB_owner>mars2003</JB_owner>
       <state>r</state>
@@ -293,7 +253,7 @@
     </job_list>
     <job_list state="running">
       <JB_job_number>2875322</JB_job_number>
-      <JAT_prio>0.52009</JAT_prio>
+      <JAT_prio>0.52436</JAT_prio>
       <JB_name>deg45-8</JB_name>
       <JB_owner>mars2003</JB_owner>
       <state>r</state>
@@ -303,7 +263,7 @@
     </job_list>
     <job_list state="running">
       <JB_job_number>2875616</JB_job_number>
-      <JAT_prio>0.51939</JAT_prio>
+      <JAT_prio>0.52367</JAT_prio>
       <JB_name>sh1K</JB_name>
       <JB_owner>marmar</JB_owner>
       <state>r</state>
@@ -312,193 +272,233 @@
       <slots>48</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2875632</JB_job_number>
-      <JAT_prio>0.52956</JAT_prio>
-      <JB_name>EF_1.5_21</JB_name>
+      <JB_job_number>2875636</JB_job_number>
+      <JAT_prio>0.53372</JAT_prio>
+      <JB_name>EF_1.5_22</JB_name>
       <JB_owner>swati</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-24T03:22:58</JAT_start_time>
-      <queue_name>normal@i155-306.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-25T04:55:46</JAT_start_time>
+      <queue_name>normal@i151-210.ranger.tacc.utexas.edu</queue_name>
       <slots>496</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2875643</JB_job_number>
-      <JAT_prio>0.52040</JAT_prio>
-      <JB_name>L120H480</JB_name>
-      <JB_owner>marmar</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-24T16:03:42</JAT_start_time>
-      <queue_name>normal@i136-211.ranger.tacc.utexas.edu</queue_name>
-      <slots>96</slots>
-    </job_list>
-    <job_list state="running">
-      <JB_job_number>2875651</JB_job_number>
-      <JAT_prio>0.52985</JAT_prio>
-      <JB_name>EF_2V_15</JB_name>
+      <JB_job_number>2875654</JB_job_number>
+      <JAT_prio>0.53401</JAT_prio>
+      <JB_name>EF_2V_16</JB_name>
       <JB_owner>swati</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-23T22:20:34</JAT_start_time>
-      <queue_name>normal@i165-404.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-24T22:44:58</JAT_start_time>
+      <queue_name>normal@i125-410.ranger.tacc.utexas.edu</queue_name>
       <slots>512</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2875663</JB_job_number>
-      <JAT_prio>0.52983</JAT_prio>
-      <JB_name>R_2V_9</JB_name>
+      <JB_job_number>2875676</JB_job_number>
+      <JAT_prio>0.53396</JAT_prio>
+      <JB_name>R_2V_10</JB_name>
       <JB_owner>swati</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-23T22:43:02</JAT_start_time>
+      <JAT_start_time>2012-10-24T22:52:02</JAT_start_time>
       <queue_name>normal@i123-306.ranger.tacc.utexas.edu</queue_name>
       <slots>512</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2875731</JB_job_number>
-      <JAT_prio>0.51901</JAT_prio>
-      <JB_name>Case21_Ecc4_Ev.3</JB_name>
-      <JB_owner>danh</JB_owner>
+      <JB_job_number>2875875</JB_job_number>
+      <JAT_prio>0.54510</JAT_prio>
+      <JB_name>AM10mm_PW</JB_name>
+      <JB_owner>ayilmaz</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-22T23:08:35</JAT_start_time>
-      <queue_name>long@i174-101.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-25T06:48:38</JAT_start_time>
+      <queue_name>long@i144-204.ranger.tacc.utexas.edu</queue_name>
+      <slots>1024</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2876606</JB_job_number>
+      <JAT_prio>0.52428</JAT_prio>
+      <JB_name>BNS-7lev-45km_M</JB_name>
+      <JB_owner>baiotti</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-23T22:05:36</JAT_start_time>
+      <queue_name>long@i163-112.ranger.tacc.utexas.edu</queue_name>
+      <slots>256</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2876829</JB_job_number>
+      <JAT_prio>0.51779</JAT_prio>
+      <JB_name>oxide</JB_name>
+      <JB_owner>mstoica</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-23T13:10:48</JAT_start_time>
+      <queue_name>long@i109-203.ranger.tacc.utexas.edu</queue_name>
+      <slots>64</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2876844</JB_job_number>
+      <JAT_prio>0.52209</JAT_prio>
+      <JB_name>micelle</JB_name>
+      <JB_owner>tg459252</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-25T08:14:17</JAT_start_time>
+      <queue_name>normal@i175-112.ranger.tacc.utexas.edu</queue_name>
+      <slots>256</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2876856</JB_job_number>
+      <JAT_prio>0.51772</JAT_prio>
+      <JB_name>bq7-12</JB_name>
+      <JB_owner>kesfarja</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-24T13:30:14</JAT_start_time>
+      <queue_name>normal@i137-109.ranger.tacc.utexas.edu</queue_name>
+      <slots>64</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2876860</JB_job_number>
+      <JAT_prio>0.53940</JAT_prio>
+      <JB_name>AM10mm_PW</JB_name>
+      <JB_owner>ayilmaz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-25T07:35:10</JAT_start_time>
+      <queue_name>long@i122-108.ranger.tacc.utexas.edu</queue_name>
+      <slots>1024</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2876870</JB_job_number>
+      <JAT_prio>0.51766</JAT_prio>
+      <JB_name>bq1-6</JB_name>
+      <JB_owner>kesfarja</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-25T09:28:35</JAT_start_time>
+      <queue_name>normal@i168-404.ranger.tacc.utexas.edu</queue_name>
+      <slots>64</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2877030</JB_job_number>
+      <JAT_prio>0.51871</JAT_prio>
+      <JB_name>myMPI</JB_name>
+      <JB_owner>wlwang</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-23T13:38:16</JAT_start_time>
+      <queue_name>long@i169-204.ranger.tacc.utexas.edu</queue_name>
+      <slots>128</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2877037</JB_job_number>
+      <JAT_prio>0.52159</JAT_prio>
+      <JB_name>myMPI</JB_name>
+      <JB_owner>wlwang</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-23T13:18:17</JAT_start_time>
+      <queue_name>long@i167-301.ranger.tacc.utexas.edu</queue_name>
+      <slots>256</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2877089</JB_job_number>
+      <JAT_prio>0.51854</JAT_prio>
+      <JB_name>D2R_GIPC_1</JB_name>
+      <JB_owner>njohner</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-24T01:40:30</JAT_start_time>
+      <queue_name>long@i173-202.ranger.tacc.utexas.edu</queue_name>
+      <slots>128</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2877247</JB_job_number>
+      <JAT_prio>0.51806</JAT_prio>
+      <JB_name>smcDIND</JB_name>
+      <JB_owner>phopkins</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-24T13:27:47</JAT_start_time>
+      <queue_name>long@i113-106.ranger.tacc.utexas.edu</queue_name>
+      <slots>128</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2877258</JB_job_number>
+      <JAT_prio>0.55382</JAT_prio>
+      <JB_name>MTB_130_22</JB_name>
+      <JB_owner>tg803933</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-24T14:04:29</JAT_start_time>
+      <queue_name>normal@i161-208.ranger.tacc.utexas.edu</queue_name>
+      <slots>1712</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>2877260</JB_job_number>
+      <JAT_prio>0.51619</JAT_prio>
+      <JB_name>Cr0_600</JB_name>
+      <JB_owner>barnardl</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-10-23T16:00:59</JAT_start_time>
+      <queue_name>long@i170-105.ranger.tacc.utexas.edu</queue_name>
       <slots>48</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2875861</JB_job_number>
-      <JAT_prio>0.51839</JAT_prio>
-      <JB_name>AuIScg</JB_name>
-      <JB_owner>vasya</JB_owner>
+      <JB_job_number>2877261</JB_job_number>
+      <JAT_prio>0.51619</JAT_prio>
+      <JB_name>Cr0_800</JB_name>
+      <JB_owner>barnardl</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-22T23:08:35</JAT_start_time>
-      <queue_name>long@i168-308.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
+      <JAT_start_time>2012-10-23T16:53:31</JAT_start_time>
+      <queue_name>long@i162-107.ranger.tacc.utexas.edu</queue_name>
+      <slots>48</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2875863</JB_job_number>
-      <JAT_prio>0.51838</JAT_prio>
-      <JB_name>AuFScg</JB_name>
-      <JB_owner>vasya</JB_owner>
+      <JB_job_number>2877262</JB_job_number>
+      <JAT_prio>0.51619</JAT_prio>
+      <JB_name>Cr0_1000</JB_name>
+      <JB_owner>barnardl</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-22T23:43:36</JAT_start_time>
-      <queue_name>long@i148-204.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
+      <JAT_start_time>2012-10-23T17:45:59</JAT_start_time>
+      <queue_name>long@i159-110.ranger.tacc.utexas.edu</queue_name>
+      <slots>48</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2875865</JB_job_number>
-      <JAT_prio>0.51838</JAT_prio>
-      <JB_name>CoIScg</JB_name>
-      <JB_owner>vasya</JB_owner>
+      <JB_job_number>2877263</JB_job_number>
+      <JAT_prio>0.51619</JAT_prio>
+      <JB_name>Cr0_1200</JB_name>
+      <JB_owner>barnardl</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-23T00:01:08</JAT_start_time>
-      <queue_name>long@i110-104.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
+      <JAT_start_time>2012-10-23T18:03:32</JAT_start_time>
+      <queue_name>long@i157-108.ranger.tacc.utexas.edu</queue_name>
+      <slots>48</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2875866</JB_job_number>
-      <JAT_prio>0.51838</JAT_prio>
-      <JB_name>CoFScg</JB_name>
-      <JB_owner>vasya</JB_owner>
+      <JB_job_number>2877294</JB_job_number>
+      <JAT_prio>0.51642</JAT_prio>
+      <JB_name>u50_0</JB_name>
+      <JB_owner>jjohnsto</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-23T00:01:08</JAT_start_time>
-      <queue_name>long@i174-207.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
+      <JAT_start_time>2012-10-23T14:45:50</JAT_start_time>
+      <queue_name>long@i147-311.ranger.tacc.utexas.edu</queue_name>
+      <slots>64</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2875867</JB_job_number>
-      <JAT_prio>0.51838</JAT_prio>
-      <JB_name>CuIScg</JB_name>
-      <JB_owner>vasya</JB_owner>
+      <JB_job_number>2877312</JB_job_number>
+      <JAT_prio>0.51602</JAT_prio>
+      <JB_name>chi_1lpihV3</JB_name>
+      <JB_owner>fatima</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-23T00:03:38</JAT_start_time>
-      <queue_name>long@i110-307.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
+      <JAT_start_time>2012-10-23T18:06:09</JAT_start_time>
+      <queue_name>long@i131-207.ranger.tacc.utexas.edu</queue_name>
+      <slots>48</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2875870</JB_job_number>
-      <JAT_prio>0.51838</JAT_prio>
-      <JB_name>FeFScg</JB_name>
-      <JB_owner>vasya</JB_owner>
+      <JB_job_number>2877313</JB_job_number>
+      <JAT_prio>0.51638</JAT_prio>
+      <JB_name>Gra_S_A_08</JB_name>
+      <JB_owner>yongjin</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-23T00:11:10</JAT_start_time>
-      <queue_name>long@i143-112.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
+      <JAT_start_time>2012-10-23T15:25:54</JAT_start_time>
+      <queue_name>long@i158-312.ranger.tacc.utexas.edu</queue_name>
+      <slots>64</slots>
     </job_list>
     <job_list state="running">
-      <JB_job_number>2875874</JB_job_number>
-      <JAT_prio>0.51838</JAT_prio>
-      <JB_name>NiIScg</JB_name>
-      <JB_owner>vasya</JB_owner>
+      <JB_job_number>2877314</JB_job_number>
+      <JAT_prio>0.51638</JAT_prio>
+      <JB_name>Gra_S_A_09</JB_name>
+      <JB_owner>yongjin</JB_owner>
       <state>r</state>
-      <JAT_start_time>2012-10-23T00:31:03</JAT_start_time>
-      <queue_name>long@i103-201.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
-    </job_list>
-    <job_list state="running">
-      <JB_job_number>2875876</JB_job_number>
-      <JAT_prio>0.51838</JAT_prio>
-      <JB_name>NiFScg</JB_name>
-      <JB_owner>vasya</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-23T00:33:32</JAT_start_time>
-      <queue_name>long@i150-210.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
-    </job_list>
-    <job_list state="running">
-      <JB_job_number>2875877</JB_job_number>
-      <JAT_prio>0.51837</JAT_prio>
-      <JB_name>PdIScg</JB_name>
-      <JB_owner>vasya</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-23T00:36:03</JAT_start_time>
-      <queue_name>long@i125-104.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
-    </job_list>
-    <job_list state="running">
-      <JB_job_number>2875878</JB_job_number>
-      <JAT_prio>0.51837</JAT_prio>
-      <JB_name>PdFScg</JB_name>
-      <JB_owner>vasya</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-23T00:36:03</JAT_start_time>
-      <queue_name>long@i179-208.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
-    </job_list>
-    <job_list state="running">
-      <JB_job_number>2875880</JB_job_number>
-      <JAT_prio>0.51837</JAT_prio>
-      <JB_name>PtIScg</JB_name>
-      <JB_owner>vasya</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-23T00:41:02</JAT_start_time>
-      <queue_name>long@i146-205.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
-    </job_list>
-    <job_list state="running">
-      <JB_job_number>2875881</JB_job_number>
-      <JAT_prio>0.51837</JAT_prio>
-      <JB_name>PtFScg</JB_name>
-      <JB_owner>vasya</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-23T01:28:33</JAT_start_time>
-      <queue_name>long@i120-407.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
-    </job_list>
-    <job_list state="running">
-      <JB_job_number>2875882</JB_job_number>
-      <JAT_prio>0.51837</JAT_prio>
-      <JB_name>ReIScg</JB_name>
-      <JB_owner>vasya</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-23T01:28:33</JAT_start_time>
-      <queue_name>long@i108-311.ranger.tacc.utexas.edu</queue_name>
-      <slots>32</slots>
-    </job_list>
-    <job_list state="running">
-      <JB_job_number>2875945</JB_job_number>
-      <JAT_prio>0.51889</JAT_prio>
-      <JB_name>c3pro</JB_name>
-      <JB_owner>chengz</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-10-22T23:33:36</JAT_start_time>
-      <queue_name>long@i126-404.ranger.tacc.utexas.edu</queue_name>
+      <JAT_start_time>2012-10-23T15:28:25</JAT_start_time>
+      <queue_name>long@i163-307.ranger.tacc.utexas.edu</queue_name>
       <slots>64</slots>
     </job_list>
  </queue_info>

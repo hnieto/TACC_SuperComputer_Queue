@@ -34,7 +34,7 @@ class Helix {
       // distance between the radii of neighboring spheres dictates theta
       if (listCntr != nodesList.size()-1) theta += asin((nodesList.get(listCntr).getOrbRadius()+nodesList.get(listCntr+1).getOrbRadius())/helixRadius);  
     } 
-    rotz += PI/500;
+    rotz += PI/300;
   }  
   
   public float getHelixHeight(){

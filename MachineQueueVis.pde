@@ -26,7 +26,8 @@ void setup() {
 
 void draw() {
   background(0);
-  lights();
+  ambientLight(40,40,40);
+  directionalLight(255, 255, 255, -150, 40, -140);
   h1.spin();
   h1.display();
 } 
