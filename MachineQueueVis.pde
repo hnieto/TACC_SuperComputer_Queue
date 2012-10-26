@@ -2,6 +2,9 @@ import processing.opengl.*;
 import peasy.*;
 PeasyCam cam;
 
+int[][] colorArray = new int[0][2]; 
+PImage colorImage; 
+
 String FILE = "rangerQSTAT-long.xml";
 Job[] jobs; // array of Job Objects created from XML
 List<SphereRodCombo> src = new ArrayList<SphereRodCombo>(); // each Job object will be converted to a SphereRodCombo object
@@ -10,6 +13,7 @@ int RANGER_SLOTS_PER_NODE = 16;
 int LONGHORN_SLOTS_PER_NODE = 16;
 int STAMPEDE_SLOTS_PER_NODE = 16;
 int RUNNING_JOB_COUNT = 0;
+int ZOMBIE_JOB_COUNT = 0;
 
 PShape parentOrb;
 Helix h1;
@@ -18,10 +22,35 @@ void setup() {
   size(1000, 700, OPENGL); 
   frameRate(60);
   cam = new PeasyCam(this, 0, 0, 0, 3300);
+  colorImage = loadImage("colors.png");
+  createColorArr();
   createParentShapes();
   parseFile();
   createShapesFromFile();  // create sphere+cylinder objects from each Job object acquired from XML
   h1 = new Helix(src);
+}
+
+void createColorArr() {
+  //loop through all the pixels of the image
+  for (int i = 0; i < colorImage.pixels.length; i++) {
+    boolean colorExists = false; //bollean variable that checks if the color already exists in the array
+
+    //loop through the values in the array
+    for (int j = 0; j < colorArray.length; j++) {
+      if (colorArray[j][0] == colorImage.pixels[i]) {
+        int count = colorArray[j][1];
+        colorArray[j][1] = count +1;
+        colorExists = true; //color already exists in the array
+      }
+    }
+
+    //if the color hasn't been added to the array
+    if (colorExists == false) {
+      colorArray = (int[][])append(colorArray, new int[] {
+        colorImage.pixels[i], 1
+      }); //add it
+    }
+  }
 }
 
 void createParentShapes(){
@@ -67,7 +96,20 @@ void createShapesFromFile() {
 
   for (int i=0; i<jobs.length; i++) {  // for each Job Object, create a sphere and rod
     if (jobs[i].getState().equals("r")) {  // only use running states. ignore pending (qw) and transitional (dr) states
-      color jobColor = color(random(255), random(255), random(255)); 
+      color jobColor = colorArray[int(random(colorArray.length))][0];
+      String[] parseQueueName = split(jobs[i].getQueueName(), '@');
+      float scaler = calculateRadius(jobs[i].getSlots(), currMaxSlots);
+      
+      // create rod
+      Cylinder newRod = new Cylinder(jobColor, parseQueueName[0], jobs[i].getStartTime(), scaler/5);
+
+      for (int j=0; j<(jobs[i].getSlots()/RANGER_SLOTS_PER_NODE); j++) {
+        src.add(new SphereRodCombo(jobColor, parentOrb, newRod, scaler));
+      }   
+      RUNNING_JOB_COUNT++;    
+    }     
+    else if (jobs[i].getState().equals("dr")) {  // mark zombie jobs with grey
+      color jobColor = color(116,116,116); 
       String[] parseQueueName = split(jobs[i].getQueueName(), '@');
       float scaler = calculateRadius(jobs[i].getSlots(), currMaxSlots);
       
@@ -76,11 +118,12 @@ void createShapesFromFile() {
 
       for (int j=0; j<(jobs[j].getSlots()/RANGER_SLOTS_PER_NODE); j++) {
         src.add(new SphereRodCombo(jobColor, parentOrb, newRod, scaler));
-      }      
-    }
-    RUNNING_JOB_COUNT++;
+      }   
+      ZOMBIE_JOB_COUNT++;    
+    }    
   }  
-  println(RUNNING_JOB_COUNT);
+  println("Running Jobs = " + RUNNING_JOB_COUNT);
+  println("Zombie Jobs = " + ZOMBIE_JOB_COUNT);
 }
 
 int getMaxSlots() {
