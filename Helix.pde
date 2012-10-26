@@ -1,12 +1,12 @@
 class Helix {
-  List<SphereRodCombo> nodesList = new ArrayList<SphereRodCombo>();
+  List<SphereRodCombo> nodes = new ArrayList<SphereRodCombo>();
   private float helixRadius, z;
 
   // used for helix movement
   private float rotz = 0;
 
-  Helix(List<SphereRodCombo> _nodesList) {
-    nodesList = _nodesList;
+  Helix(List<SphereRodCombo> _nodes) {
+    nodes = _nodes;
     helixRadius = 200;
   }
   
@@ -17,7 +17,7 @@ class Helix {
   void display () {
     z = 0;
     float theta = 0;
-    for (int listCntr=0; listCntr<nodesList.size(); listCntr++) {
+    for (int listCntr=0; listCntr<nodes.size(); listCntr++) {
       float cosTheta = cos(theta);
       float sinTheta = sin(theta);  
 
@@ -28,11 +28,11 @@ class Helix {
       
       pushMatrix();
       translate(x, y, z); 
-      nodesList.get(listCntr).display(theta);
+      nodes.get(listCntr).display(theta);
       popMatrix();
       
       // distance between the radii of neighboring spheres dictates theta
-      if (listCntr != nodesList.size()-1) theta += asin((nodesList.get(listCntr).getOrbRadius()+nodesList.get(listCntr+1).getOrbRadius())/helixRadius);  
+      if (listCntr != nodes.size()-1) theta += asin((nodes.get(listCntr).getOrbRadius()+nodes.get(listCntr+1).getOrbRadius())/helixRadius);  
     } 
     rotz += PI/300;
   }  

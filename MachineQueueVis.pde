@@ -1,34 +1,40 @@
 import processing.opengl.*;
 import peasy.*;
+PeasyCam cam;
 
 String FILE = "rangerQSTAT-long.xml";
 Job[] jobs; // array of Job Objects created from XML
 List<SphereRodCombo> src = new ArrayList<SphereRodCombo>(); // each Job object will be converted to a SphereRodCombo object
 
+int RANGER_SLOTS_PER_NODE = 16;
+int LONGHORN_SLOTS_PER_NODE = 16;
+int STAMPEDE_SLOTS_PER_NODE = 16;
+int RUNNING_JOB_COUNT = 0;
+
+PShape parentOrb;
 Helix h1;
-PeasyCam cam;
 
 void setup() {
   size(1000, 700, OPENGL); 
-  cam = new PeasyCam(this, 0, 0, 0, 5000);
+  frameRate(60);
+  cam = new PeasyCam(this, 0, 0, 0, 3300);
+  createParentShapes();
   parseFile();
   createShapesFromFile();  // create sphere+cylinder objects from each Job object acquired from XML
   h1 = new Helix(src);
 }
 
-void draw() {
-  background(0);
-  ambientLight(40,40,40);
-  directionalLight(255, 255, 255, -150, 40, -140);
-  h1.spin();
-  h1.display();
-} 
+void createParentShapes(){
+  // save one sphere's geometry in video memory 
+  parentOrb = createShape(SPHERE, 1);
+  parentOrb.noStroke();  
+}
 
 void parseFile(){
   // Load an XML document
   XML xml = loadXML(FILE);
 
-  // Get all the child elements
+  // Get all the job_list elements
   XML[] jobList = xml.getChild("queue_info").getChildren("job_list");
   jobs = new Job[jobList.length];
 
@@ -56,32 +62,25 @@ void parseFile(){
 }
 
 void createShapesFromFile() {
-  int RANGER_SLOTS_PER_NODE = 16;
-  int LONGHORN_SLOTS_PER_NODE = 16;
-  int STAMPEDE_SLOTS_PER_NODE = 16;
-
   // find the largest slot count in the current qstat xml file
   int currMaxSlots = getMaxSlots();
 
   for (int i=0; i<jobs.length; i++) {  // for each Job Object, create a sphere and rod
     if (jobs[i].getState().equals("r")) {  // only use running states. ignore pending (qw) and transitional (dr) states
       color jobColor = color(random(255), random(255), random(255)); 
-      String[] parseQueueName = split(jobs[i].getQueueName(), '@'); 
-
-      // create orb for each job
-      float newOrbRadius = calculateRadius(jobs[i].getSlots(), currMaxSlots);
-      PShape newOrb = createShape(SPHERE, newOrbRadius);
-      newOrb.noStroke();
-      newOrb.fill(jobColor); 
-
+      String[] parseQueueName = split(jobs[i].getQueueName(), '@');
+      float scaler = calculateRadius(jobs[i].getSlots(), currMaxSlots);
+      
       // create rod
-      Cylinder newRod = new Cylinder(jobColor, parseQueueName[0], jobs[i].getStartTime(), newOrbRadius/5, newOrbRadius);
+      Cylinder newRod = new Cylinder(jobColor, parseQueueName[0], jobs[i].getStartTime(), scaler/5);
 
       for (int j=0; j<(jobs[j].getSlots()/RANGER_SLOTS_PER_NODE); j++) {
-        src.add(new SphereRodCombo(newOrb, newRod, newOrbRadius));
-      }
+        src.add(new SphereRodCombo(jobColor, parentOrb, newRod, scaler));
+      }      
     }
-  } 
+    RUNNING_JOB_COUNT++;
+  }  
+  println(RUNNING_JOB_COUNT);
 }
 
 int getMaxSlots() {
@@ -105,3 +104,12 @@ float calculateRadius(int jobSlots, int _maxSlots) {
   // interpolate sphere radius
   return minRadius + (((jobSlots-minSlots)*maxRadius-(jobSlots-minSlots)*minRadius)/(maxSlots-minSlots));
 }
+
+void draw() {
+  background(0);
+  ambientLight(40,40,40);
+  directionalLight(255, 255, 255, -150, 40, -140);
+  h1.spin();
+  h1.display();
+  println(frameRate);
+} 

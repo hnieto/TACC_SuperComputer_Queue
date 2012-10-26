@@ -8,10 +8,10 @@ class Cylinder {
   private String jobStartTime;
   private float percentFull;
 
-  Cylinder(color _c, String _jobType, String _jobStartTime, float _r, float _bottomCapZ) {
+  Cylinder(color _c, String _jobType, String _jobStartTime, float _r) {
     c = _c;
     r = _r;
-    bottomCapZ = _bottomCapZ;
+    bottomCapZ = 1;
     jobType = _jobType;
     jobStartTime = _jobStartTime;
     createCylinder();
@@ -30,7 +30,7 @@ class Cylinder {
     
     long elapsedTime = currentDate.getTime() - jobStartDate.getTime();
 
-    if (jobType.equals("normal")) {                // normal       = 24hrs
+    if (jobType.equals("normal")) {                // normal         = 24hrs
       h = 100;
       if(elapsedTime > 8.64e7) percentFull = 1; 
       else percentFull = elapsedTime/8.64e7;
@@ -40,7 +40,7 @@ class Cylinder {
       if(elapsedTime > 1.72e8) percentFull = 1;
       else percentFull = elapsedTime/1.72e8;
     } 
-    else if (jobType.equals("large")) {         // large          = 24hrs
+    else if (jobType.equals("large")) {            // large          = 24hrs
       h = 100;
       if(elapsedTime > 8.64e7) percentFull = 1;
       else percentFull = elapsedTime/8.64e7;
