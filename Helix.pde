@@ -28,16 +28,15 @@ class Helix {
       
       pushMatrix();
       translate(x, y, z); 
+      nodes.get(listCntr).setOrbX(x);
+      nodes.get(listCntr).setOrbY(y);
+      nodes.get(listCntr).setOrbZ(z);
       nodes.get(listCntr).display(theta);
       popMatrix();
       
       // distance between the radii of neighboring spheres dictates theta
       if (listCntr != nodes.size()-1) theta += asin((nodes.get(listCntr).getOrbRadius()+nodes.get(listCntr+1).getOrbRadius())/helixRadius);  
     } 
-    rotz += PI/300;
+    rotz += 0.003;
   }  
-  
-  public float getHelixHeight(){
-    return z; 
-  }
 }
