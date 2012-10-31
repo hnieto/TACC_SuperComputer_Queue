@@ -6,11 +6,11 @@ ControlP5 cp5;
 PeasyCam cam;
 PMatrix3D baseMat; // used for peasycam + HUD + lights fix
 
-Textlabel jobInfoLabel;
+Textlabel hud;
 int[][] colorArray = new int[0][2]; 
 PImage colorImage; 
 
-String FILE = "rangerQSTAT-long.xml";
+String FILE = "rangerQSTAT-short.xml";  // SPECIFY ABSOLUTE PATH WHEN USING MPE
 Job[] jobs; // array of Job Objects created from XML
 List<SphereRodCombo> src = new ArrayList<SphereRodCombo>(); // each Job object will be converted to a SphereRodCombo object
 
@@ -28,13 +28,13 @@ void setup() {
   baseMat = g.getMatrix(baseMat);
   frameRate(60);
   cam = new PeasyCam(this, 0, 0, 0, 3300);
-  colorImage = loadImage("colors.png");
+  colorImage = loadImage("colors.png"); // SPECIFY ABSOLUTE PATH WHEN USING MPE
   createColorArr();
   createParentShapes();
   parseFile();
   createShapesFromFile();  // create sphere+cylinder objects from each Job object acquired from XML
   h1 = new Helix(src); 
-  makeInfoBox();
+  makeHud(); 
 }
 
 void draw() {
@@ -49,8 +49,8 @@ void draw() {
 
   h1.spin();
   h1.display();
-  keepInfoBoxOnTop();
-  println(frameRate);
+  keepHudOnTop(); 
+//  println(frameRate);
 } 
 
 void createColorArr() {
@@ -136,7 +136,7 @@ void createShapesFromFile() {
       float scaler = calculateRadius(jobs[i].getSlots(), currMaxSlots);
       Cylinder newRod = new Cylinder(jobColor, parseQueueName[0], jobs[i].getStartTime(), scaler/5);
 
-      for (int j=0; j<(jobs[j].getSlots()/RANGER_SLOTS_PER_NODE); j++) {
+      for (int j=0; j<(jobs[i].getSlots()/RANGER_SLOTS_PER_NODE); j++) {
         src.add(new SphereRodCombo(jobColor, parentOrb, newRod, scaler));
       }   
       ZOMBIE_JOB_COUNT++;
@@ -187,9 +187,9 @@ float calculateRadius(int jobSlots, int _maxSlots) {
   return minRadius + (((jobSlots-minSlots)*maxRadius-(jobSlots-minSlots)*minRadius)/(maxSlots-minSlots));
 }
 
-void makeInfoBox() {
+void makeHud() {
   cp5 = new ControlP5(this);
-  jobInfoLabel = cp5.addTextlabel("label")
+  hud = cp5.addTextlabel("label")
                     .setText("\nUSAGE\n\n"    +
                              "d = visualization description\n\n" + 
                              "l = largest job information\n\n" + 
@@ -201,7 +201,7 @@ void makeInfoBox() {
   cp5.setAutoDraw(false);
 }
 
-void keepInfoBoxOnTop() {
+void keepHudOnTop() {
   hint(DISABLE_DEPTH_TEST);
   cam.beginHUD();
   stroke(255);
@@ -215,7 +215,7 @@ void keepInfoBoxOnTop() {
 void keyPressed() {
   if (key == 'l') {
     int largestJob = getMaxSlotsPosition();
-    jobInfoLabel.setValue("\nLARGEST JOB\n\n"    +
+    hud.setValue("\nLARGEST JOB\n\n"    +
       "Job Number:     " + jobs[largestJob].getJobNum()    + "\n" + 
       "Job Priority:   " + jobs[largestJob].getJobPrio()   + "\n" + 
       "Job Name:       " + jobs[largestJob].getJobName()   + "\n" + 
@@ -225,7 +225,7 @@ void keyPressed() {
       "Slot Count:     " + jobs[largestJob].getSlots()     + "\n");
   } else if (key == 's') {
       int smallestJob = getMinSlotsPosition();
-      jobInfoLabel.setValue("\nSMALLEST JOB\n\n"    +
+      hud.setValue("\nSMALLEST JOB\n\n"    +
         "Job Number:     " + jobs[smallestJob].getJobNum()    + "\n" + 
         "Job Priority:   " + jobs[smallestJob].getJobPrio()   + "\n" + 
         "Job Name:       " + jobs[smallestJob].getJobName()   + "\n" + 
@@ -234,14 +234,14 @@ void keyPressed() {
         "Queue Name:     " + jobs[smallestJob].getQueueName() + "\n" + 
         "Slot Count:     " + jobs[smallestJob].getSlots()     + "\n");
   } else if (key == 'd') {
-      jobInfoLabel.setValue("\nMACHINE QUEUE VISUALIZATION\n\n"    +
+      hud.setValue("\nMACHINE QUEUE VISUALIZATION\n\n"    +
         "Each job is represented by a cluster of same-colored spheres\n" + 
         "Each sphere is a node\n" + 
         "Each cylinder represents allocated time\n" + 
         "Color along cylinder represents time used\n" +
         "Sphere size is proportional to the number of nodes per job\n");
   }  else if (key == 'u') {
-      jobInfoLabel.setValue("\nUSAGE\n\n"    +
+      hud.setValue("\nUSAGE\n\n"    +
         "d = visualization description\n\n" + 
         "l = largest job information\n\n" + 
         "s = smallest job information\n\n" + 
