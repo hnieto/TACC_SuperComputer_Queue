@@ -2,12 +2,10 @@ import processing.opengl.*;
 import controlP5.*;
 import peasy.*;
 
-ControlP5 hud1;
+HUD hud1;
 PeasyCam cam;
 PMatrix3D baseMat; // used for peasycam + HUD + lights fix
 
-Textlabel hudLabel;
-float deltaZ = 2; // used for accordion effect
 int[][] colorArray = new int[0][2]; 
 PImage colorImage; 
 
@@ -35,7 +33,7 @@ void setup() {
   parseFile();
   createShapesFromFile();  // create sphere+cylinder objects from each Job object acquired from XML
   h1 = new Helix(src); 
-  makeHud(); 
+  hud1 = new HUD(this);
 }
 
 void draw() {
@@ -50,8 +48,8 @@ void draw() {
 
   h1.spin();
   h1.display();
-  h1.setDeltaZ(deltaZ);
-  keepHudOnTop(); 
+  h1.setDeltaZ(hud1.getSliderValue());
+  hud1.keepHudOnTop(); 
 //  println(frameRate);
 } 
 
@@ -189,73 +187,17 @@ float calculateRadius(int jobSlots, int _maxSlots) {
   return minRadius + (((jobSlots-minSlots)*maxRadius-(jobSlots-minSlots)*minRadius)/(maxSlots-minSlots));
 }
 
-void makeHud() {
-  hud1 = new ControlP5(this);
-  hudLabel = hud1.addTextlabel("label")
-                    .setText("\nUSAGE\n\n"    +
-                             "d = visualization description\n\n" + 
-                             "l = largest job information\n\n" + 
-                             "s = smallest job information\n\n" + 
-                             "u = usage\n")
-                    .setPosition(10, 10)
-                    .setColor(color(255)) // white
-                    .setFont(createFont("Lucida Console", 10, false));                   
-  hud1.setAutoDraw(false);
-  
-  Slider zSlider = hud1.addSlider("deltaZ") 
-                       .setPosition(10,height-40)
-                       .setWidth(100)
-                       .setHeight(30)
-                       .setRange(2,10)
-                       .setValue(2);
-}
-
-void keepHudOnTop() {
-  hint(DISABLE_DEPTH_TEST);
-  cam.beginHUD();
-  stroke(255);
-  rect(10, 10, 370, 110); // hack to add label background
-  rect(10,height-40,100,30);
-  noStroke();
-  hud1.draw();
-  cam.endHUD();
-  hint(ENABLE_DEPTH_TEST);
-}
-
 void keyPressed() {
   if (key == 'l') {
-    int largestJob = getMaxSlotsPosition();
-    hudLabel.setValue("\nLARGEST JOB\n\n"    +
-      "Job Number:     " + jobs[largestJob].getJobNum()    + "\n" + 
-      "Job Priority:   " + jobs[largestJob].getJobPrio()   + "\n" + 
-      "Job Name:       " + jobs[largestJob].getJobName()   + "\n" + 
-      "Job Owner:      " + jobs[largestJob].getJobOwner()  + "\n" + 
-      "Job Start Time: " + jobs[largestJob].getStartTime() + "\n" + 
-      "Queue Name:     " + jobs[largestJob].getQueueName() + "\n" + 
-      "Slot Count:     " + jobs[largestJob].getSlots()     + "\n");
+    int largestJobPosition = getMaxSlotsPosition();
+    hud1.showJobInfo(jobs[largestJobPosition], "LARGEST");
   } else if (key == 's') {
-      int smallestJob = getMinSlotsPosition();
-      hudLabel.setValue("\nSMALLEST JOB\n\n"    +
-        "Job Number:     " + jobs[smallestJob].getJobNum()    + "\n" + 
-        "Job Priority:   " + jobs[smallestJob].getJobPrio()   + "\n" + 
-        "Job Name:       " + jobs[smallestJob].getJobName()   + "\n" + 
-        "Job Owner:      " + jobs[smallestJob].getJobOwner()  + "\n" + 
-        "Job Start Time: " + jobs[smallestJob].getStartTime() + "\n" + 
-        "Queue Name:     " + jobs[smallestJob].getQueueName() + "\n" + 
-        "Slot Count:     " + jobs[smallestJob].getSlots()     + "\n");
+      int smallestJobPosition = getMinSlotsPosition();
+      hud1.showJobInfo(jobs[smallestJobPosition], "SMALLEST");
   } else if (key == 'd') {
-      hudLabel.setValue("\nMACHINE QUEUE VISUALIZATION\n\n"    +
-        "Each job is represented by a cluster of same-colored spheres\n" + 
-        "Each sphere is a node\n" + 
-        "Each cylinder represents allocated time\n" + 
-        "Color along cylinder represents time used\n" +
-        "Sphere size is proportional to the number of nodes per job\n");
+      hud1.showDescription();
   }  else if (key == 'u') {
-      hudLabel.setValue("\nUSAGE\n\n"    +
-        "d = visualization description\n\n" + 
-        "l = largest job information\n\n" + 
-        "s = smallest job information\n\n" + 
-        "u = usage\n");
+      hud1.showUsage();
   }
 }
 

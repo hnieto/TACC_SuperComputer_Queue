@@ -17,21 +17,21 @@ echo "###################################################"
 
 echo "\n"
 echo "Remove local copy of $longFile .........."
-rm $longFile
+rm $processingDataDir/$longFile
 
 echo "Copy $File from $host and save as $longFile .........."
 scp $user@$host:/share/home/02117/$user/$File $processingDataDir/$longFile 
-stat $longFile | awk -v "FILE=$longFile" -F"\"" '{ print FILE " updated on " $2 }' 
+stat $processingDataDir/$longFile | awk -v "FILE=$longFile" -F"\"" '{ print FILE " updated on " $2 }' 
 echo "###################################################"
 
 echo "\n" 
 echo "Remove local copy of $shortFile"
-rm $shortFile
+rm $processingDataDir/$shortFile
 
 echo "Make a shorter version of $longFile, $shortFile, for debugging purposes"
-head -n 1003 $longFile > $shortFile
+head -n 1003 $processingDataDir/$longFile > $processingDataDir/$shortFile
 
 # close xml tags
-echo " </queue_info>" >> $shortFile
-echo "</job_info>" >> $shortFile
-stat $shortFile | awk -v "FILE=$shortFile" -F"\"" '{ print FILE " updated on " $2 }'
+echo " </queue_info>" >> $processingDataDir/$shortFile
+echo "</job_info>" >> $processingDataDir/$shortFile
+stat $processingDataDir/$shortFile | awk -v "FILE=$shortFile" -F"\"" '{ print FILE " updated on " $2 }'
