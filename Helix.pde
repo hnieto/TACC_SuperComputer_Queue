@@ -1,6 +1,6 @@
 class Helix {
   List<SphereRodCombo> nodes = new ArrayList<SphereRodCombo>();
-  private float helixRadius, z;
+  private float helixRadius, z, deltaZ;
 
   // used for helix movement
   private float rotz = 0;
@@ -8,6 +8,7 @@ class Helix {
   Helix(List<SphereRodCombo> _nodes) {
     nodes = _nodes;
     helixRadius = 200;
+    deltaZ = 2;
   }
   
   void spin() {
@@ -24,7 +25,7 @@ class Helix {
       // convert from polar to cartesian coordinates
       float x = helixRadius * cosTheta;
       float y = helixRadius * sinTheta;
-      z += 2; 
+      z += deltaZ; 
       
       pushMatrix();
       translate(x, y, z); 
@@ -35,5 +36,10 @@ class Helix {
       if (listCntr != nodes.size()-1) theta += asin((nodes.get(listCntr).getOrbRadius()+nodes.get(listCntr+1).getOrbRadius())/helixRadius);  
     } 
     rotz += 0.003;
+ //   println(deltaZ);
   }  
+  
+  public void setDeltaZ(float _deltaZ){
+    this.deltaZ = _deltaZ;
+  }
 }

@@ -2,11 +2,12 @@ import processing.opengl.*;
 import controlP5.*;
 import peasy.*;
 
-ControlP5 cp5;
+ControlP5 hud1;
 PeasyCam cam;
 PMatrix3D baseMat; // used for peasycam + HUD + lights fix
 
-Textlabel hud;
+Textlabel hudLabel;
+float deltaZ = 2; // used for accordion effect
 int[][] colorArray = new int[0][2]; 
 PImage colorImage; 
 
@@ -49,6 +50,7 @@ void draw() {
 
   h1.spin();
   h1.display();
+  h1.setDeltaZ(deltaZ);
   keepHudOnTop(); 
 //  println(frameRate);
 } 
@@ -188,17 +190,24 @@ float calculateRadius(int jobSlots, int _maxSlots) {
 }
 
 void makeHud() {
-  cp5 = new ControlP5(this);
-  hud = cp5.addTextlabel("label")
+  hud1 = new ControlP5(this);
+  hudLabel = hud1.addTextlabel("label")
                     .setText("\nUSAGE\n\n"    +
                              "d = visualization description\n\n" + 
                              "l = largest job information\n\n" + 
                              "s = smallest job information\n\n" + 
                              "u = usage\n")
                     .setPosition(10, 10)
-                    .setColor(color(255))
+                    .setColor(color(255)) // white
                     .setFont(createFont("Lucida Console", 10, false));                   
-  cp5.setAutoDraw(false);
+  hud1.setAutoDraw(false);
+  
+  Slider zSlider = hud1.addSlider("deltaZ") 
+                       .setPosition(10,height-40)
+                       .setWidth(100)
+                       .setHeight(30)
+                       .setRange(2,10)
+                       .setValue(2);
 }
 
 void keepHudOnTop() {
@@ -206,8 +215,9 @@ void keepHudOnTop() {
   cam.beginHUD();
   stroke(255);
   rect(10, 10, 370, 110); // hack to add label background
+  rect(10,height-40,100,30);
   noStroke();
-  cp5.draw();
+  hud1.draw();
   cam.endHUD();
   hint(ENABLE_DEPTH_TEST);
 }
@@ -215,7 +225,7 @@ void keepHudOnTop() {
 void keyPressed() {
   if (key == 'l') {
     int largestJob = getMaxSlotsPosition();
-    hud.setValue("\nLARGEST JOB\n\n"    +
+    hudLabel.setValue("\nLARGEST JOB\n\n"    +
       "Job Number:     " + jobs[largestJob].getJobNum()    + "\n" + 
       "Job Priority:   " + jobs[largestJob].getJobPrio()   + "\n" + 
       "Job Name:       " + jobs[largestJob].getJobName()   + "\n" + 
@@ -225,7 +235,7 @@ void keyPressed() {
       "Slot Count:     " + jobs[largestJob].getSlots()     + "\n");
   } else if (key == 's') {
       int smallestJob = getMinSlotsPosition();
-      hud.setValue("\nSMALLEST JOB\n\n"    +
+      hudLabel.setValue("\nSMALLEST JOB\n\n"    +
         "Job Number:     " + jobs[smallestJob].getJobNum()    + "\n" + 
         "Job Priority:   " + jobs[smallestJob].getJobPrio()   + "\n" + 
         "Job Name:       " + jobs[smallestJob].getJobName()   + "\n" + 
@@ -234,14 +244,14 @@ void keyPressed() {
         "Queue Name:     " + jobs[smallestJob].getQueueName() + "\n" + 
         "Slot Count:     " + jobs[smallestJob].getSlots()     + "\n");
   } else if (key == 'd') {
-      hud.setValue("\nMACHINE QUEUE VISUALIZATION\n\n"    +
+      hudLabel.setValue("\nMACHINE QUEUE VISUALIZATION\n\n"    +
         "Each job is represented by a cluster of same-colored spheres\n" + 
         "Each sphere is a node\n" + 
         "Each cylinder represents allocated time\n" + 
         "Color along cylinder represents time used\n" +
         "Sphere size is proportional to the number of nodes per job\n");
   }  else if (key == 'u') {
-      hud.setValue("\nUSAGE\n\n"    +
+      hudLabel.setValue("\nUSAGE\n\n"    +
         "d = visualization description\n\n" + 
         "l = largest job information\n\n" + 
         "s = smallest job information\n\n" + 
