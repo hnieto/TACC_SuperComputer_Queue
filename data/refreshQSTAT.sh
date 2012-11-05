@@ -12,6 +12,11 @@ longFile=rangerQSTAT-long.xml
 shortFile=rangerQSTAT-short.xml
 processingDataDir=$(pwd)
 
+# used to create smaller xml
+linesInHeader=3
+linesPerJob=10
+numberOfJobs=50
+
 if [ $# -eq 0 ]
   then
     echo "Usage: ./$scriptName user"
@@ -27,8 +32,8 @@ scp $user@$host:~/$File $processingDataDir/$longFile
 stat -f "%Sm" $processingDataDir/$longFile | awk -v "FILE=$longFile" '{ print FILE " updated on " $0 }' 
 echo "#############################################################################################\n"
 
-echo "Make a shorter version of $longFile, $shortFile, for debugging purposes"
-head -n 1003 $processingDataDir/$longFile > $processingDataDir/$shortFile
+echo "Make a shorter version of $longFile, $shortFile ($numberOfJobs jobs), for debugging purposes"
+head -n $(($linesInHeader+$(($linesPerJob*$numberOfJobs)))) $processingDataDir/$longFile > $processingDataDir/$shortFile
 
 # close xml tags
 echo " </queue_info>" >> $processingDataDir/$shortFile
