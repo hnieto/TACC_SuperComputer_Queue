@@ -24,12 +24,12 @@ if [ $# -eq 0 ]
 fi
 
 echo "Log into $host as $user and update $File .........."
-ssh $user@$host "qstat -u '*' -xml > $File; stat $File | grep Change | awk -F"." '{ print \$1 }' | awk -v "FILE=$File" '{ print FILE \" updated on \" \$2 \" \" \$3 }' "
+ssh $user@$host "qstat -u '*' -xml > $File; ls -l $File | awk -v "FILE=$File" '{ print FILE \" updated on \" \$6 \" \" \$7 \" \" \$8 }' " 
 echo "#############################################################################################\n"
 
 echo "Copy $File from $host and save as $longFile .........."
 scp $user@$host:~/$File $processingDataDir/$longFile 
-stat -f "%Sm" $processingDataDir/$longFile | awk -v "FILE=$longFile" '{ print FILE " updated on " $0 }' 
+ls -l $processingDataDir/$longFile | awk -v "FILE=$longFile" '{ print FILE " updated on " $6 " " $7 " " $8 }' 
 echo "#############################################################################################\n"
 
 echo "Make a shorter version of $longFile, $shortFile ($numberOfJobs jobs), for debugging purposes"
@@ -38,4 +38,4 @@ head -n $(($linesInHeader+$(($linesPerJob*$numberOfJobs)))) $processingDataDir/$
 # close xml tags
 echo " </queue_info>" >> $processingDataDir/$shortFile
 echo "</job_info>" >> $processingDataDir/$shortFile
-stat -f "%Sm" $processingDataDir/$shortFile | awk -v "FILE=$shortFile" '{ print FILE " updated on " $0 }'
+ls -l $processingDataDir/$shortFile | awk -v "FILE=$shortFile" '{ print FILE " updated on " $6 " " $7 " " $8 }'
