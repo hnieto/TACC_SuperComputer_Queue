@@ -25,12 +25,14 @@ fi
 
 echo "Log into $host as $user and update $File .........."
 ssh $user@$host "qstat -u '*' -xml > $File; ls -l $File | awk -v "FILE=$File" '{ print FILE \" updated on \" \$6 \" \" \$7 \" \" \$8 }' " 
-echo "#############################################################################################\n"
+echo "#############################################################################################"
+printf "\n"
 
 echo "Copy $File from $host and save as $longFile .........."
 scp $user@$host:~/$File $processingDataDir/$longFile 
 ls -l $processingDataDir/$longFile | awk -v "FILE=$longFile" '{ print FILE " updated on " $6 " " $7 " " $8 }' 
-echo "#############################################################################################\n"
+echo "#############################################################################################"
+printf "\n"
 
 echo "Make a shorter version of $longFile, $shortFile ($numberOfJobs jobs), for debugging purposes"
 head -n $(($linesInHeader+$(($linesPerJob*$numberOfJobs)))) $processingDataDir/$longFile > $processingDataDir/$shortFile
