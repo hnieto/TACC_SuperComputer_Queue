@@ -9,7 +9,8 @@ PMatrix3D baseMat; // used for peasycam + HUD + lights fix
 int[][] colorArray = new int[0][2]; 
 PImage colorImage; 
 
-String FILE = "rangerQSTAT-short.xml";  // SPECIFY ABSOLUTE PATH WHEN USING MPE
+String PATH = "/Users/eddie/Programming/Processing/MachineQueueVis/data/"; // SPECIFY ABSOLUTE PATH WHEN USING MPE
+String XMLFILE = "rangerQSTAT-short.xml"; 
 Job[] jobs; // array of Job Objects created from XML
 List<SphereRodCombo> src = new ArrayList<SphereRodCombo>(); // each Job object will be converted to a SphereRodCombo object
 
@@ -29,7 +30,7 @@ void setup() {
   baseMat = g.getMatrix(baseMat);
   frameRate(60);
   cam = new PeasyCam(this, 0, 0, 0, 3300);
-  colorImage = loadImage("colors.png"); // SPECIFY ABSOLUTE PATH WHEN USING MPE
+  colorImage = loadImage(PATH + "colors.png"); // SPECIFY ABSOLUTE PATH WHEN USING MPE
   createColorArr();
   createParentShapes();
   parseFile();
@@ -88,7 +89,7 @@ void createParentShapes() {
 
 void parseFile() {
   // Load an XML document
-  XML xml = loadXML(FILE);
+  XML xml = loadXML(PATH + XMLFILE);
 
   // Get all the job_list elements
   XML[] jobList = xml.getChild("queue_info").getChildren("job_list");
