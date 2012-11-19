@@ -1,4 +1,3 @@
-import processing.opengl.*;
 import controlP5.*;
 import peasy.*;
 
@@ -75,8 +74,7 @@ void createColorArr() {
     if (colorExists == false) {
       colorArray = (int[][])append(colorArray, new int[] {
         colorImage.pixels[i], 1
-      }
-      ); //add it
+      }); //add it
     }
   }
 }

@@ -3,7 +3,7 @@ class SphereRodCombo {
   private float orbRadius;
   private PShape orb;
   private Cylinder rod;
-  color c;
+  private color c;
 
   SphereRodCombo(color _c, PShape _orb, Cylinder _rod, float _orbRadius) {
     c = _c;
@@ -12,7 +12,7 @@ class SphereRodCombo {
     rod = _rod;
   }
 
-  void display(float theta) {
+  public void display(float theta) {
     pushMatrix();
     rotateY(PI/2);
     rotateX(-theta);

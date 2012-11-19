@@ -17,7 +17,7 @@ class Cylinder {
     createCylinder();
   }
 
-  void howMuchToColor() {
+  private void howMuchToColor() {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     Date currentDate = new Date();
     Date jobStartDate = null;
@@ -62,7 +62,7 @@ class Cylinder {
     }
   }
 
-  void createCylinder() {
+  private void createCylinder() {
     howMuchToColor(); //determine what portion of the cylinder needs to be colored in
     timeRod = createShape(GROUP);
 
@@ -140,7 +140,7 @@ class Cylinder {
     }
   }
   
-  void display(){
+  public void display(){
     shape(timeRod); 
   }
 }

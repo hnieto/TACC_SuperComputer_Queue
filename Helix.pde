@@ -1,5 +1,5 @@
 class Helix {
-  List<SphereRodCombo> nodes = new ArrayList<SphereRodCombo>();
+  private List<SphereRodCombo> nodes = new ArrayList<SphereRodCombo>();
   private float helixRadius;
   private float z, deltaZ;
 
@@ -12,11 +12,11 @@ class Helix {
     deltaZ = 2;
   }
   
-  void spin() {
+  public void spin() {
     rotateZ(rotz);
   }
 
-  void display () {
+  public void display () {
     z = 0;
     float theta = 0;
     for (int listCntr=0; listCntr<nodes.size(); listCntr++) {

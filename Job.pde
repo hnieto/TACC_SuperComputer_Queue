@@ -50,7 +50,5 @@ class Job {
   public int getSlots(){
     return slots; 
   }
-  
-
 }
 

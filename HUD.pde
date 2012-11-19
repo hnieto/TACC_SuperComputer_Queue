@@ -1,3 +1,5 @@
+/*COMMENTED ITEMS ARE FOR SLIDER*/
+
 //class HUD implements ControlListener {
 class HUD{
   private ControlP5 hud;
@@ -39,7 +41,7 @@ class HUD{
     hud.addListener(this); */
   }
 
-  void keepHudOnTop() {
+  public void keepHudOnTop() {
     hint(DISABLE_DEPTH_TEST);
     cam.beginHUD();
     stroke(255);
