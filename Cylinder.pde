@@ -4,8 +4,7 @@ class Cylinder {
   private float r, bottomCapZ, h;
   private float ang = 0;
   private int sides = 25;
-  private String jobType;
-  private String jobStartTime;
+  private String jobType, jobStartTime;
   private float percentFull;
 
   Cylinder(color _c, String _jobType, String _jobStartTime, float _r) {

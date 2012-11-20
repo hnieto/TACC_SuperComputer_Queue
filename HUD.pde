@@ -1,90 +1,74 @@
-/*COMMENTED ITEMS ARE FOR SLIDER*/
-
-//class HUD implements ControlListener {
 class HUD{
-  private ControlP5 hud;
-  private Textlabel hudLabel1, hudLabel2;
-//  private float deltaZ = 2;
+  private String[] hudText;  
+  private String position;  
+  private final PMatrix3D originalMatrix; // for HUD restore                          
+  private PApplet p;
+  PFont font;
+  private int fontSize;
+  private final int lineSpace = 10;
+  private final int paddingLeft = 5; // spacing between text and rect border
+  private final int paddingRight = 10; 
+  private final int margin = 10; // spacing between rect border and sketch window
   
-  HUD(PApplet applet){
-    hud = new ControlP5(applet);
-    hudLabel1 = hud.addTextlabel("label1")
-                   .setText("\nUSAGE\n\n"    +
-                           "d          = visualization description\n\n" +
-                           "l          = largest job information\n\n" + 
-                           "s          = smallest job information\n\n" + 
-                           "up/down    = increase/decrease helix length\n\n" +
-                           "right/left = increase helix radius\n\n")
-                   .setPosition(10, 10)
-                   .setColor(color(255)) // white
-                   .setFont(createFont("Lucida Console", 10, false));   
+  // in mega pixels
+  private float currentScreenRes;
+  private float STALLION_SCREEN_RES = 3.2768e8; 
+  private float MACBOOK_SCREEN_RES = 1.296e6; 
   
-    hudLabel2 = hud.addTextlabel("label2")
-                   .setText("\nMACHINE QUEUE VISUALIZATION\n\n"    +
-                            "1. Each job is represented by a cluster of same-colored spheres\n\n" + 
-                            "2. Each sphere is a node\n\n" + 
-                            "3. Sphere size is proportional to the number of nodes per job\n\n" +
-                            "4. Each cylinder represents allocated time\n\n" + 
-                            "5. Color along cylinder represents time used\n")
-                   .setPosition(width-395, 10)
-                   .setColor(color(255)) // white
-                   .setFont(createFont("Lucida Console", 10, false));                   
-    hud.setAutoDraw(false);
-/*    
-    Slider s = hud.addSlider("deltaZ") 
-                  .setPosition(10,height-40)
-                  .setWidth(100)
-                  .setHeight(30)
-                  .setRange(2,10)
-                  .setValue(2); 
-                         
-    hud.addListener(this); */
+  HUD(PApplet applet, String[] _hudText, String _position){
+    p = applet;
+    hudText = _hudText;
+    position = _position;
+    originalMatrix = p.getMatrix((PMatrix3D)null);
+    currentScreenRes = applet.width*applet.height;
+    fontSize = (int) map(currentScreenRes,MACBOOK_SCREEN_RES,STALLION_SCREEN_RES,14,128); // scale font size according to screen resolution   
+    font = createFont("Times-Roman", fontSize, false);
   }
-
-  public void keepHudOnTop() {
+                           
+  public void draw(){
     hint(DISABLE_DEPTH_TEST);
     cam.beginHUD();
+    // hack to add label background
     stroke(255);
-    rect(10, 10, 270, 130); // hack to add label background
-    rect(width-405, 10, 395, 130);
-//    rect(10,height-40,100,30);
+    // rect(x,y,width,height)
+    if(position.equals("topLeft")) rect(margin, margin, getHudMaxWidth(hudText)+paddingRight, getHudHeight(hudText)); // draw rectangle according to text dimensions
+    else if(position.equals("topRight")) rect(p.width-(getHudMaxWidth(hudText)+paddingRight+margin), margin, getHudMaxWidth(hudText)+paddingRight, getHudHeight(hudText));
+    else if(position.equals("bottomLeft")) rect(margin, p.height-(getHudHeight(hudText)+margin), getHudMaxWidth(hudText)+paddingRight, getHudHeight(hudText));
+    else rect(p.width-(getHudMaxWidth(hudText)+paddingRight+margin), p.height-(getHudHeight(hudText)+margin), getHudMaxWidth(hudText)+paddingRight, getHudHeight(hudText));
     noStroke();
-    hud.draw();
+        
+    textFont(font);
+    if(position.equals("topLeft")) printText(hudText, margin, fontSize+lineSpace);
+    else if(position.equals("topRight")) printText(hudText, (int)(p.width-(getHudMaxWidth(hudText)+paddingRight+margin)), fontSize+lineSpace);
+    else if(position.equals("bottomLeft")) printText(hudText, margin, (int)(p.height-getHudHeight(hudText)));
+    else printText(hudText, (int)(p.width-(getHudMaxWidth(hudText)+paddingRight+margin)), (int)(p.height-getHudHeight(hudText)));
     cam.endHUD();
     hint(ENABLE_DEPTH_TEST);
   }
-  
-  public void showJobInfo(Job job, String jobSize){
-    hudLabel2.setValue("\n" + jobSize + " JOB\n\n"    +
-                       "Job Number:     " + job.getJobNum()    + "\n" + 
-                       "Job Priority:   " + job.getJobPrio()   + "\n" + 
-                       "Job Name:       " + job.getJobName()   + "\n" + 
-                       "Job Owner:      " + job.getJobOwner()  + "\n" + 
-                       "Job Start Time: " + job.getStartTime() + "\n" + 
-                       "Queue Name:     " + job.getQueueName() + "\n" + 
-                       "Slot Count:     " + job.getSlots()     + "\n"); 
-  }
-  
-  public void showDescription(){
-    hudLabel2.setValue("\nMACHINE QUEUE VISUALIZATION\n\n"    +
-                       "1. Each job is represented by a cluster of same-colored spheres\n\n" + 
-                       "2. Each sphere is a node\n\n" + 
-                       "3. Sphere size is proportional to the number of nodes per job\n\n" +
-                       "4. Each cylinder represents allocated time\n\n" + 
-                       "5. Color along cylinder represents time used\n"); 
-  }
-  
-/*  
-  public void controlEvent(ControlEvent theEvent) {
-    slider(theEvent.value());
-  }  
- 
-  void slider(float theValue) {
-    deltaZ = theValue;
-  } 
-  
-  public float getSliderValue(){
-    return deltaZ; 
-  } */
-}
 
+  private void printText(String[] str, int startX, int startY){
+    int currX = startX+paddingLeft;
+    int currY = startY;
+    for (int i=0; i<str.length; i++) {
+      for(int j=0; j<str[i].length(); j++){
+        text(str[i].charAt(j),currX,currY);
+        // textWidth() spaces the characters out properly.
+        currX += textWidth(str[i].charAt(j)); 
+      }
+      currX = startX+paddingLeft;
+      currY += fontSize+lineSpace;
+    } 
+  }
+  
+  private float getHudMaxWidth(String[] str){
+    float maxWidth = textWidth(str[0]);
+    for(int i=1; i<str.length; i++){
+      if(textWidth(str[i]) > maxWidth) maxWidth = textWidth(str[i]); 
+    }
+    return maxWidth;
+  }
+  
+  private float getHudHeight(String[] str){
+    return str.length*(fontSize+lineSpace);
+  }
+}

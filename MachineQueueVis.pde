@@ -1,9 +1,9 @@
-import controlP5.*;
 import peasy.*;
 
-HUD hud1;
+HUD hud1,hud2,hud3,hud4;
 PeasyCam cam;
 PMatrix3D baseMat; // used for peasycam + HUD + lights fix
+int drawHud = 2;
 
 int[][] colorArray = new int[0][2]; 
 PImage colorImage; 
@@ -24,18 +24,42 @@ Helix h1;
 float deltaZ = 2;
 float helixRadius = 200;
 
+private String[] usage = { "USAGE",
+                           "d = visualization description",
+                           "l = largest job information",
+                           "s = smallest job information",
+                           "up/down = increase/decrease helix length",
+                           "right/left = increase helix radius" };
+                           
+private String[] description = { "MACHINE QUEUE VISUALIZATION",
+                                  "1. Each job is represented by a cluster of same-colored spheres", 
+                                  "2. Each sphere is a node",
+                                  "3. Sphere size is proportional to the number of nodes per job",
+                                  "4. Each cylinder represents allocated time", 
+                                  "5. Color along cylinder represents time used" };
+         
+private String[] smallestJob = new String[8];
+private String[] largestJob = new String[8];
+
+/* UNCOMMENT FOR USE ON MINI-LASSO */
+/*boolean sketchFullScreen() {
+  return true;
+} */
+
 void setup() {
-  size(1300, 500, OPENGL); 
+  //size(displayWidth,displayHeight,OPENGL); // UNCOMMENT FOR USE ON MINI-LASSO
+  size(1300,500,OPENGL);
   baseMat = g.getMatrix(baseMat);
   frameRate(60);
-  cam = new PeasyCam(this, 0, 0, 0, 3300);
+  
+  cam = new PeasyCam(this, 0, 0, 0, 2000);
   colorImage = loadImage(PATH + "colors.png"); // SPECIFY ABSOLUTE PATH WHEN USING MPE
   createColorArr();
   createParentShapes();
   parseFile();
   createShapesFromFile();  // create sphere+cylinder objects from each Job object acquired from XML
   h1 = new Helix(src); 
-  hud1 = new HUD(this);
+  initHUDs();
 }
 
 void draw() {
@@ -52,9 +76,49 @@ void draw() {
   h1.display();
   h1.setDeltaZ(deltaZ);
   h1.setRadius(helixRadius);
-  hud1.keepHudOnTop(); 
+
+  hud1.draw();
+  switch(drawHud) {
+    case 3: 
+      hud3.draw();
+      break;
+    case 4: 
+      hud4.draw();
+      break;
+    default:
+      hud2.draw();
+      break;
+  }
 //  println(frameRate);
 } 
+
+void initHUDs(){
+  int largestJobPosition = getMaxSlotsPosition();
+  int smallestJobPosition = getMinSlotsPosition();
+  
+  largestJob[0] = "LARGEST JOB";
+  largestJob[1] = "Job Number: " + jobs[largestJobPosition].getJobNum();
+  largestJob[2] = "Job Priority: " + jobs[largestJobPosition].getJobPrio();
+  largestJob[3] = "Job Name: " + jobs[largestJobPosition].getJobName();
+  largestJob[4] = "Job Owner: " + jobs[largestJobPosition].getJobOwner();
+  largestJob[5] = "Job Start Time: " + jobs[largestJobPosition].getStartTime();
+  largestJob[6] = "Queue Name: " + jobs[largestJobPosition].getQueueName(); 
+  largestJob[7] = "Slot Count: " + jobs[largestJobPosition].getSlots();
+  
+  smallestJob[0] = "SMALLEST JOB";
+  smallestJob[1] =  "Job Number: " + jobs[smallestJobPosition].getJobNum();
+  smallestJob[2] = "Job Priority: " + jobs[smallestJobPosition].getJobPrio();
+  smallestJob[3] = "Job Name: " + jobs[smallestJobPosition].getJobName();
+  smallestJob[4] = "Job Owner: " + jobs[smallestJobPosition].getJobOwner();
+  smallestJob[5] = "Job Start Time: " + jobs[smallestJobPosition].getStartTime();
+  smallestJob[6] = "Queue Name: " + jobs[smallestJobPosition].getQueueName();
+  smallestJob[7] = "Slot Count: " + jobs[smallestJobPosition].getSlots(); 
+  
+  hud1 = new HUD(this,usage,"topLeft");
+  hud2 = new HUD(this,description,"topRight");
+  hud3 = new HUD(this,largestJob, "topRight");
+  hud4 = new HUD(this,smallestJob, "topRight"); 
+}
 
 void createColorArr() {
   //loop through all the pixels of the image
@@ -200,15 +264,9 @@ void keyPressed() {
     }else if(keyCode == LEFT){
       if((helixRadius -= 10) < 200) helixRadius = 200;
     }
-  } else{
-      if (key == 'l') {
-        int largestJobPosition = getMaxSlotsPosition();
-        hud1.showJobInfo(jobs[largestJobPosition], "LARGEST");
-      } else if (key == 's') {
-          int smallestJobPosition = getMinSlotsPosition();
-          hud1.showJobInfo(jobs[smallestJobPosition], "SMALLEST");
-      } else if (key == 'd') {
-          hud1.showDescription();
-      } 
+  }else{
+    if (key == 'd') drawHud = 2;
+    else if (key == 'l') drawHud = 3;
+    else if (key == 's') drawHud = 4;
   }
 }
