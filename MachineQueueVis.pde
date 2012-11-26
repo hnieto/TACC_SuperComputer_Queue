@@ -12,15 +12,10 @@ String PATH = "/Users/eddie/Programming/Processing/MachineQueueVis/data/"; // SP
 String XMLFILE = "rangerQSTAT-short.xml"; 
 Job[] jobs; // array of Job Objects created from XML
 
-int RANGER_SLOTS_PER_NODE = 16;
-int LONGHORN_SLOTS_PER_NODE = 16;
-int STAMPEDE_SLOTS_PER_NODE = 16;
-int RUNNING_JOB_COUNT = 0;
-int ZOMBIE_JOB_COUNT = 0;
-
 Helix h1;
 float deltaZ = 2;
 float helixRadius = 200;
+float rotz = 0;
 
 private String[] usage = { "USAGE",
                            "d = visualization description",
@@ -61,6 +56,7 @@ void setup() {
 
 void draw() {
   background(0);
+  smooth(8);
 
   // save peasycam matrix and reset original
   pushMatrix();
@@ -69,11 +65,10 @@ void draw() {
   directionalLight(255, 255, 255, -150, 40, -140);
   popMatrix();
 
-/*  h1.spin();
-  h1.display();
-  h1.setDeltaZ(deltaZ);
+/*  h1.setDeltaZ(deltaZ);
   h1.setRadius(helixRadius); */
   
+  rotateZ(rotz);
   h1.displayHelix();
 
   hud1.draw();
@@ -88,7 +83,8 @@ void draw() {
       hud2.draw();
       break;
   }
-//  println(frameRate);
+  rotz += .0009;
+  //println(frameRate);
 } 
 
 void initHUDs(){

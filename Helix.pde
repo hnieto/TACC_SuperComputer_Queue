@@ -1,13 +1,16 @@
 class Helix {
+  private final int RANGER_SLOTS_PER_NODE = 16;
+  private final int LONGHORN_SLOTS_PER_NODE = 16;
+  private final int STAMPEDE_SLOTS_PER_NODE = 16;
+  private int RUNNING_JOB_COUNT = 0;
+  private int ZOMBIE_JOB_COUNT = 0;
+  
   private Job[] jobs;
   private int maxSlots;
   private int[][] colorArray;
   private float helixRadius;
   private float z, deltaZ;
   PShape helix;
-
-  // used for helix movement
-  private float rotz = 0;
 
   Helix(Job[] _jobs, int _maxSlotsPosition, int[][] _colorArray) {
     jobs = _jobs;
@@ -16,18 +19,21 @@ class Helix {
     helixRadius = 200;
     deltaZ = 2;
   }
-  
-  public void spin() {
-    rotateZ(rotz);
-  }
 
   public void createHelix() {
     helix = createShape(GROUP);
     z = 0;
     float theta = 0;
     for (int i=0; i<jobs.length; i++) {
-      if (jobs[i].getState().equals("r")) {  // only use running states. ignore pending (qw) and transitional (dr) states
-        color jobColor = colorArray[int(random(colorArray.length))][0];
+      if (!jobs[i].getState().equals("qw")) {  // ignore pending (qw)
+      
+        color jobColor = colorArray[int(random(colorArray.length))][0]; // color running jobs
+        if(jobs[i].getState().equals("r")) RUNNING_JOB_COUNT++;          
+        else if(jobs[i].getState().equals("dr")) { // use gray for zombie jobs
+          jobColor = color(116,116,116);
+          ZOMBIE_JOB_COUNT++;
+        }
+        
         String[] parseQueueName = split(jobs[i].getQueueName(), '@');
         float thisSphereRadius = calculateRadius(jobs[i].getSlots(), maxSlots); 
         int nodesPerJob = jobs[i].getSlots()/RANGER_SLOTS_PER_NODE;
@@ -66,11 +72,10 @@ class Helix {
           }else theta += asin((thisSphereRadius*2)/helixRadius);
           
         }       
-        RUNNING_JOB_COUNT++;
       }   
-      rotz += 0.003;
     }
     println("Running Jobs = " + RUNNING_JOB_COUNT);
+    println("Zombie Jobs = " + ZOMBIE_JOB_COUNT);
   }  
   
   private float calculateRadius(int jobSlots, int _maxSlots) {
