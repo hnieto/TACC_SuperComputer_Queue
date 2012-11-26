@@ -11,7 +11,6 @@ PImage colorImage;
 String PATH = "/Users/eddie/Programming/Processing/MachineQueueVis/data/"; // SPECIFY ABSOLUTE PATH WHEN USING MPE
 String XMLFILE = "rangerQSTAT-short.xml"; 
 Job[] jobs; // array of Job Objects created from XML
-List<SphereRodCombo> src = new ArrayList<SphereRodCombo>(); // each Job object will be converted to a SphereRodCombo object
 
 int RANGER_SLOTS_PER_NODE = 16;
 int LONGHORN_SLOTS_PER_NODE = 16;
@@ -19,7 +18,6 @@ int STAMPEDE_SLOTS_PER_NODE = 16;
 int RUNNING_JOB_COUNT = 0;
 int ZOMBIE_JOB_COUNT = 0;
 
-PShape parentOrb;
 Helix h1;
 float deltaZ = 2;
 float helixRadius = 200;
@@ -55,10 +53,9 @@ void setup() {
   cam = new PeasyCam(this, 0, 0, 0, 2000);
   colorImage = loadImage(PATH + "colors.png"); // SPECIFY ABSOLUTE PATH WHEN USING MPE
   createColorArr();
-  createParentShapes();
   parseFile();
-  createShapesFromFile();  // create sphere+cylinder objects from each Job object acquired from XML
-  h1 = new Helix(src); 
+  h1 = new Helix(jobs,getMaxSlotsPosition(),colorArray); 
+  h1.createHelix();
   initHUDs();
 }
 
@@ -72,10 +69,12 @@ void draw() {
   directionalLight(255, 255, 255, -150, 40, -140);
   popMatrix();
 
-  h1.spin();
+/*  h1.spin();
   h1.display();
   h1.setDeltaZ(deltaZ);
-  h1.setRadius(helixRadius);
+  h1.setRadius(helixRadius); */
+  
+  h1.displayHelix();
 
   hud1.draw();
   switch(drawHud) {
@@ -143,12 +142,6 @@ void createColorArr() {
   }
 }
 
-void createParentShapes() {
-  // save one sphere's geometry in video memory 
-  parentOrb = createShape(SPHERE, 1);
-  parentOrb.noStroke();
-}
-
 void parseFile() {
   // Load an XML document
   XML xml = loadXML(PATH + XMLFILE);
@@ -180,38 +173,6 @@ void parseFile() {
   }
 }
 
-void createShapesFromFile() {
-  // find the largest slot count in the current qstat xml file
-  int currMaxSlots = jobs[getMaxSlotsPosition()].getSlots();
-
-  for (int i=0; i<jobs.length; i++) {  // for each Job Object, create a sphere and rod
-    if (jobs[i].getState().equals("r")) {  // only use running states. ignore pending (qw) and transitional (dr) states
-      color jobColor = colorArray[int(random(colorArray.length))][0];
-      String[] parseQueueName = split(jobs[i].getQueueName(), '@');
-      float scaler = calculateRadius(jobs[i].getSlots(), currMaxSlots);
-      Cylinder newRod = new Cylinder(jobColor, parseQueueName[0], jobs[i].getStartTime(), scaler/5);
-
-      for (int j=0; j<(jobs[i].getSlots()/RANGER_SLOTS_PER_NODE); j++) {
-        src.add(new SphereRodCombo(jobColor, parentOrb, newRod, scaler));
-      }   
-      RUNNING_JOB_COUNT++;
-    }     
-    else if (jobs[i].getState().equals("dr")) {  // mark zombie jobs with grey
-      color jobColor = color(116, 116, 116); 
-      String[] parseQueueName = split(jobs[i].getQueueName(), '@');
-      float scaler = calculateRadius(jobs[i].getSlots(), currMaxSlots);
-      Cylinder newRod = new Cylinder(jobColor, parseQueueName[0], jobs[i].getStartTime(), scaler/5);
-
-      for (int j=0; j<(jobs[i].getSlots()/RANGER_SLOTS_PER_NODE); j++) {
-        src.add(new SphereRodCombo(jobColor, parentOrb, newRod, scaler));
-      }   
-      ZOMBIE_JOB_COUNT++;
-    }
-  }  
-  println("Running Jobs = " + RUNNING_JOB_COUNT);
-  println("Zombie Jobs = " + ZOMBIE_JOB_COUNT + "\n");
-}
-
 int getMaxSlotsPosition() {
   if (jobs.length == 0) return -1;
   else {
@@ -240,17 +201,6 @@ int getMinSlotsPosition() {
     }
     return minPos;
   }
-}
-
-float calculateRadius(int jobSlots, int _maxSlots) {
-  float minSlots = 1;   // x0
-  float minRadius = 5;  // y0
-
-  float maxSlots = _maxSlots; // x1
-  float maxRadius = 20;   // y1
-
-  // interpolate sphere radius
-  return minRadius + (((jobSlots-minSlots)*maxRadius-(jobSlots-minSlots)*minRadius)/(maxSlots-minSlots));
 }
 
 void keyPressed() {

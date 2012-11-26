@@ -10,7 +10,7 @@ class Cylinder {
   Cylinder(color _c, String _jobType, String _jobStartTime, float _r) {
     c = _c;
     r = _r;
-    bottomCapZ = 1;
+    bottomCapZ = r*5;
     jobType = _jobType;
     jobStartTime = _jobStartTime;
     createCylinder();
@@ -139,8 +139,12 @@ class Cylinder {
     }
   }
   
+  public PShape getCylinder(){
+    return timeRod; 
+  }
+/*  
   public void display(){
     shape(timeRod); 
-  }
+  } */
 }
 
