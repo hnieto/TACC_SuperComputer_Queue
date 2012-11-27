@@ -13,8 +13,6 @@ String XMLFILE = "rangerQSTAT-short.xml";
 Job[] jobs; // array of Job Objects created from XML
 
 Helix h1;
-float deltaZ = 2;
-float helixRadius = 200;
 float rotz = 0;
 
 private String[] usage = { "USAGE",
@@ -43,7 +41,6 @@ void setup() {
   //size(displayWidth,displayHeight,OPENGL); // UNCOMMENT FOR USE ON MINI-LASSO
   size(1300,500,OPENGL);
   baseMat = g.getMatrix(baseMat);
-  frameRate(60);
   
   cam = new PeasyCam(this, 0, 0, 0, 2000);
   colorImage = loadImage(PATH + "colors.png"); // SPECIFY ABSOLUTE PATH WHEN USING MPE
@@ -64,9 +61,6 @@ void draw() {
   ambientLight(40, 40, 40);
   directionalLight(255, 255, 255, -150, 40, -140);
   popMatrix();
-
-/*  h1.setDeltaZ(deltaZ);
-  h1.setRadius(helixRadius); */
   
   rotateZ(rotz);
   h1.displayHelix();
@@ -84,7 +78,6 @@ void draw() {
       break;
   }
   rotz += .0009;
-  //println(frameRate);
 } 
 
 void initHUDs(){
@@ -200,19 +193,7 @@ int getMinSlotsPosition() {
 }
 
 void keyPressed() {
-  if(key == CODED){
-    if(keyCode == UP){
-      if((deltaZ += 0.1) > 10) deltaZ = 10;
-    }else if(keyCode == DOWN){
-      if((deltaZ -= 0.1) < 2) deltaZ = 2;
-    }else if(keyCode == RIGHT){
-      if((helixRadius += 10) > 400) helixRadius = 400;
-    }else if(keyCode == LEFT){
-      if((helixRadius -= 10) < 200) helixRadius = 200;
-    }
-  }else{
-    if (key == 'd') drawHud = 2;
-    else if (key == 'l') drawHud = 3;
-    else if (key == 's') drawHud = 4;
-  }
+  if (key == 'd') drawHud = 2;
+  else if (key == 'l') drawHud = 3;
+  else if (key == 's') drawHud = 4;
 }

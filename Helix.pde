@@ -16,7 +16,7 @@ class Helix {
     jobs = _jobs;
     maxSlots = jobs[_maxSlotsPosition].getSlots();
     colorArray = _colorArray;
-    helixRadius = 200;
+    helixRadius = 400;
     deltaZ = 2;
   }
 
@@ -87,14 +87,6 @@ class Helix {
   
     // interpolate sphere radius
     return minRadius + (((jobSlots-minSlots)*maxRadius-(jobSlots-minSlots)*minRadius)/(maxSlots-minSlots));
-  }
-  
-  public void setDeltaZ(float _deltaZ){
-    this.deltaZ = _deltaZ;
-  }
-  
-  public void setRadius(float _helixRadius){
-    this.helixRadius = _helixRadius; 
   }
   
   public void displayHelix(){

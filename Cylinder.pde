@@ -142,9 +142,5 @@ class Cylinder {
   public PShape getCylinder(){
     return timeRod; 
   }
-/*  
-  public void display(){
-    shape(timeRod); 
-  } */
 }
 
