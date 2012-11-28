@@ -1,5 +1,12 @@
 # MachineQueueVis
-MachineQueueVis is a [Processing](http://processing.org/) sketch based off of [Paul Bourke](http://paulbourke.net/miscellaneous/gqstats/)’s HPC queue statistics visualization. It converts the qstat output into pairs of spheres and cylinders arranged in a helical pattern that represents the status of the supercomputer’s queue. Our goal was to develop a visualization that could give systems administrators and users a complete understanding of the queue’s state with nothing more than a quick glance. 
+MachineQueueVis is a [Processing](http://processing.org/) sketch based off of [Paul Bourke](http://paulbourke.net/miscellaneous/gqstats/)’s HPC queue statistics visualization. It converts the qstat output into pairs of spheres and cylinders arranged in a helical pattern that represents the status of the supercomputer’s queue. Our goal was to develop a visualization that could give systems administrators and users a complete understanding of the queue’s state with nothing more than a quick glance.
+
+In our implementation,
+* Each job is represented by a cluster of same-colored, consecutive spheres
+* Each sphere is a node
+* Sphere size is proportional to the number of nodes per job
+* Each cylinder represents allocated time 
+* Color along cylinder represents time used
 
 ##Setup
 
