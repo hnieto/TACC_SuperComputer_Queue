@@ -49,9 +49,9 @@ OPTIONS:
 
 This part is optional. The script will generate three XML files, one on the remote server and two on the local machine. If you would like to change these file names, open `refreshQSTAT.sh` with your favorite text editor and modify the following variables:
 ```
-File=remoteQSTAT.xml
-longFile=localQSTAT-full.xml
-shortFile=localQSTAT-brief.xml
+remoteFile=rangerQSTAT.xml
+localFile=rangerQSTAT-long.xml
+smallLocalFile=rangerQSTAT-short.xml
 ```
 
 ### MachineQueueVis.pde
