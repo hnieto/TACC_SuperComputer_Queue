@@ -8,8 +8,8 @@ int drawHud = 2;
 int[][] colorArray = new int[0][2]; 
 PImage colorImage; 
 
-String PATH = "/Users/eddie/Programming/Processing/MachineQueueVis/data/"; // SPECIFY ABSOLUTE PATH WHEN USING MPE
-String XMLFILE = "rangerQSTAT-short.xml"; 
+String PATH = "/Users/eddie/Programming/Processing/MachineQueueVis/data/"; 
+String XMLFILE = "rangerQSTAT-long.xml"; 
 Job[] jobs; // array of Job Objects created from XML
 
 Helix h1;
@@ -18,9 +18,7 @@ float rotz = 0;
 private String[] usage = { "USAGE",
                            "d = visualization description",
                            "l = largest job information",
-                           "s = smallest job information",
-                           "up/down = increase/decrease helix length",
-                           "right/left = increase helix radius" };
+                           "s = smallest job information" };
                            
 private String[] description = { "MACHINE QUEUE VISUALIZATION",
                                   "1. Each job is represented by a cluster of same-colored spheres", 
@@ -33,13 +31,13 @@ private String[] smallestJob = new String[8];
 private String[] largestJob = new String[8];
 
 /* UNCOMMENT FOR USE ON MINI-LASSO */
-/*boolean sketchFullScreen() {
+boolean sketchFullScreen() {
   return true;
-} */
+}
 
 void setup() {
-  //size(displayWidth,displayHeight,OPENGL); // UNCOMMENT FOR USE ON MINI-LASSO
-  size(1300,500,OPENGL);
+  size(displayWidth,displayHeight,OPENGL); // UNCOMMENT FOR USE ON MINI-LASSO
+  //size(1300,500,OPENGL);
   baseMat = g.getMatrix(baseMat);
   
   cam = new PeasyCam(this, 0, 0, 0, 2000);

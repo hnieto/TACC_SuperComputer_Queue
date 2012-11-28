@@ -4,9 +4,9 @@
 # Description: run " qstat -u '*' " on supercomputers and copy file over to local processing /data folder
 # Developer: Heriberto Nieto
 
-File=rangerQSTAT.xml
-longFile=rangerQSTAT-long.xml
-shortFile=rangerQSTAT-short.xml
+remoteFile=rangerQSTAT.xml
+localFile=rangerQSTAT-long.xml
+smallLocalFile=rangerQSTAT-short.xml
 processingDataDir=$(pwd)
 
 # used to create smaller xml
@@ -23,7 +23,8 @@ usage()
 {
 cat << EOF
 
-USAGE: $0 options
+USAGE1: ./refreshQSTAT.sh –u user –s server –j 50
+USAGE2: ./refreshQSTAT.sh –o –j 50
 
 This script will run qstat on remote server and return xml file on local machine
 
@@ -31,7 +32,7 @@ OPTIONS:
    -h      Show this message
    -u      Username
    -s      Server hostname
-   -o      only update short xml (must only  be used with -j)
+   -o      only update small xml (must only  be used with -j)
    -j	   Number of jobs to use in small xml file
 
 EOF
@@ -39,13 +40,13 @@ EOF
 
 createShortXML()
 {
-  echo "Make a shorter version of $longFile, $shortFile ($numberOfJobs jobs), for debugging purposes"
-  head -n $(($linesInHeader+$(($linesPerJob*$numberOfJobs)))) $processingDataDir/$longFile > $processingDataDir/$shortFile
+  echo "Make a shorter version of $localFile, $smallLocalFile ($numberOfJobs jobs), for debugging purposes"
+  head -n $(($linesInHeader+$(($linesPerJob*$numberOfJobs)))) $processingDataDir/$localFile > $processingDataDir/$smallLocalFile
 
   # close xml tags
-  echo " </queue_info>" >> $processingDataDir/$shortFile
-  echo "</job_info>" >> $processingDataDir/$shortFile
-  ls -l $processingDataDir/$shortFile | awk -v "FILE=$shortFile" '{ print FILE " updated on " $6 " " $7 " " $8 }'
+  echo " </queue_info>" >> $processingDataDir/$smallLocalFile
+  echo "</job_info>" >> $processingDataDir/$smallLocalFile
+  ls -l $processingDataDir/$smallLocalFile | awk -v "FILE=$smallLocalFile" '{ print FILE " updated on " $6 " " $7 " " $8 }'
 }
 
 while getopts “hu:s:oj:” OPTION
@@ -105,14 +106,14 @@ then
      fi
 fi
 
-echo "Log into $server as $user and update $File .........."
-ssh $user@$server "qstat -u '*' -xml > $File; ls -l $File | awk -v "FILE=$File" '{ print FILE \" updated on \" \$6 \" \" \$7 \" \" \$8 }' " 
+echo "Log into $server as $user and update $remoteFile .........."
+ssh $user@$server "qstat -u '*' -xml > $remoteFile; ls -l $remoteFile | awk -v "FILE=$remoteFile" '{ print FILE \" updated on \" \$6 \" \" \$7 \" \" \$8 }' " 
 echo "#############################################################################################"
 printf "\n"
 
-echo "Copy $File from $server and save as $longFile .........."
-scp $user@$server:~/$File $processingDataDir/$longFile 
-ls -l $processingDataDir/$longFile | awk -v "FILE=$longFile" '{ print FILE " updated on " $6 " " $7 " " $8 }' 
+echo "Copy $remoteFile from $server and save as $localFile .........."
+scp $user@$server:~/$remoteFile $processingDataDir/$localFile 
+ls -l $processingDataDir/$localFile | awk -v "FILE=$localFile" '{ print FILE " updated on " $6 " " $7 " " $8 }' 
 echo "#############################################################################################"
 printf "\n"
 
