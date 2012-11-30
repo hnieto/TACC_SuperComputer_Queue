@@ -13,6 +13,11 @@ In our implementation,
 
 ##Setup
 
+### Additional libraries
+Download the following libraries (unzip them if necessary) and place them in the `/libraries` Processing directory. For additional information on how to install contributed libraries see [here](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library).
+* [PeasyCam](http://mrfeinberg.com/peasycam/)
+
+
 ### Obtaining qstat output
 A bash script named `refreshQSTAT.sh` is included in this sketch’s `/data` folder that will handle the following steps:
 * SSH into remote server
@@ -64,6 +69,7 @@ localFile=rangerQSTAT-long.xml
 smallLocalFile=rangerQSTAT-short.xml
 ```
 
+
 ### MachineQueueVis.pde
 This is the main Processing file. You must update the `PATH` variable with the correct location of the `/data` directory on your local machine. 
 ```
@@ -75,6 +81,7 @@ Also make sure that the `XMLFILE` variable has the full name of the XML file pro
 String XMLFILE = "localQSTAT-brief.xml"; 
 ```
 
+
 # Running
 
 Once `refreshQSTAT.sh` has been run and you have an updated XML file, open the Processing IDE, locate your sketch, and press “Run.” 
@@ -83,6 +90,7 @@ Once `refreshQSTAT.sh` has been run and you have an updated XML file, open the P
 # Issues
 
 If you encounter the following issue, `java.lang.OutOfMemoryError: Java heap space`, just increase the maximum available memory in the Processing IDE Preferences menu. To increase performance speed, all of the helix’s vertex data is uploaded into buffers in video memory during initialization, from where they can be read very quickly by the GPU in order to render the scene. This, however, can be very taxing on your system. This is why I would suggest using the smaller XML file for testing purposes and the full XML file on a system with enough GPU memory to handle large visualizations.
+
 
 # To Do
 
