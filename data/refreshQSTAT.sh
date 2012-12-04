@@ -4,9 +4,9 @@
 # Description: run " qstat -u '*' " on supercomputers and copy file over to local processing /data folder
 # Developer: Heriberto Nieto
 
-remoteFile=rangerQSTAT.xml
-localFile=rangerQSTAT-long.xml
-smallLocalFile=rangerQSTAT-short.xml
+remoteFile=lonestarQSTAT.xml
+localFile=lonestarQSTAT-long.xml
+smallLocalFile=lonestarQSTAT-short.xml
 processingDataDir=$(pwd)
 
 # used to create smaller xml

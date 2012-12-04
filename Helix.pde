@@ -1,7 +1,5 @@
 class Helix {
-  private final int RANGER_SLOTS_PER_NODE = 16;
-  private final int LONGHORN_SLOTS_PER_NODE = 16;
-  private final int STAMPEDE_SLOTS_PER_NODE = 16;
+  private final int SLOTS_PER_NODE = 12; // ranger=16, longhorn=16, lonestar=12
   private int RUNNING_JOB_COUNT = 0;
   private int ZOMBIE_JOB_COUNT = 0;
   
@@ -36,7 +34,9 @@ class Helix {
         
         String[] parseQueueName = split(jobs[i].getQueueName(), '@');
         float thisSphereRadius = calculateRadius(jobs[i].getSlots(), maxSlots); 
-        int nodesPerJob = jobs[i].getSlots()/RANGER_SLOTS_PER_NODE;
+        int nodesPerJob = jobs[i].getSlots()/SLOTS_PER_NODE;
+        
+        if(nodesPerJob == 0) nodesPerJob = 1; // jobs with less than SLOTS_PER_NODE cores get rounded to 1 node
       
         for (int j=0; j<nodesPerJob; j++) {
           float cosTheta = cos(theta);

@@ -1,0 +1,815 @@
+<?xml version='1.0'?>
+<job_info  xmlns:xsd="http://gridengine.sunsource.net/source/browse/*checkout*/gridengine/source/dist/util/resources/schemas/qstat/qstat.xsd?revision=1.11">
+  <queue_info>
+    <job_list state="running">
+      <JB_job_number>185762</JB_job_number>
+      <JAT_prio>0.05683</JAT_prio>
+      <JB_name>eb_7127</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>dr</state>
+      <JAT_start_time>2012-12-02T12:24:14</JAT_start_time>
+      <queue_name>long@c208-116.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186045</JB_job_number>
+      <JAT_prio>0.50262</JAT_prio>
+      <JB_name>pvs-22345</JB_name>
+      <JB_owner>bloring</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-03T18:44:14</JAT_start_time>
+      <queue_name>long@c207-104.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186068</JB_job_number>
+      <JAT_prio>0.01218</JAT_prio>
+      <JB_name>bpS.Ust08</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-03T21:53:14</JAT_start_time>
+      <queue_name>long@c208-101.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186069</JB_job_number>
+      <JAT_prio>0.01218</JAT_prio>
+      <JB_name>bpS.Ust09</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-03T21:53:14</JAT_start_time>
+      <queue_name>long@c206-117.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186070</JB_job_number>
+      <JAT_prio>0.01218</JAT_prio>
+      <JB_name>bpS.Ust10</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-03T21:54:14</JAT_start_time>
+      <queue_name>long@c205-120.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186075</JB_job_number>
+      <JAT_prio>0.01202</JAT_prio>
+      <JB_name>bpS.Ust20</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-03T23:03:14</JAT_start_time>
+      <queue_name>long@c203-123.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186076</JB_job_number>
+      <JAT_prio>0.01202</JAT_prio>
+      <JB_name>bpS.Ust25</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-03T23:03:14</JAT_start_time>
+      <queue_name>long@c203-101.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186077</JB_job_number>
+      <JAT_prio>0.01202</JAT_prio>
+      <JB_name>bpS.Ust30</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-03T23:04:14</JAT_start_time>
+      <queue_name>long@c204-112.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186086</JB_job_number>
+      <JAT_prio>0.01186</JAT_prio>
+      <JB_name>bpS.Uc6</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T00:13:14</JAT_start_time>
+      <queue_name>long@c208-118.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186113</JB_job_number>
+      <JAT_prio>0.01167</JAT_prio>
+      <JB_name>bpS.Tst08</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T01:34:14</JAT_start_time>
+      <queue_name>long@c210-118.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186114</JB_job_number>
+      <JAT_prio>0.01167</JAT_prio>
+      <JB_name>bpS.Tst09</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T01:34:14</JAT_start_time>
+      <queue_name>long@c210-101.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186115</JB_job_number>
+      <JAT_prio>0.01167</JAT_prio>
+      <JB_name>bpS.Tst10</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T01:38:14</JAT_start_time>
+      <queue_name>long@c209-113.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186116</JB_job_number>
+      <JAT_prio>0.01167</JAT_prio>
+      <JB_name>bpS.Tst12</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T01:49:14</JAT_start_time>
+      <queue_name>long@c208-103.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186117</JB_job_number>
+      <JAT_prio>0.01164</JAT_prio>
+      <JB_name>bpS.E1</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T01:55:14</JAT_start_time>
+      <queue_name>long@c205-112.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186118</JB_job_number>
+      <JAT_prio>0.01164</JAT_prio>
+      <JB_name>bpS.E2</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T01:55:14</JAT_start_time>
+      <queue_name>long@c205-117.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186119</JB_job_number>
+      <JAT_prio>0.01163</JAT_prio>
+      <JB_name>bpS.st45</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T01:56:14</JAT_start_time>
+      <queue_name>long@c207-114.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186131</JB_job_number>
+      <JAT_prio>0.05131</JAT_prio>
+      <JB_name>bis34b3crst1</JB_name>
+      <JB_owner>ruiz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T04:09:14</JAT_start_time>
+      <queue_name>long@c206-102.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186132</JB_job_number>
+      <JAT_prio>0.05128</JAT_prio>
+      <JB_name>bis34b1cr3st2</JB_name>
+      <JB_owner>ruiz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T04:21:14</JAT_start_time>
+      <queue_name>long@c205-107.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186133</JB_job_number>
+      <JAT_prio>0.05125</JAT_prio>
+      <JB_name>bis34b1cr5st1</JB_name>
+      <JB_owner>ruiz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T04:33:14</JAT_start_time>
+      <queue_name>long@c206-108.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186134</JB_job_number>
+      <JAT_prio>0.05125</JAT_prio>
+      <JB_name>bis34b1cr5st2</JB_name>
+      <JB_owner>ruiz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T04:35:14</JAT_start_time>
+      <queue_name>long@c208-111.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186135</JB_job_number>
+      <JAT_prio>0.05125</JAT_prio>
+      <JB_name>bis34b1cr5st3</JB_name>
+      <JB_owner>ruiz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T04:36:14</JAT_start_time>
+      <queue_name>long@c206-121.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186136</JB_job_number>
+      <JAT_prio>0.05124</JAT_prio>
+      <JB_name>bis34b4cr2st1</JB_name>
+      <JB_owner>ruiz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T04:40:14</JAT_start_time>
+      <queue_name>long@c209-107.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186137</JB_job_number>
+      <JAT_prio>0.05124</JAT_prio>
+      <JB_name>bis34b4cr2st2</JB_name>
+      <JB_owner>ruiz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T04:41:14</JAT_start_time>
+      <queue_name>long@c208-120.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186138</JB_job_number>
+      <JAT_prio>0.05123</JAT_prio>
+      <JB_name>bis34b4cr2st3</JB_name>
+      <JB_owner>ruiz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T04:41:14</JAT_start_time>
+      <queue_name>long@c204-105.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186139</JB_job_number>
+      <JAT_prio>0.05123</JAT_prio>
+      <JB_name>bis34b1cr1st1</JB_name>
+      <JB_owner>ruiz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T04:45:14</JAT_start_time>
+      <queue_name>long@c206-120.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186142</JB_job_number>
+      <JAT_prio>0.05123</JAT_prio>
+      <JB_name>bis34b1cr1st2</JB_name>
+      <JB_owner>ruiz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T04:45:14</JAT_start_time>
+      <queue_name>long@c204-102.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186143</JB_job_number>
+      <JAT_prio>0.05123</JAT_prio>
+      <JB_name>bis34b1cr1st3</JB_name>
+      <JB_owner>ruiz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T04:46:14</JAT_start_time>
+      <queue_name>long@c207-118.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186154</JB_job_number>
+      <JAT_prio>0.17500</JAT_prio>
+      <JB_name>job32</JB_name>
+      <JB_owner>cxiao</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T12:27:14</JAT_start_time>
+      <queue_name>normal@c208-119.longhorn</queue_name>
+      <slots>104</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186155</JB_job_number>
+      <JAT_prio>0.01081</JAT_prio>
+      <JB_name>bpS.Tst15</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T07:44:14</JAT_start_time>
+      <queue_name>long@c208-110.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186156</JB_job_number>
+      <JAT_prio>0.01081</JAT_prio>
+      <JB_name>bpS.Tst20</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T07:44:14</JAT_start_time>
+      <queue_name>long@c208-102.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186157</JB_job_number>
+      <JAT_prio>0.01081</JAT_prio>
+      <JB_name>bpS.Tst25</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T07:44:14</JAT_start_time>
+      <queue_name>long@c205-108.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186158</JB_job_number>
+      <JAT_prio>0.01081</JAT_prio>
+      <JB_name>bpS.Tst30</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T07:45:14</JAT_start_time>
+      <queue_name>long@c207-103.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186159</JB_job_number>
+      <JAT_prio>0.01081</JAT_prio>
+      <JB_name>bpS.Tst35</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T07:45:14</JAT_start_time>
+      <queue_name>long@c208-105.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186160</JB_job_number>
+      <JAT_prio>0.01081</JAT_prio>
+      <JB_name>bpS.Tst40</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T07:45:14</JAT_start_time>
+      <queue_name>long@c206-107.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186161</JB_job_number>
+      <JAT_prio>0.01073</JAT_prio>
+      <JB_name>bpS.Ubrn</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T08:22:14</JAT_start_time>
+      <queue_name>long@c207-108.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186162</JB_job_number>
+      <JAT_prio>1.00071</JAT_prio>
+      <JB_name>portal_vnc</JB_name>
+      <JB_owner>gda</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T08:29:14</JAT_start_time>
+      <queue_name>normal@c204-114.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186163</JB_job_number>
+      <JAT_prio>1.01918</JAT_prio>
+      <JB_name>portal_vnc</JB_name>
+      <JB_owner>foss</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T08:49:14</JAT_start_time>
+      <queue_name>normal@c209-124.longhorn</queue_name>
+      <slots>32</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186165</JB_job_number>
+      <JAT_prio>0.01066</JAT_prio>
+      <JB_name>bpS.Ueye</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T08:51:14</JAT_start_time>
+      <queue_name>long@c209-123.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186167</JB_job_number>
+      <JAT_prio>1.00064</JAT_prio>
+      <JB_name>job.iso_test.2048</JB_name>
+      <JB_owner>pnav</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T08:57:14</JAT_start_time>
+      <queue_name>request@c203-118.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186168</JB_job_number>
+      <JAT_prio>1.00064</JAT_prio>
+      <JB_name>job.iso_test.2048</JB_name>
+      <JB_owner>pnav</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T08:58:14</JAT_start_time>
+      <queue_name>request@c205-123.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186170</JB_job_number>
+      <JAT_prio>1.06853</JAT_prio>
+      <JB_name>Hadoop-1.0.3-dfsioIntel1</JB_name>
+      <JB_owner>levar1</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T09:08:15</JAT_start_time>
+      <queue_name>largemem@c211-112.longhorn</queue_name>
+      <slots>96</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186171</JB_job_number>
+      <JAT_prio>0.05056</JAT_prio>
+      <JB_name>bio_7061</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T09:34:14</JAT_start_time>
+      <queue_name>long@c203-120.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186174</JB_job_number>
+      <JAT_prio>1.04364</JAT_prio>
+      <JB_name>kmeans64</JB_name>
+      <JB_owner>shayani</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T10:30:14</JAT_start_time>
+      <queue_name>hadoop@c201-119.longhorn</queue_name>
+      <slots>64</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186175</JB_job_number>
+      <JAT_prio>0.05042</JAT_prio>
+      <JB_name>eb_7202</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T10:33:14</JAT_start_time>
+      <queue_name>long@c206-112.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186176</JB_job_number>
+      <JAT_prio>0.05042</JAT_prio>
+      <JB_name>eb_7205</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T10:33:14</JAT_start_time>
+      <queue_name>long@c203-109.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186177</JB_job_number>
+      <JAT_prio>0.05042</JAT_prio>
+      <JB_name>eb_7208</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T10:33:14</JAT_start_time>
+      <queue_name>long@c206-118.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186178</JB_job_number>
+      <JAT_prio>0.05042</JAT_prio>
+      <JB_name>eb_7211</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T10:33:14</JAT_start_time>
+      <queue_name>long@c205-101.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186179</JB_job_number>
+      <JAT_prio>0.05042</JAT_prio>
+      <JB_name>eb_7214</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T10:33:14</JAT_start_time>
+      <queue_name>long@c204-109.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186180</JB_job_number>
+      <JAT_prio>1.00038</JAT_prio>
+      <JB_name>portal_vnc</JB_name>
+      <JB_owner>kelly</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T10:50:14</JAT_start_time>
+      <queue_name>normal@c208-122.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186192</JB_job_number>
+      <JAT_prio>0.05014</JAT_prio>
+      <JB_name>emld_7217</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T12:34:14</JAT_start_time>
+      <queue_name>long@c206-109.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186193</JB_job_number>
+      <JAT_prio>0.05014</JAT_prio>
+      <JB_name>emld_7220</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T12:34:14</JAT_start_time>
+      <queue_name>long@c207-120.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186194</JB_job_number>
+      <JAT_prio>0.05014</JAT_prio>
+      <JB_name>emld_7223</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T12:34:14</JAT_start_time>
+      <queue_name>long@c205-111.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186195</JB_job_number>
+      <JAT_prio>0.05014</JAT_prio>
+      <JB_name>emld_7226</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T12:34:14</JAT_start_time>
+      <queue_name>long@c203-105.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186196</JB_job_number>
+      <JAT_prio>0.05014</JAT_prio>
+      <JB_name>emld_7229</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T12:35:14</JAT_start_time>
+      <queue_name>long@c203-112.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186197</JB_job_number>
+      <JAT_prio>0.05014</JAT_prio>
+      <JB_name>emld_7232</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T12:35:14</JAT_start_time>
+      <queue_name>long@c209-111.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186198</JB_job_number>
+      <JAT_prio>0.05014</JAT_prio>
+      <JB_name>emld_7235</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T12:35:14</JAT_start_time>
+      <queue_name>long@c206-124.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186199</JB_job_number>
+      <JAT_prio>0.05014</JAT_prio>
+      <JB_name>emld_7238</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T12:35:14</JAT_start_time>
+      <queue_name>long@c208-113.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186200</JB_job_number>
+      <JAT_prio>0.05014</JAT_prio>
+      <JB_name>emld_7241</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T12:35:14</JAT_start_time>
+      <queue_name>long@c208-123.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186201</JB_job_number>
+      <JAT_prio>0.01014</JAT_prio>
+      <JB_name>bpS.Uhrt</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T12:35:14</JAT_start_time>
+      <queue_name>long@c203-111.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186216</JB_job_number>
+      <JAT_prio>1.00008</JAT_prio>
+      <JB_name>portal_vnc</JB_name>
+      <JB_owner>njwilson</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:00:14</JAT_start_time>
+      <queue_name>normal@c207-102.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186222</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Uintes</JB_name>
+      <JB_owner>linusben</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:11:14</JAT_start_time>
+      <queue_name>long@c208-106.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186224</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Tbrn</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:13:14</JAT_start_time>
+      <queue_name>long@c205-103.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186225</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Teye</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:13:14</JAT_start_time>
+      <queue_name>long@c204-120.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186226</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Thrt</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:14:14</JAT_start_time>
+      <queue_name>long@c207-110.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186227</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Tintes</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:14:14</JAT_start_time>
+      <queue_name>long@c207-111.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186228</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Tkdny</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:14:14</JAT_start_time>
+      <queue_name>long@c207-107.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186229</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Tliv</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:14:14</JAT_start_time>
+      <queue_name>long@c207-106.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186230</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Tlung</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:14:14</JAT_start_time>
+      <queue_name>long@c205-121.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186231</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Tmus</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:14:14</JAT_start_time>
+      <queue_name>long@c208-121.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186232</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Tov</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:15:14</JAT_start_time>
+      <queue_name>long@c206-101.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186233</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Tpanc</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:15:14</JAT_start_time>
+      <queue_name>long@c207-122.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186235</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Tskin</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:15:14</JAT_start_time>
+      <queue_name>long@c207-124.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186236</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Tspln</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:15:14</JAT_start_time>
+      <queue_name>long@c205-110.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186237</JB_job_number>
+      <JAT_prio>0.01005</JAT_prio>
+      <JB_name>bpS.Tstmc</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:15:14</JAT_start_time>
+      <queue_name>long@c203-122.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186238</JB_job_number>
+      <JAT_prio>0.01004</JAT_prio>
+      <JB_name>bpS.Ttes</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:16:14</JAT_start_time>
+      <queue_name>long@c208-114.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186248</JB_job_number>
+      <JAT_prio>0.05002</JAT_prio>
+      <JB_name>HF_7244</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:25:14</JAT_start_time>
+      <queue_name>long@c206-116.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186249</JB_job_number>
+      <JAT_prio>0.05002</JAT_prio>
+      <JB_name>HF_7247</JB_name>
+      <JB_owner>perlm037</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:25:14</JAT_start_time>
+      <queue_name>long@c203-102.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186251</JB_job_number>
+      <JAT_prio>0.01002</JAT_prio>
+      <JB_name>bpXT.c2st19</JB_name>
+      <JB_owner>yungki</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:27:14</JAT_start_time>
+      <queue_name>long@c209-110.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186252</JB_job_number>
+      <JAT_prio>1.01854</JAT_prio>
+      <JB_name>nam_medip</JB_name>
+      <JB_owner>eicht021</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:27:14</JAT_start_time>
+      <queue_name>normal@c208-112.longhorn</queue_name>
+      <slots>32</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186253</JB_job_number>
+      <JAT_prio>1.01854</JAT_prio>
+      <JB_name>nam_medip</JB_name>
+      <JB_owner>eicht021</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:27:14</JAT_start_time>
+      <queue_name>normal@c209-121.longhorn</queue_name>
+      <slots>32</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>186256</JB_job_number>
+      <JAT_prio>1.00000</JAT_prio>
+      <JB_name>portal_vnc</JB_name>
+      <JB_owner>beketova</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2012-12-04T13:35:14</JAT_start_time>
+      <queue_name>normal@c205-109.longhorn</queue_name>
+      <slots>8</slots>
+    </job_list>
+  </queue_info>
+</job_info>
