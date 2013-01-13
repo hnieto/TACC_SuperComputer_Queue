@@ -7,9 +7,9 @@ class Helix {
   private int maxSlots;
   private int[][] colorArray;
   private float helixRadius;
-  private float z, deltaZ;
+  private float x,y,z, deltaZ;
   PShape helix;
-
+  
   Helix(Job[] _jobs, int _maxSlotsPosition, int[][] _colorArray) {
     jobs = _jobs;
     maxSlots = jobs[_maxSlotsPosition].getSlots();
@@ -20,11 +20,13 @@ class Helix {
 
   public void createHelix() {
     helix = createShape(GROUP);
+    x = 0;
+    y = 0;
     z = 0;
     float theta = 0;
     for (int i=0; i<jobs.length; i++) {
       if (!jobs[i].getState().equals("qw")) {  // ignore pending (qw)
-      
+ 
         color jobColor = colorArray[int(random(colorArray.length))][0]; // color running jobs
         if(jobs[i].getState().equals("r")) RUNNING_JOB_COUNT++;          
         else if(jobs[i].getState().equals("dr")) { // use gray for zombie jobs
@@ -37,14 +39,16 @@ class Helix {
         int nodesPerJob = jobs[i].getSlots()/SLOTS_PER_NODE;
         
         if(nodesPerJob == 0) nodesPerJob = 1; // jobs with less than SLOTS_PER_NODE cores get rounded to 1 node
+        
+        jobs[i].setStartCoordinates(x,y,z,theta);
+        jobs[i].setNodeCount(nodesPerJob);
+        jobs[i].setSphereRadius(thisSphereRadius);
       
-        for (int j=0; j<nodesPerJob; j++) {
-          float cosTheta = cos(theta);
-          float sinTheta = sin(theta);  
+        for (int j=0; j<nodesPerJob; j++) {  
     
           // convert from polar to cartesian coordinates
-          float x = helixRadius * cosTheta;
-          float y = helixRadius * sinTheta;
+          x = helixRadius * cos(theta);
+          y = helixRadius * sin(theta);
           z += deltaZ; 
                     
           // create cyliner+orb pshape
@@ -69,10 +73,11 @@ class Helix {
           if ((j == nodesPerJob-1) && (i != jobs.length-1)) {
             float nextSphereRadius = calculateRadius(jobs[i+1].getSlots(), maxSlots); 
             theta += asin((thisSphereRadius+nextSphereRadius)/helixRadius);  
-          }else theta += asin((thisSphereRadius*2)/helixRadius);
-          
+          }else {
+            theta += asin((thisSphereRadius*2)/helixRadius);
+          }
         }       
-      }   
+      }
     }
     println("Running Jobs = " + RUNNING_JOB_COUNT);
     println("Zombie Jobs = " + ZOMBIE_JOB_COUNT);
@@ -91,5 +96,13 @@ class Helix {
   
   public void displayHelix(){
     shape(helix); 
+  }
+  
+  public float getHelixRadius() {
+    return helixRadius; 
+  }
+  
+  public float getDeltaZ() {
+    return deltaZ; 
   }
 }

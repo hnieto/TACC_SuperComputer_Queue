@@ -8,6 +8,10 @@ class Job {
   private String queueName;
   private int slots;
   
+  private boolean positionAcquired = false;
+  private float startX, startY, startZ, theta, radius;
+  private int nodeCount;
+  
   Job(int _jobNum, float _jobPrio, String _jobName, String _jobOwner, String _state, String _jobStartTime, String _queueName, int _slots){
     jobNum = _jobNum;
     jobPrio = _jobPrio;
@@ -19,6 +23,7 @@ class Job {
     slots = _slots;  
   }
   
+  // XML Data
   public int getJobNum(){
     return jobNum; 
   }
@@ -49,6 +54,49 @@ class Job {
   
   public int getSlots(){
     return slots; 
+  }
+  
+  // Sphere Coordinates 
+  public float getX() {
+    return startX;
+  }
+
+  public float getY() {
+    return startY;
+  }
+
+  public float getZ() {
+    return startZ;
+  }
+
+  public float getTheta() {
+    return theta;
+  }
+
+  public int getNodeCount() {
+    return nodeCount;
+  }  
+  
+  public float getSphereRadius() {
+    return radius;
+  }
+  
+  public void setStartCoordinates(float _startX, float _startY, float _startZ, float _theta) {
+    if(!positionAcquired) {
+      startX = _startX;
+      startY = _startY;
+      startZ = _startZ;
+      theta = _theta;
+      positionAcquired = true;
+    }
+  }
+  
+  public void setNodeCount(int _nodeCount){
+    nodeCount = _nodeCount; 
+  }
+  
+  public void setSphereRadius(float _radius){
+    radius = _radius; 
   }
 }
 

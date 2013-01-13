@@ -3,22 +3,23 @@ import peasy.*;
 HUD hud1,hud2,hud3,hud4;
 PeasyCam cam;
 PMatrix3D baseMat; // used for peasycam + HUD + lights fix
-int drawHud = 2;
+int drawHud = 1;
 
 int[][] colorArray = new int[0][2]; 
 PImage colorImage; 
 
 String PATH = "/Users/eddie/Programming/Processing/MachineQueueVis/data/"; 
-String XMLFILE = "lonestarQSTAT-long.xml"; 
+String XMLFILE = "rangerQSTAT-short.xml"; 
 Job[] jobs; // array of Job Objects created from XML
 
 Helix h1;
 float rotz = 0;
+int jobIndex = 0;
 
 private String[] usage = { "USAGE",
+                           "u = usage",
                            "d = visualization description",
-                           "l = largest job information",
-                           "s = smallest job information" };
+                           "left/right arrows = traverse jobs" };
                            
 private String[] description = { "MACHINE QUEUE VISUALIZATION",
                                   "1. Each job is represented by a cluster of same-colored spheres", 
@@ -27,8 +28,7 @@ private String[] description = { "MACHINE QUEUE VISUALIZATION",
                                   "4. Each cylinder represents allocated time", 
                                   "5. Color along cylinder represents time used" };
          
-private String[] smallestJob = new String[8];
-private String[] largestJob = new String[8];
+private String[] jobBox = new String[8];
 
 /* UNCOMMENT FOR USE ON MINI-LASSO */
 /*boolean sketchFullScreen() {
@@ -62,48 +62,37 @@ void draw() {
   
   rotateZ(rotz);
   h1.displayHelix();
+  highlightJobNodes(jobIndex);
 
   hud1.draw();
+  hud3.draw();
   switch(drawHud) {
-    case 3: 
-      hud3.draw();
+    case 1: 
+      hud1.draw();
       break;
-    case 4: 
-      hud4.draw();
+    case 2: 
+      hud2.draw();
       break;
     default:
-      hud2.draw();
+      hud1.draw();
       break;
   }
   rotz += .0009;
 } 
 
 void initHUDs(){
-  int largestJobPosition = getMaxSlotsPosition();
-  int smallestJobPosition = getMinSlotsPosition();
-  
-  largestJob[0] = "LARGEST JOB";
-  largestJob[1] = "Job Number: " + jobs[largestJobPosition].getJobNum();
-  largestJob[2] = "Job Priority: " + jobs[largestJobPosition].getJobPrio();
-  largestJob[3] = "Job Name: " + jobs[largestJobPosition].getJobName();
-  largestJob[4] = "Job Owner: " + jobs[largestJobPosition].getJobOwner();
-  largestJob[5] = "Job Start Time: " + jobs[largestJobPosition].getStartTime();
-  largestJob[6] = "Queue Name: " + jobs[largestJobPosition].getQueueName(); 
-  largestJob[7] = "Slot Count: " + jobs[largestJobPosition].getSlots();
-  
-  smallestJob[0] = "SMALLEST JOB";
-  smallestJob[1] =  "Job Number: " + jobs[smallestJobPosition].getJobNum();
-  smallestJob[2] = "Job Priority: " + jobs[smallestJobPosition].getJobPrio();
-  smallestJob[3] = "Job Name: " + jobs[smallestJobPosition].getJobName();
-  smallestJob[4] = "Job Owner: " + jobs[smallestJobPosition].getJobOwner();
-  smallestJob[5] = "Job Start Time: " + jobs[smallestJobPosition].getStartTime();
-  smallestJob[6] = "Queue Name: " + jobs[smallestJobPosition].getQueueName();
-  smallestJob[7] = "Slot Count: " + jobs[smallestJobPosition].getSlots(); 
+  jobBox[0] = "Job #" + (jobIndex+1);
+  jobBox[1] = "Job Number: " + jobs[jobIndex].getJobNum();
+  jobBox[2] = "Job Priority: " + jobs[jobIndex].getJobPrio();
+  jobBox[3] = "Job Name: " + jobs[jobIndex].getJobName();
+  jobBox[4] = "Job Owner: " + jobs[jobIndex].getJobOwner();
+  jobBox[5] = "Job Start Time: " + jobs[jobIndex].getStartTime();
+  jobBox[6] = "Queue Name: " + jobs[jobIndex].getQueueName(); 
+  jobBox[7] = "Slot Count: " + jobs[jobIndex].getSlots();
   
   hud1 = new HUD(this,usage,"topLeft");
-  hud2 = new HUD(this,description,"topRight");
-  hud3 = new HUD(this,largestJob, "topRight");
-  hud4 = new HUD(this,smallestJob, "topRight"); 
+  hud2 = new HUD(this,description,"topLeft");
+  hud3 = new HUD(this,jobBox,"topRight");
 }
 
 void createColorArr() {
@@ -190,8 +179,53 @@ int getMinSlotsPosition() {
   }
 }
 
+void highlightJobNodes(int index){
+  float x,y;
+  float z = jobs[index].getZ();
+  float theta = jobs[index].getTheta();
+  for(int i=0; i<jobs[index].getNodeCount(); i++){
+    x = h1.getHelixRadius()*cos(theta);
+    y = h1.getHelixRadius()*sin(theta);
+    z += h1.getDeltaZ();
+          
+    pushMatrix();
+    translate(x,y,z);
+    pushStyle();
+    noFill();
+    stroke(255, 150); // opaque wire sphere
+    sphere(jobs[index].getSphereRadius()*1.1);
+    popStyle();
+    popMatrix();
+      
+    theta += asin((jobs[index].getSphereRadius()*2)/h1.getHelixRadius());
+  } 
+}
+
+void updateHUD(int jobIndex){
+  //update hud with highlighted job's info
+  jobBox[0] = "Job #" + (jobIndex+1);
+  jobBox[1] = "Job Number: " + jobs[jobIndex].getJobNum();
+  jobBox[2] = "Job Priority: " + jobs[jobIndex].getJobPrio();
+  jobBox[3] = "Job Name: " + jobs[jobIndex].getJobName();
+  jobBox[4] = "Job Owner: " + jobs[jobIndex].getJobOwner();
+  jobBox[5] = "Job Start Time: " + jobs[jobIndex].getStartTime();
+  jobBox[6] = "Queue Name: " + jobs[jobIndex].getQueueName(); 
+  jobBox[7] = "Slot Count: " + jobs[jobIndex].getSlots(); 
+}
+
 void keyPressed() {
-  if (key == 'd') drawHud = 2;
-  else if (key == 'l') drawHud = 3;
-  else if (key == 's') drawHud = 4;
+  if(key == CODED){
+    if(keyCode == LEFT){
+      jobIndex--;
+      if(jobIndex < 0) jobIndex = jobs.length-1;
+      updateHUD(jobIndex);
+    }else if(keyCode == RIGHT){
+      jobIndex++;
+      if(jobIndex > jobs.length-1) jobIndex = 0;
+      updateHUD(jobIndex);
+    }  
+  } else {
+    if (key == 'd') drawHud = 2;
+    else if (key == 'u') drawHud = 3;
+  }
 }
