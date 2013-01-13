@@ -95,4 +95,3 @@ If you encounter the following issue, `java.lang.OutOfMemoryError: Java heap spa
 # To Do
 
 * update qstat information in real-time
-* use picking library to select sphere and display job info on heads-up display
