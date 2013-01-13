@@ -95,3 +95,4 @@ If you encounter the following issue, `java.lang.OutOfMemoryError: Java heap spa
 # To Do
 
 * update qstat information in real-time
+* select jobs visualized depending on node count 
