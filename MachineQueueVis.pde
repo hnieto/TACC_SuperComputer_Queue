@@ -30,13 +30,13 @@ private String[] description = { "MACHINE QUEUE VISUALIZATION",
          
 private String[] jobBox = new String[8];
 
-/* UNCOMMENT FOR USE ON MINI-LASSO */
+/* UNCOMMENT FOR FULLSCREEN */
 /*boolean sketchFullScreen() {
   return true;
 } */
 
 void setup() {
-  //size(displayWidth,displayHeight,OPENGL); // UNCOMMENT FOR USE ON MINI-LASSO
+  //size(displayWidth,displayHeight,OPENGL); // UNCOMMENT FOR FULLSCREEN
   size(1300,500,OPENGL);
   baseMat = g.getMatrix(baseMat);
   
