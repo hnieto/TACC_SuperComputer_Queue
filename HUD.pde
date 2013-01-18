@@ -34,14 +34,16 @@ class HUD{
     if(position.equals("topLeft")) rect(margin, margin, getHudMaxWidth(hudText)+paddingRight, getHudHeight(hudText)); // draw rectangle according to text dimensions
     else if(position.equals("topRight")) rect(p.width-(getHudMaxWidth(hudText)+paddingRight+margin), margin, getHudMaxWidth(hudText)+paddingRight, getHudHeight(hudText));
     else if(position.equals("bottomLeft")) rect(margin, p.height-(getHudHeight(hudText)+margin), getHudMaxWidth(hudText)+paddingRight, getHudHeight(hudText));
-    else rect(p.width-(getHudMaxWidth(hudText)+paddingRight+margin), p.height-(getHudHeight(hudText)+margin), getHudMaxWidth(hudText)+paddingRight, getHudHeight(hudText));
+    else if(position.equals("bottomRight")) rect(p.width-(getHudMaxWidth(hudText)+paddingRight+margin), p.height-(getHudHeight(hudText)+margin), getHudMaxWidth(hudText)+paddingRight, getHudHeight(hudText));
+    else if(position.equals("bottomMiddle")) rect((p.width-(getHudMaxWidth(hudText)))/2, p.height-(getHudHeight(hudText)+margin), getHudMaxWidth(hudText), getHudHeight(hudText));
     noStroke();
         
     textFont(font);
     if(position.equals("topLeft")) printText(hudText, margin, fontSize+lineSpace);
     else if(position.equals("topRight")) printText(hudText, (int)(p.width-(getHudMaxWidth(hudText)+paddingRight+margin)), fontSize+lineSpace);
     else if(position.equals("bottomLeft")) printText(hudText, margin, (int)(p.height-getHudHeight(hudText)));
-    else printText(hudText, (int)(p.width-(getHudMaxWidth(hudText)+paddingRight+margin)), (int)(p.height-getHudHeight(hudText)));
+    else if(position.equals("bottomRight")) printText(hudText, (int)(p.width-(getHudMaxWidth(hudText)+paddingRight+margin)), (int)(p.height-getHudHeight(hudText)));
+    else if(position.equals("bottomMiddle")) printText(hudText, (int)((p.width-(getHudMaxWidth(hudText)))/2), (int)(p.height-getHudHeight(hudText)+lineSpace/2));
     cam.endHUD();
     hint(ENABLE_DEPTH_TEST);
   }

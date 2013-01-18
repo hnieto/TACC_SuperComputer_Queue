@@ -1,7 +1,7 @@
 class Helix {
   private final int SLOTS_PER_NODE = 12; // ranger=16, longhorn=16, lonestar=12
-  private int RUNNING_JOB_COUNT = 0;
-  private int ZOMBIE_JOB_COUNT = 0;
+  private int runningJobCnt = 0;
+  private int zombieJobCnt = 0;
   
   private Job[] jobs;
   private int maxSlots;
@@ -20,18 +20,16 @@ class Helix {
 
   public void createHelix() {
     helix = createShape(GROUP);
-    x = 0;
-    y = 0;
-    z = 0;
+    x = 0; y = 0; z = 0;
     float theta = 0;
     for (int i=0; i<jobs.length; i++) {
       if (!jobs[i].getState().equals("qw")) {  // ignore pending (qw)
  
         color jobColor = colorArray[int(random(colorArray.length))][0]; // color running jobs
-        if(jobs[i].getState().equals("r")) RUNNING_JOB_COUNT++;          
+        if(jobs[i].getState().equals("r")) runningJobCnt++;          
         else if(jobs[i].getState().equals("dr")) { // use gray for zombie jobs
           jobColor = color(116,116,116);
-          ZOMBIE_JOB_COUNT++;
+          zombieJobCnt++;
         }
         
         String[] parseQueueName = split(jobs[i].getQueueName(), '@');
@@ -79,8 +77,6 @@ class Helix {
         }       
       }
     }
-    println("Running Jobs = " + RUNNING_JOB_COUNT);
-    println("Zombie Jobs = " + ZOMBIE_JOB_COUNT);
   }  
   
   private float calculateRadius(int jobSlots, int _maxSlots) {
@@ -104,5 +100,13 @@ class Helix {
   
   public float getDeltaZ() {
     return deltaZ; 
+  }
+  
+  public int getRunningJobCount() {
+    return runningJobCnt; 
+  }
+  
+  public int getZombieJobCount() {
+    return zombieJobCnt;
   }
 }
