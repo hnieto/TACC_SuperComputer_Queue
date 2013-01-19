@@ -47,10 +47,9 @@ A bash script named `refreshQSTAT.sh` is included in this sketch’s `/data` fol
 
 
 ### refreshQSTAT.sh
-Run this script to update your XML files. Running with only the `–o` and `–j` flags will resize the short XML file (skips ssh and qstat commands).
+Run this script to update your XML file.
 ```
-USAGE1: ./refreshQSTAT.sh –u user –s server –j 50
-USAGE2: ./refreshQSTAT.sh –o –j 50
+USAGE: ./refreshQSTAT.sh –u user –s server –f filename
 
 This script will run qstat on remote server and return xml file on local machine
 
@@ -58,17 +57,8 @@ OPTIONS:
    -h      Show this message
    -u      Username
    -s      Server hostname
-   -o      only update short xml (must only  be used with -j)
-   -j	  Number of jobs to use in small xml file
+   -f      Filename (xml extension will be added by script)
 ``` 
-
-This part is optional. The script will generate three XML files, one on the remote server and two on the local machine. If you would like to change these file names, open `refreshQSTAT.sh` with your favorite text editor and modify the following variables:
-```
-remoteFile=rangerQSTAT.xml
-localFile=rangerQSTAT-long.xml
-smallLocalFile=rangerQSTAT-short.xml
-```
-
 
 ### MachineQueueVis.pde
 This is the main Processing file. You must update the `PATH` variable with the correct location of the `/data` directory on your local machine. 
@@ -78,7 +68,7 @@ String PATH = "/Users/Username/Documents/Processing/MachineQueueVis/data/";
 
 Also make sure that the `XMLFILE` variable has the full name of the XML file produced from running the `refreshQSTAT.sh` script.
 ```
-String XMLFILE = "localQSTAT-brief.xml"; 
+String XMLFILE = "localQSTAT.xml"; 
 ```
 
 
@@ -95,4 +85,3 @@ If you encounter the following issue, `java.lang.OutOfMemoryError: Java heap spa
 # To Do
 
 * update qstat information in real-time
-* select jobs visualized depending on node count 
