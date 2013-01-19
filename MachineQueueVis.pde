@@ -10,7 +10,7 @@ int[][] colorArray = new int[0][2];
 PImage colorImage; 
 
 HUD hud1,hud2,hud3,hud4;
-int drawHud = 1; // variable used to determine which HUD to draw
+int drawHud = 1; // variable used to swap between usage/description HUDs
 
 // separate jobs array into three arrays depending on slot count
 Job[] allJobs, smallJobs, mediumJobs, largeJobs;
@@ -52,7 +52,7 @@ private String[] title = new String[3];
 /* UNCOMMENT FOR FULLSCREEN */
 /*boolean sketchFullScreen() {
   return true;
-} */
+}*/
 
 void setup() {
   //size(displayWidth,displayHeight,OPENGL); // UNCOMMENT FOR FULLSCREEN
@@ -112,18 +112,12 @@ void draw() {
       updateHUD(allJobsHelix, allJobs, highlighter4, "ALL JOBS");
       break; */
   }  
-
-  hud1.draw();
+  
+  if(drawHud==1) hud1.draw();
+  else hud2.draw();
   hud3.draw();
   hud4.draw();
-  switch(drawHud) {
-    case 1: 
-      hud1.draw();
-      break;
-    case 2: 
-      hud2.draw();
-      break;
-  }
+  
   rotz += .0009;
 } 
 
