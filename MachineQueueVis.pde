@@ -4,7 +4,7 @@ PeasyCam cam;
 PMatrix3D baseMat; // used for peasycam + HUD + lights fix
 
 String PATH = "/Users/eddie/Programming/Processing/MachineQueueVis/data/"; 
-String XMLFILE = "ranger.xml"; 
+String XMLFILE = "lonestar.xml"; 
 
 int[][] colorArray = new int[0][2]; 
 PImage colorImage; 
@@ -49,14 +49,11 @@ private String[] description = { "MACHINE QUEUE VISUALIZATION",
 private String[] jobBox = new String[8];
 private String[] title = new String[3]; 
 
-/* UNCOMMENT FOR FULLSCREEN */
-/*boolean sketchFullScreen() {
-  return true;
-}*/
+boolean FULLSCREEN = true;
 
 void setup() {
-  //size(displayWidth,displayHeight,OPENGL); // UNCOMMENT FOR FULLSCREEN
-  size(1300,500,OPENGL);
+  if(FULLSCREEN) size(displayWidth, displayHeight, OPENGL); // run from "Sketch -> Present"
+  else size(1300,500,OPENGL);
   baseMat = g.getMatrix(baseMat);
   
   cam = new PeasyCam(this, 0, 0, 0, 2000);
