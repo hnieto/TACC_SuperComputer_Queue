@@ -1,3 +1,7 @@
+// SimpleDateFormat only works with these imports
+import java.util.*;
+import java.text.*;
+
 class Cylinder {
   private PShape timeRod, cap1, cap2, cap3, bottomRod, topRod;
   private color c;
@@ -69,21 +73,23 @@ class Cylinder {
 
     //cap 1
     cap1 = createShape(); 
-    cap1.fill(c);
-    cap1.noStroke();
+    cap1.setFill(c);
+    cap1.setStroke(false);
+    cap1.beginShape();
     for (int i=0; i<=sides; i++) {
       float  px = cos(ang)*r;
       float  py = sin(ang)*r;
       cap1.vertex(px, py, bottomCapZ); 
       ang+=TWO_PI/sides;
     }
-    cap1.end(CLOSE); 
+    cap1.endShape(); 
     timeRod.addChild(cap1);
 
     //body
-    bottomRod = createShape(QUAD_STRIP);
-    bottomRod.fill(c);
-    bottomRod.noStroke();
+    bottomRod = createShape();
+    bottomRod.setFill(c);
+    bottomRod.setStroke(false);
+    bottomRod.beginShape(QUAD_STRIP);
     for (int i=0; i<=sides; i++) {
       float  px = cos(ang)*r;
       float  py = sin(ang)*r;
@@ -91,29 +97,31 @@ class Cylinder {
       bottomRod.vertex(px, py, bottomCapZ+(h*percentFull)); 
       ang+=TWO_PI/sides;
     }
-    bottomRod.end(CLOSE);
+    bottomRod.endShape();
     timeRod.addChild(bottomRod);
     
     //cap2
     cap2 = createShape();
-    cap2.fill(c);
-    cap2.noStroke();
+    cap2.setFill(c);
+    cap2.setStroke(false);
+    cap2.beginShape();
     for (int i=0; i<=sides; i++) {
       float  px = cos(ang)*r;
       float  py = sin(ang)*r;
       cap2.vertex(px, py, bottomCapZ+(h*percentFull)); 
       ang+=TWO_PI/sides;
     }
-    cap2.end(CLOSE);
+    cap2.endShape();
     timeRod.addChild(cap2);
 
     /* Draw white portion of Cylinder only if there is still time left */
     if(percentFull < 1){
   
       //body
-      topRod = createShape(QUAD_STRIP); 
-      topRod.fill(255);
-      topRod.noStroke();
+      topRod = createShape(); 
+      topRod.setFill(255);
+      topRod.setStroke(false);
+      topRod.beginShape(QUAD_STRIP);
       for (int i=0; i<=sides; i++) {
         float  px = cos(ang)*r;
         float  py = sin(ang)*r;
@@ -121,20 +129,21 @@ class Cylinder {
         topRod.vertex(px, py, bottomCapZ+h); 
         ang+=TWO_PI/sides;
       }
-      topRod.end(CLOSE); 
+      topRod.endShape(); 
       timeRod.addChild(topRod);
   
       //cap3
       cap3 = createShape(); 
-      cap3.fill(255);
-      cap3.noStroke();
+      cap3.setFill(255);
+      cap3.setStroke(false);
+      cap3.beginShape();
       for (int i=0; i<=sides; i++) {
         float  px = cos(ang)*r;
         float  py = sin(ang)*r;
         cap3.vertex(px, py, bottomCapZ+h); 
         ang+=TWO_PI/sides;
       }
-      cap3.end(CLOSE);
+      cap3.endShape();
       timeRod.addChild(cap3);
     }
   }

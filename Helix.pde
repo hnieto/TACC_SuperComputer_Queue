@@ -57,8 +57,8 @@ class Helix {
           
           // create orb pshape
           PShape orb = createShape(SPHERE, thisSphereRadius);
-          orb.noStroke();
-          orb.fill(jobColor);
+          orb.setStroke(false);
+          orb.setFill(jobColor);
           cylorb.addChild(orb);
           
           // create time cylinder

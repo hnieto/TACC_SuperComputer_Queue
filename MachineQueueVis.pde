@@ -3,7 +3,6 @@ import peasy.*;
 PeasyCam cam;
 PMatrix3D baseMat; // used for peasycam + HUD + lights fix
 
-String PATH = "/Users/eddie/Programming/Processing/MachineQueueVis/data/"; 
 String XMLFILE = "lonestar.xml"; 
 
 int[][] colorArray = new int[0][2]; 
@@ -49,7 +48,7 @@ private String[] description = { "MACHINE QUEUE VISUALIZATION",
 private String[] jobBox = new String[8];
 private String[] title = new String[3]; 
 
-boolean FULLSCREEN = true;
+boolean FULLSCREEN = false;
 
 void setup() {
   if(FULLSCREEN) size(displayWidth, displayHeight, OPENGL); // run from "Sketch -> Present"
@@ -57,7 +56,7 @@ void setup() {
   baseMat = g.getMatrix(baseMat);
   
   cam = new PeasyCam(this, 0, 0, 0, 2000);
-  colorImage = loadImage(PATH + "colors.png"); // SPECIFY ABSOLUTE PATH WHEN USING MPE
+  colorImage = loadImage(dataPath("colors.png")); // SPECIFY ABSOLUTE PATH WHEN USING MPE
   createColorArr();
   parseFile();
   
@@ -159,7 +158,7 @@ void createColorArr() {
 
 void parseFile() {
   // Load an XML document
-  XML xml = loadXML(PATH + XMLFILE);
+  XML xml = loadXML(dataPath(XMLFILE));
 
   // Get all the job_list elements
   XML[] jobList = xml.getChild("queue_info").getChildren("job_list");
@@ -254,8 +253,8 @@ void highlightJobNodes(int index, Job arr[], Helix helix){
     pushMatrix();
     translate(x,y,z);
     scale(arr[index].getSphereRadius()*1.1);
-    wireSphere.noFill();
-    wireSphere.stroke(255,150); // opaque wire sphere
+    wireSphere.setFill(false);
+    wireSphere.setStroke(color(255,150)); // opaque wire sphere
     shape(wireSphere);
     popMatrix();
       
