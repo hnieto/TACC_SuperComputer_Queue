@@ -85,7 +85,7 @@ void draw() {
   directionalLight(255, 255, 255, -150, 40, -140);
   popMatrix();
   
-  rotateZ(rotz);
+  //rotateZ(rotz);
   switch(helixType) {
     case 1: 
       smallJobsHelix.displayHelix();

@@ -48,6 +48,11 @@ class Cylinder {
       if(elapsedTime > 8.64e7) percentFull = 1;
       else percentFull = elapsedTime/8.64e7;
     } 
+    else if (jobType.equals("largemem")) {         // largemem       = 24hrs
+      h = 100;
+      if(elapsedTime > 8.64e7) percentFull = 1;
+      else percentFull = elapsedTime/8.64e7;
+    } 
     else if (jobType.equals("development")) {      // development    = 02hrs
       h = 10;
       if(elapsedTime > 7.2e6) percentFull = 1;
@@ -59,6 +64,11 @@ class Cylinder {
       else percentFull = elapsedTime/5.76e7;
     } 
     else if (jobType.equals("vis")) {              // vis            = 24hrs
+      h = 100;
+      if(elapsedTime > 8.64e7) percentFull = 1;      
+      else percentFull = elapsedTime/8.64e7;
+    }
+      else if (jobType.equals("gpu")) {            // gpu            = 24hrs
       h = 100;
       if(elapsedTime > 8.64e7) percentFull = 1;      
       else percentFull = elapsedTime/8.64e7;
@@ -116,10 +126,9 @@ class Cylinder {
 
     /* Draw white portion of Cylinder only if there is still time left */
     if(percentFull < 1){
-  
       //body
       topRod = createShape(); 
-      topRod.setFill(255);
+      topRod.setFill(color(255));
       topRod.setStroke(false);
       topRod.beginShape(QUAD_STRIP);
       for (int i=0; i<=sides; i++) {
@@ -134,7 +143,7 @@ class Cylinder {
   
       //cap3
       cap3 = createShape(); 
-      cap3.setFill(255);
+      cap3.setFill(color(255));
       cap3.setStroke(false);
       cap3.beginShape();
       for (int i=0; i<=sides; i++) {
