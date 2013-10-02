@@ -1,4 +1,4 @@
-// SimpleDateFormat only works with these imports
+// SimpleDateFormat only works in Processing 2.0 with these imports
 import java.util.*;
 import java.text.*;
 
@@ -33,45 +33,65 @@ class Cylinder {
     
     long elapsedTime = currentDate.getTime() - jobStartDate.getTime();
 
-    if (jobType.equals("normal")) {                // normal         = 24hrs
-      h = 100;
-      if(elapsedTime > 8.64e7) percentFull = 1; 
-      else percentFull = elapsedTime/8.64e7;
+    if (jobType.equals("normal")) {                // normal         = 48hrs
+      h = 200;
+      if(elapsedTime > 1.72e8) percentFull = 1; 
+      else percentFull = elapsedTime/1.72e8;
     } 
-    else if (jobType.equals("long")) {             // long           = 48hrs
+    else if (jobType.equals("development")) {      // development    = 04hrs
+      h = 20;
+      if(elapsedTime > 1.44e7) percentFull = 1;
+      else percentFull = elapsedTime/1.44e7;  
+    } 
+    else if (jobType.equals("largemem")) {         // largemem       = 48hrs
       h = 200;
       if(elapsedTime > 1.72e8) percentFull = 1;
       else percentFull = elapsedTime/1.72e8;
+    } 
+    else if (jobType.equals("serial")) {           // serial         = 12hrs
+      h = 60;
+      if(elapsedTime > 4.32e7) percentFull = 1;
+      else percentFull = elapsedTime/4.32e7;
     } 
     else if (jobType.equals("large")) {            // large          = 24hrs
       h = 100;
       if(elapsedTime > 8.64e7) percentFull = 1;
       else percentFull = elapsedTime/8.64e7;
     } 
-    else if (jobType.equals("largemem")) {         // largemem       = 24hrs
+    else if (jobType.equals("request")) {          // request        = 24hrs
+      h = 100;
+      if(elapsedTime > 8.64e7) percentFull = 1;
+      else percentFull = elapsedTime/8.64e7;
+    }
+    else if (jobType.equals("normal-mic")) {       // request        = 24hrs
+      h = 100;
+      if(elapsedTime > 8.64e7) percentFull = 1;
+      else percentFull = elapsedTime/8.64e7;
+    }
+    else if (jobType.equals("normal-2mic")) {      // request        = 24hrs
       h = 100;
       if(elapsedTime > 8.64e7) percentFull = 1;
       else percentFull = elapsedTime/8.64e7;
     } 
-    else if (jobType.equals("development")) {      // development    = 02hrs
-      h = 10;
-      if(elapsedTime > 7.2e6) percentFull = 1;
-      else percentFull = elapsedTime/7.2e6;  
-    } 
-    else if (jobType.equals("serial")) {           // serial         = 16hrs
-      h = 66;
-      if(elapsedTime > 5.76e7) percentFull = 1;
-      else percentFull = elapsedTime/5.76e7;
-    } 
-    else if (jobType.equals("vis")) {              // vis            = 24hrs
+    else if (jobType.equals("gpu")) {              // gpu            = 24hrs
       h = 100;
       if(elapsedTime > 8.64e7) percentFull = 1;      
       else percentFull = elapsedTime/8.64e7;
     }
-      else if (jobType.equals("gpu")) {            // gpu            = 24hrs
-      h = 100;
-      if(elapsedTime > 8.64e7) percentFull = 1;      
-      else percentFull = elapsedTime/8.64e7;
+    else if (jobType.equals("gpudev")) {           // gpudev         = 04hrs
+      h = 20;
+      if(elapsedTime > 1.44e7) percentFull = 1;      
+      else percentFull = elapsedTime/1.44e7;
+    }
+    else if (jobType.equals("vis")) {              // vis            = 08hrs
+      h = 40;
+      if(elapsedTime > 2.88e7) percentFull = 1;      
+      else percentFull = elapsedTime/2.88e7;
+    }  
+    else if (jobType.equals("visdev")) {           // visdev         = 04hrs
+      h = 20;
+      if(elapsedTime > 1.44e7) percentFull = 1;
+      else percentFull = elapsedTime/1.44e7;  
     }
   }
 
@@ -79,7 +99,9 @@ class Cylinder {
     howMuchToColor(); //determine what portion of the cylinder needs to be colored in
     timeRod = createShape(GROUP);
 
+    /************************************/
     /* Draw colored portion of Cylinder */
+    /************************************/
 
     //cap 1
     cap1 = createShape(); 
@@ -124,7 +146,10 @@ class Cylinder {
     cap2.endShape();
     timeRod.addChild(cap2);
 
-    /* Draw white portion of Cylinder only if there is still time left */
+    /************************************/
+    /* Draw white portion of Cylinder   */
+    /************************************/
+    
     if(percentFull < 1){
       //body
       topRod = createShape(); 

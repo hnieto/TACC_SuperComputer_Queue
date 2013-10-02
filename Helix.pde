@@ -1,19 +1,16 @@
 class Helix {
-  private final int SLOTS_PER_NODE = 12; // ranger=16, longhorn=16, lonestar=12
+  private final int SLOTS_PER_NODE = 12; // ranger=16, longhorn=16, lonestar=12, stampede=?
   private int runningJobCnt = 0;
-  private int zombieJobCnt = 0;
   
-  private Job[] jobs;
+  private ArrayList<Job> jobs;
   private int maxSlots;
-  private int[][] colorArray;
   private float helixRadius;
   private float x,y,z, deltaZ;
   PShape helix;
   
-  Helix(Job[] _jobs, int _maxSlotsPosition, int[][] _colorArray) {
+  Helix(ArrayList<Job> _jobs, int _maxSlotsPosition) {
     jobs = _jobs;
-    maxSlots = jobs[_maxSlotsPosition].getSlots();
-    colorArray = _colorArray;
+    maxSlots = jobs.get(_maxSlotsPosition).getSlots();
     helixRadius = 400;
     deltaZ = 2;
   }
@@ -22,60 +19,52 @@ class Helix {
     helix = createShape(GROUP);
     x = 0; y = 0; z = 0;
     float theta = 0;
-    for (int i=0; i<jobs.length; i++) {
-      if (!jobs[i].getState().equals("qw")) {  // ignore pending (qw)
- 
-        color jobColor = colorArray[int(random(colorArray.length))][0]; // color running jobs
-        if(jobs[i].getState().equals("r")) runningJobCnt++;          
-        else if(jobs[i].getState().equals("dr")) { // use gray for zombie jobs
-          jobColor = color(116,116,116);
-          zombieJobCnt++;
-        }
-        
-        String[] parseQueueName = split(jobs[i].getQueueName(), '@');
-        float thisSphereRadius = calculateRadius(jobs[i].getSlots(), maxSlots); 
-        int nodesPerJob = jobs[i].getSlots()/SLOTS_PER_NODE;
-        
-        if(nodesPerJob == 0) nodesPerJob = 1; // jobs with less than SLOTS_PER_NODE cores get rounded to 1 node
-        
-        jobs[i].setStartCoordinates(x,y,z,theta);
-        jobs[i].setNodeCount(nodesPerJob);
-        jobs[i].setSphereRadius(thisSphereRadius);
+    for (int i=0; i<jobs.size(); i++) { 
+      color jobColor = color(random(0, 255), random(0, 255), random(0, 255)); // color running jobs
+      runningJobCnt++;          
       
-        for (int j=0; j<nodesPerJob; j++) {  
+      float thisSphereRadius = calculateRadius(jobs.get(i).getSlots(), maxSlots); 
+      int nodesPerJob = jobs.get(i).getSlots()/SLOTS_PER_NODE;
+      
+      if(nodesPerJob == 0) nodesPerJob = 1; // jobs with less than SLOTS_PER_NODE cores get rounded to 1 node
+      
+      jobs.get(i).setStartCoordinates(x,y,z,theta);
+      jobs.get(i).setNodeCount(nodesPerJob);
+      jobs.get(i).setSphereRadius(thisSphereRadius);
     
-          // convert from polar to cartesian coordinates
-          x = helixRadius * cos(theta);
-          y = helixRadius * sin(theta);
-          z += deltaZ; 
-                    
-          // create cyliner+orb pshape
-          PShape cylorb = createShape(GROUP);
-          cylorb.translate(x, y, z); 
-          cylorb.rotateY(PI/2);
-          cylorb.rotateX(-theta);
-          
-          // create orb pshape
-          PShape orb = createShape(SPHERE, thisSphereRadius);
-          orb.setStroke(false);
-          orb.setFill(jobColor);
-          cylorb.addChild(orb);
-          
-          // create time cylinder
-          Cylinder timeCylinder = new Cylinder(jobColor,parseQueueName[0],jobs[i].getStartTime(),thisSphereRadius/5);
-          cylorb.addChild(timeCylinder.getCylinder()); 
-          
-          helix.addChild(cylorb);
-          
-          // distance between the radii of neighboring spheres dictates theta
-          if ((j == nodesPerJob-1) && (i != jobs.length-1)) {
-            float nextSphereRadius = calculateRadius(jobs[i+1].getSlots(), maxSlots); 
-            theta += asin((thisSphereRadius+nextSphereRadius)/helixRadius);  
-          }else {
-            theta += asin((thisSphereRadius*2)/helixRadius);
-          }
-        }       
-      }
+      for (int j=0; j<nodesPerJob; j++) {  
+  
+        // convert from polar to cartesian coordinates
+        x = helixRadius * cos(theta);
+        y = helixRadius * sin(theta);
+        z += deltaZ; 
+                  
+        // create cyliner+orb pshape
+        PShape cylorb = createShape(GROUP);
+        cylorb.translate(x, y, z); 
+        cylorb.rotateY(PI/2);
+        cylorb.rotateX(-theta);
+        
+        // create orb pshape
+        PShape orb = createShape(SPHERE, thisSphereRadius);
+        orb.setStroke(false);
+        orb.setFill(jobColor);
+        cylorb.addChild(orb);
+        
+        // create time cylinder
+        Cylinder timeCylinder = new Cylinder(jobColor, jobs.get(i).getQueueName(), jobs.get(i).getStartTime(), thisSphereRadius/5);
+        cylorb.addChild(timeCylinder.getCylinder()); 
+        
+        helix.addChild(cylorb);
+        
+        // distance between the radii of neighboring spheres dictates theta
+        if ((j == nodesPerJob-1) && (i != jobs.size()-1)) {
+          float nextSphereRadius = calculateRadius(jobs.get(i+1).getSlots(), maxSlots); 
+          theta += asin((thisSphereRadius+nextSphereRadius)/helixRadius);  
+        }else {
+          theta += asin((thisSphereRadius*2)/helixRadius);
+        }
+      }       
     }
   }  
   
@@ -106,7 +95,4 @@ class Helix {
     return runningJobCnt; 
   }
   
-  public int getZombieJobCount() {
-    return zombieJobCnt;
-  }
 }

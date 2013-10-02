@@ -3,7 +3,6 @@ class Job {
   private float jobPrio;
   private String jobName;
   private String jobOwner;
-  private String state;  
   private String jobStartTime;
   private String queueName;
   private int slots;
@@ -12,12 +11,11 @@ class Job {
   private float startX, startY, startZ, theta, radius;
   private int nodeCount;
   
-  Job(int _jobNum, float _jobPrio, String _jobName, String _jobOwner, String _state, String _jobStartTime, String _queueName, int _slots){
+  Job(int _jobNum, float _jobPrio, String _jobName, String _jobOwner, String _jobStartTime, String _queueName, int _slots){
     jobNum = _jobNum;
     jobPrio = _jobPrio;
     jobName = _jobName;
     jobOwner = _jobOwner;
-    state = _state;
     jobStartTime = _jobStartTime;
     queueName = _queueName;
     slots = _slots;  
@@ -38,10 +36,6 @@ class Job {
   
   public String getJobOwner(){
     return jobOwner; 
-  }
-
-  public String getState(){
-    return state; 
   }
   
   public String getStartTime(){
