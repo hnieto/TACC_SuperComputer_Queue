@@ -1,5 +1,5 @@
 class Helix {
-  private final int SLOTS_PER_NODE = 12; // ranger=16, longhorn=16, lonestar=12, stampede=?
+  private final int SLOTS_PER_NODE = 16; // ranger=16, longhorn=16, lonestar=12, stampede=16
   private int runningJobCnt = 0;
   
   private ArrayList<Job> jobs;

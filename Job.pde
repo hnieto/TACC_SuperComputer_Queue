@@ -1,6 +1,5 @@
 class Job {
   private int jobNum;
-  private float jobPrio;
   private String jobName;
   private String jobOwner;
   private String jobStartTime;
@@ -11,9 +10,8 @@ class Job {
   private float startX, startY, startZ, theta, radius;
   private int nodeCount;
   
-  Job(int _jobNum, float _jobPrio, String _jobName, String _jobOwner, String _jobStartTime, String _queueName, int _slots){
+  Job(int _jobNum, String _jobName, String _jobOwner, String _jobStartTime, String _queueName, int _slots){
     jobNum = _jobNum;
-    jobPrio = _jobPrio;
     jobName = _jobName;
     jobOwner = _jobOwner;
     jobStartTime = _jobStartTime;
@@ -24,10 +22,6 @@ class Job {
   // XML Data
   public int getJobNum(){
     return jobNum; 
-  }
-  
-  public float getJobPrio(){
-    return jobPrio; 
   }
   
   public String getJobName(){
