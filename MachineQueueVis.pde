@@ -6,8 +6,7 @@ PMatrix3D baseMat; // used for peasycam + HUD + lights fix
 int startTime;
 int totalTime = 180000; // 3 minute timer
 
-HUD hud1,hud2,hud3,hud4;
-int drawHud = 1; // variable used to swap between usage/description HUDs
+HUD hud1,hud2,hud3;
 
 // separate jobs array into three arrays depending on slot count
 ArrayList<Job> smallJobs = new ArrayList<Job>();
@@ -30,12 +29,6 @@ int largeJobsUpperBound = 16385;
 
 // use pshape sphere to highlight jobs in draw w/o affecting performance
 PShape wireSphere; 
-
-private String[] usage = { "USAGE",
-                           "u = usage",
-                           "d = visualization description",
-                           "left/right arrows = traverse jobs",
-                           "up/down arrows = traverse helixes" };
                            
 private String[] description = { "MACHINE QUEUE VISUALIZATION",
                                  "1. Each job is represented by a cluster of same-colored spheres", 
@@ -54,6 +47,7 @@ void setup() {
   else size(800,500,OPENGL);
   baseMat = g.getMatrix(baseMat);
   cam = new PeasyCam(this, 0, 0, 0, 2000);
+  cam.setResetOnDoubleClick(false);
   
   // used to highlight selected job
   wireSphere = createShape(SPHERE,1); 
@@ -97,6 +91,7 @@ void draw() {
     popMatrix();
     
     //rotateZ(rotz);
+    
     switch(helixType) {
       case 1: 
         smallJobsHelix.displayHelix();
@@ -115,10 +110,9 @@ void draw() {
         break;
     }  
     
-    if(drawHud==1) hud1.draw();
-    else hud2.draw();
+    hud1.draw();
+    hud2.draw();
     hud3.draw();
-    hud4.draw();
     
     rotz += .0009;
   } 
@@ -155,10 +149,9 @@ void initHUDs(){
   jobBox[5] = "Queue Name: " + smallJobs.get(highlighter1).getQueueName(); 
   jobBox[6] = "Slot Count: " + smallJobs.get(highlighter1).getSlots();
   
-  hud1 = new HUD(this,usage,"topLeft");
-  hud2 = new HUD(this,description,"topLeft");
-  hud3 = new HUD(this,jobBox,"topRight");
-  hud4 = new HUD(this,title,"bottomMiddle");
+  hud1 = new HUD(this,description,"topLeft");
+  hud2 = new HUD(this,jobBox,"topRight");
+  hud3 = new HUD(this,title,"bottomMiddle");
 }
 
 int getMaxSlotsPosition(ArrayList<Job> jobs) {
@@ -191,6 +184,30 @@ int getMinSlotsPosition(ArrayList<Job> jobs) {
   }
 }
 
+int selectedJob(ArrayList<Job> jobs, Helix helix) {
+  float tolerance;
+  for (int i=0; i<jobs.size(); i++) { 
+    tolerance = jobs.get(i).getSphereRadius(); 
+    float x = jobs.get(i).getX();
+    float y = jobs.get(i).getY();
+    float z = jobs.get(i).getZ();
+    
+    float checkX = screenX(x,y,z);
+    if(checkX >= (mouseX-tolerance) && checkX <= (mouseX+tolerance)) {
+      float checkY = screenY(x,y,z);
+      if(checkY >= (mouseY-tolerance) && checkY <= (mouseY+tolerance)) {
+        return i;
+      } 
+    }
+  
+    // move to next sphere in job
+    x = helix.getHelixRadius() * cos(jobs.get(i).getTheta());
+    y = helix.getHelixRadius() * sin(jobs.get(i).getTheta());
+    z += helix.getDeltaZ(); 
+  }
+  return -1;  
+}
+
 void highlightJobNodes(int index, ArrayList<Job> jobs, Helix helix){
   float x,y;
   float z = jobs.get(index).getZ();
@@ -211,7 +228,7 @@ void highlightJobNodes(int index, ArrayList<Job> jobs, Helix helix){
 }
 
 // update HUD with highlighted job's info
-void updateHUD(Helix helix, ArrayList<Job> jobs, int jobIndex, String helixType){
+void updateHUD(Helix helix, ArrayList<Job> jobs, int jobIndex, String helixDescription){
   jobBox[0] = "Job #" + (jobIndex+1);
   jobBox[1] = "Job Number: " + jobs.get(jobIndex).getJobNum();
   jobBox[2] = "Job Name: " + jobs.get(jobIndex).getJobName();
@@ -220,44 +237,38 @@ void updateHUD(Helix helix, ArrayList<Job> jobs, int jobIndex, String helixType)
   jobBox[5] = "Queue Name: " + jobs.get(jobIndex).getQueueName(); 
   jobBox[6] = "Slot Count: " + jobs.get(jobIndex).getSlots(); 
   
-  title[0] = helixType + "  "; // added extra space in string to better center text within HUD
+  title[0] = helixDescription + "  "; // added extra space in string to better center text within HUD
   title[1] = "Running Jobs = " + helix.getRunningJobCount();
   title[2] = "Reload data in " + (totalTime - (millis()-startTime))/1000 + " seconds";
 }
 
 void keyPressed() {
   if (key == CODED){
-    // traverse jobs
-    if (keyCode == LEFT){
-      // determine which helix is currently drawn on screen 
-      // and highlight previous job accordingly 
-      if(helixType == 1) { 
-        highlighter1--;
-        if(highlighter1 < 0) highlighter1 = smallJobs.size()-1;
-      } else if(helixType == 2) { 
-        highlighter2--;
-        if(highlighter2 < 0) highlighter2 = mediumJobs.size()-1;
-      } else if(helixType == 3) { 
-        highlighter3--;
-        if(highlighter3 < 0) highlighter3 = largeJobs.size()-1;
-      }
-    }else if (keyCode == RIGHT){
-      // determine which helix is currently drawn on screen 
-      // and highlight next job accordingly       
-      if(helixType == 1) highlighter1 = ++highlighter1 % (smallJobs.size());
-      else if(helixType == 2) highlighter2 = ++highlighter2 % (mediumJobs.size());
-      else if(helixType == 3) highlighter3 = ++highlighter3 % (largeJobs.size());
-      // traverse helixes
-    } else if (keyCode == UP) {
+    if (keyCode == UP) {
       helixType++;
       if(helixType > 3) helixType = 1;
     } else if (keyCode == DOWN) {
       helixType--;
       if(helixType < 1) helixType = 3;
     }  
-  } else {
-    // populate top-left HUD with description or usage
-    if (key == 'd') drawHud = 2;
-    else if (key == 'u') drawHud = 1;
-  }
+  } 
+}
+
+// SELECTION BY MOUSE
+void mousePressed() {
+  int pickedJob;
+  switch(helixType) {
+    case 1: 
+      pickedJob = selectedJob(smallJobs, smallJobsHelix);
+      highlighter1 = pickedJob < 0 ? highlighter1 : pickedJob;
+      break;
+    case 2: 
+      pickedJob = selectedJob(mediumJobs, mediumJobsHelix);
+      highlighter2 = pickedJob < 0 ? highlighter2 : pickedJob;
+      break;
+    case 3: 
+      pickedJob = selectedJob(largeJobs, largeJobsHelix);
+      highlighter3 = pickedJob < 0 ? highlighter3 : pickedJob;
+      break;
+  }      
 }
