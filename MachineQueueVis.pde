@@ -13,8 +13,8 @@ ArrayList<Job> smallJobs = new ArrayList<Job>();
 ArrayList<Job> mediumJobs = new ArrayList<Job>();
 ArrayList<Job> largeJobs = new ArrayList<Job>();
 
-// split fullHelix into three helixes depending on slot count
-Helix fullHelix, smallJobsHelix, mediumJobsHelix, largeJobsHelix;
+// split jobs into three helixes depending on slot count
+Helix smallJobsHelix, mediumJobsHelix, largeJobsHelix;
 int helixType = 1; // variable used to determine which helix to draw
 float rotz = 0;
 
@@ -44,7 +44,7 @@ boolean FULLSCREEN = false;
 
 void setup() {
   if(FULLSCREEN) size(displayWidth, displayHeight, OPENGL); // run from "Sketch -> Present"
-  else size(800,500,OPENGL);
+  else size(1100,700,OPENGL);
   baseMat = g.getMatrix(baseMat);
   cam = new PeasyCam(this, 0, 0, 0, 2000);
   cam.setResetOnDoubleClick(false);
@@ -185,28 +185,33 @@ int getMinSlotsPosition(ArrayList<Job> jobs) {
 }
 
 int selectedJob(ArrayList<Job> jobs, Helix helix) {
-  float tolerance;
   for (int i=0; i<jobs.size(); i++) { 
-    tolerance = jobs.get(i).getSphereRadius(); 
+    float tolerance = 10;
+    float sphereRadius = jobs.get(i).getSphereRadius(); 
     float x = jobs.get(i).getX();
     float y = jobs.get(i).getY();
     float z = jobs.get(i).getZ();
+    float theta = jobs.get(i).getTheta();
     
-    float checkX = screenX(x,y,z);
-    if(checkX >= (mouseX-tolerance) && checkX <= (mouseX+tolerance)) {
-      float checkY = screenY(x,y,z);
-      if(checkY >= (mouseY-tolerance) && checkY <= (mouseY+tolerance)) {
-        return i;
-      } 
+    for(int j=0; j<jobs.get(i).getNodeCount(); j++){
+      float sphereCenterX = screenX(x,y,z);
+      if(mouseX <= (sphereCenterX+tolerance) && mouseX >= (sphereCenterX-tolerance)) {
+        float sphereCenterY = screenY(x,y,z);
+        if(mouseY <= (sphereCenterY+tolerance) && mouseY >= (sphereCenterY-tolerance)) {
+          return i;
+        }
+      }
+    
+      // move to next sphere in job
+      theta += asin((sphereRadius*2)/helix.getHelixRadius());
+      x = helix.getHelixRadius() * cos(theta);
+      y = helix.getHelixRadius() * sin(theta);
+      z += helix.getDeltaZ(); 
     }
-  
-    // move to next sphere in job
-    x = helix.getHelixRadius() * cos(jobs.get(i).getTheta());
-    y = helix.getHelixRadius() * sin(jobs.get(i).getTheta());
-    z += helix.getDeltaZ(); 
   }
+  
   return -1;  
-}
+} 
 
 void highlightJobNodes(int index, ArrayList<Job> jobs, Helix helix){
   float x,y;
@@ -239,7 +244,7 @@ void updateHUD(Helix helix, ArrayList<Job> jobs, int jobIndex, String helixDescr
   
   title[0] = helixDescription + "  "; // added extra space in string to better center text within HUD
   title[1] = "Running Jobs = " + helix.getRunningJobCount();
-  title[2] = "Reload data in " + (totalTime - (millis()-startTime))/1000 + " seconds";
+  title[2] = "Reload data in " + (totalTime - (millis()-startTime))/1000 + " seconds   ";
 }
 
 void keyPressed() {

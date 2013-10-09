@@ -20,12 +20,10 @@ class Helix {
     x = 0; y = 0; z = 0;
     float theta = 0;
     for (int i=0; i<jobs.size(); i++) { 
-      color jobColor = color(random(0, 255), random(0, 255), random(0, 255)); // color running jobs
       runningJobCnt++;          
-      
+      color jobColor = color(random(0, 255), random(0, 255), random(0, 255)); // color running jobs      
       float thisSphereRadius = calculateRadius(jobs.get(i).getSlots(), maxSlots); 
       int nodesPerJob = jobs.get(i).getSlots()/SLOTS_PER_NODE;
-      
       if(nodesPerJob == 0) nodesPerJob = 1; // jobs with less than SLOTS_PER_NODE cores get rounded to 1 node
       
       jobs.get(i).setStartCoordinates(x,y,z,theta);
