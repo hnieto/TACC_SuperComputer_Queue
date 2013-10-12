@@ -28,10 +28,13 @@ float getDistance(TuioCursor tuioCursor1, TuioCursor tuioCursor2) {
 // called when a cursor is added to the scene
 void addTuioCursor(TuioCursor tcur) { 
   if (tuioCursor1 == null) {
-    // rotate
     tuioCursor1 = tcur;
+    
+    // simulates mouse click which will launch selectedJob() function
     mouseX = tuioCursor1.getScreenX(width);
     mouseY = tuioCursor1.getScreenY(height);
+    
+    // rotate
     arcball.mousePressed(tuioCursor1.getScreenX(width),tuioCursor1.getScreenY(height));     
   } 
   else if (tuioCursor2 == null) {
