@@ -27,7 +27,14 @@ class HUD{
                            
   public void draw(){
     hint(DISABLE_DEPTH_TEST);
-    cam.beginHUD();
+    if(USE_TUIO) {
+      p.pushMatrix();
+      p.hint(PConstants.DISABLE_DEPTH_TEST);
+      // Load the identity matrix.
+      p.resetMatrix();
+      // Apply the original Processing transformation matrix.
+      p.applyMatrix(originalMatrix); 
+    } else cam.beginHUD();
     // hack to add label background
     stroke(255);
     // rect(x,y,width,height)
@@ -44,7 +51,8 @@ class HUD{
     else if(position.equals("bottomLeft")) printText(hudText, margin, (int)(p.height-getHudHeight(hudText)));
     else if(position.equals("bottomRight")) printText(hudText, (int)(p.width-(getHudMaxWidth(hudText)+paddingRight+margin)), (int)(p.height-getHudHeight(hudText)));
     else if(position.equals("bottomMiddle")) printText(hudText, (int)((p.width-(getHudMaxWidth(hudText)))/2), (int)(p.height-getHudHeight(hudText)+lineSpace/2));
-    cam.endHUD();
+    if(USE_TUIO) p.popMatrix();
+    else cam.endHUD();
     hint(ENABLE_DEPTH_TEST);
   }
 

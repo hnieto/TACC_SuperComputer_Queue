@@ -3,8 +3,11 @@ import peasy.*;
 PeasyCam cam;
 PMatrix3D baseMat; // used for peasycam + HUD + lights fix
 
+// used for tuio rotation support
+ArcBall arcball; 
+
 int startTime;
-int totalTime = 180000; // 3 minute timer
+int totalTime = 330000; // 5.5 minute timer
 
 HUD hud1,hud2,hud3;
 
@@ -23,8 +26,8 @@ int highlighter1 = 0; // used with smallJobsHelix
 int highlighter2 = 0; // used with mediumJobsHelix
 int highlighter3 = 0; // used with largeJobsHelix
 
-int smallJobsUpperBound = 76;
-int mediumJobsUpperBound = 300;
+int smallJobsUpperBound = 100;
+int mediumJobsUpperBound = 500;
 int largeJobsUpperBound = 16385;
 
 // use pshape sphere to highlight jobs in draw w/o affecting performance
@@ -41,13 +44,21 @@ private String[] jobBox = new String[7];
 private String[] title = new String[3]; 
 
 boolean FULLSCREEN = false;
+boolean USE_TUIO = false;
 
 void setup() {
   if(FULLSCREEN) size(displayWidth, displayHeight, OPENGL); // run from "Sketch -> Present"
   else size(1100,700,OPENGL);
   baseMat = g.getMatrix(baseMat);
-  cam = new PeasyCam(this, 0, 0, 0, 2000);
-  cam.setResetOnDoubleClick(false);
+  
+  if(USE_TUIO) {
+    arcball = new ArcBall(width/2, height/2, min(width - 20, height - 20) * 0.8);
+    initTUIO(width, height);
+  } else {
+    // peasycam setup 
+    cam = new PeasyCam(this, 0, 0, 0, 2000);
+    cam.setResetOnDoubleClick(false);
+  }
   
   // used to highlight selected job
   wireSphere = createShape(SPHERE,1); 
@@ -90,8 +101,13 @@ void draw() {
     directionalLight(255, 255, 255, -150, 40, -140);
     popMatrix();
     
-    //rotateZ(rotz);
-    
+    if(USE_TUIO) {
+      translate(posX, posY);
+      scale(zoomScaler);
+      arcball.update();
+    }
+       
+    rotateZ(rotz);
     switch(helixType) {
       case 1: 
         smallJobsHelix.displayHelix();
