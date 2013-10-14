@@ -12,16 +12,18 @@ HUD hud1,hud2,hud3;
 ArrayList<Job> smallJobs = new ArrayList<Job>();
 ArrayList<Job> mediumJobs = new ArrayList<Job>();
 ArrayList<Job> largeJobs = new ArrayList<Job>();
+ArrayList<Job> allJobs = new ArrayList<Job>();
 
 // split jobs into three helixes depending on slot count
-Helix smallJobsHelix, mediumJobsHelix, largeJobsHelix;
-int helixType = 1; // variable used to determine which helix to draw
+Helix smallJobsHelix, mediumJobsHelix, largeJobsHelix, allJobsHelix;
+int helixType = 4; // variable used to determine which helix to draw
 float rotz = 0;
 
 // each variable will keep track of which job to highlight in each helix
 int highlighter1 = 0; // used with smallJobsHelix
 int highlighter2 = 0; // used with mediumJobsHelix
 int highlighter3 = 0; // used with largeJobsHelix
+int highlighter4 = 0; // used with allJobsHelix
 
 int smallJobsUpperBound = 100;
 int mediumJobsUpperBound = 500;
@@ -75,10 +77,12 @@ void initSketch() {
   println("smallJobs size = " + smallJobs.size());
   println("mediumJobs size = " + mediumJobs.size());
   println("largeJobs size = " + largeJobs.size());
+  println("allJobs size = " + allJobs.size());
   
   smallJobsHelix = new Helix(smallJobs, getMaxSlotsPosition(smallJobs)); smallJobsHelix.createHelix();  
   mediumJobsHelix = new Helix(mediumJobs, getMaxSlotsPosition(mediumJobs)); mediumJobsHelix.createHelix();
   largeJobsHelix = new Helix(largeJobs, getMaxSlotsPosition(largeJobs)); largeJobsHelix.createHelix();
+  allJobsHelix = new Helix(allJobs, getMaxSlotsPosition(allJobs)); allJobsHelix.createHelix();
    
   initHUDs();
 } 
@@ -86,9 +90,22 @@ void initSketch() {
 void draw() {
   if (second() == 30) {
     println("\nRestarting Sketch");
-    smallJobs.clear(); smallJobsHelix = null;
-    mediumJobs.clear(); mediumJobsHelix = null;
-    largeJobs.clear(); largeJobsHelix = null;
+    smallJobs.clear(); 
+    smallJobsHelix = null; 
+    highlighter1 = 0;
+    
+    mediumJobs.clear(); 
+    mediumJobsHelix = null; 
+    highlighter2 = 0;
+    
+    largeJobs.clear(); 
+    largeJobsHelix = null;
+    highlighter3 = 0;
+    
+    allJobs.clear(); 
+    allJobsHelix = null;
+    highlighter4 = 0;
+    
     initSketch();
   } else {
     background(0);
@@ -124,6 +141,11 @@ void draw() {
         highlightJobNodes(highlighter3, largeJobs, largeJobsHelix);
         updateHUD(largeJobsHelix, largeJobs, highlighter3, "LARGE JOBS (>" + (mediumJobsUpperBound-1) + " cores)");
         break;
+      case 4: 
+        allJobsHelix.displayHelix();
+        highlightJobNodes(highlighter4, allJobs, allJobsHelix);
+        updateHUD(allJobsHelix, allJobs, highlighter4, "ALL JOBS");
+        break;
     }  
     
     hud1.draw();
@@ -152,6 +174,9 @@ void parseFile() {
       if(slotNum < smallJobsUpperBound) smallJobs.add(new Job(num, name, owner, startTime, queue, slotNum));
       else if(slotNum > (smallJobsUpperBound-1) && slotNum < mediumJobsUpperBound) mediumJobs.add(new Job(num, name, owner, startTime, queue, slotNum));
       else largeJobs.add(new Job(num, name, owner, startTime, queue, slotNum));
+      
+      // add to allJobs array list
+      allJobs.add(new Job(num, name, owner, startTime, queue, slotNum));
     }
   }
 }
@@ -259,7 +284,7 @@ void updateHUD(Helix helix, ArrayList<Job> jobs, int jobIndex, String helixDescr
   jobBox[6] = "Slot Count: " + jobs.get(jobIndex).getSlots(); 
   
   title[0] = helixDescription + "  "; // added extra space in string to better center text within HUD
-  title[1] = "Running Jobs = " + helix.getRunningJobCount();
+  title[1] = "Running Jobs = " + helix.getRunningJobCount() + "  ";
 }
 
 void keyPressed() {
@@ -267,11 +292,13 @@ void keyPressed() {
     if (keyCode == UP) {  
       if(helixType == 1 && mediumJobs.size() > 0) helixType = 2;
       else if(helixType == 2 && largeJobs.size() > 0) helixType = 3;
-      else if(helixType == 3 && smallJobs.size() > 0) helixType = 1;
+      else if(helixType == 3 && allJobs.size() > 0) helixType = 4;
+      else if(helixType == 4 && smallJobs.size() > 0) helixType = 1;
     } else if (keyCode == DOWN) {
-      if(helixType == 3 && mediumJobs.size() > 0) helixType = 2;
+      if(helixType == 4 && largeJobs.size() > 0) helixType = 3;
+      else if(helixType == 3 && mediumJobs.size() > 0) helixType = 2;
       else if(helixType == 2 && smallJobs.size() > 0) helixType = 1;
-      else if(helixType == 1 && largeJobs.size() > 0) helixType = 3;  
+      else if(helixType == 1 && allJobs.size() > 0) helixType = 4;  
     }  
   } 
 }
@@ -291,6 +318,10 @@ void mousePressed() {
     case 3: 
       pickedJob = selectedJob(largeJobs, largeJobsHelix);
       highlighter3 = pickedJob < 0 ? highlighter3 : pickedJob;
+      break;
+    case 4: 
+      pickedJob = selectedJob(allJobs, allJobsHelix);
+      highlighter4 = pickedJob < 0 ? highlighter4 : pickedJob;
       break;
   }      
 }
