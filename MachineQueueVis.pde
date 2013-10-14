@@ -16,7 +16,7 @@ ArrayList<Job> allJobs = new ArrayList<Job>();
 
 // split jobs into three helixes depending on slot count
 Helix smallJobsHelix, mediumJobsHelix, largeJobsHelix, allJobsHelix;
-int helixType = 4; // variable used to determine which helix to draw
+int helixType = 1; // variable used to determine which helix to draw
 float rotz = 0;
 
 // each variable will keep track of which job to highlight in each helix
@@ -92,19 +92,15 @@ void draw() {
     println("\nRestarting Sketch");
     smallJobs.clear(); 
     smallJobsHelix = null; 
-    highlighter1 = 0;
     
     mediumJobs.clear(); 
     mediumJobsHelix = null; 
-    highlighter2 = 0;
     
     largeJobs.clear(); 
     largeJobsHelix = null;
-    highlighter3 = 0;
     
     allJobs.clear(); 
     allJobsHelix = null;
-    highlighter4 = 0;
     
     initSketch();
   } else {
