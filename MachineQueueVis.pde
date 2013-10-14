@@ -6,9 +6,6 @@ PMatrix3D baseMat; // used for peasycam + HUD + lights fix
 // used for tuio rotation support
 ArcBall arcball; 
 
-int startTime;
-int totalTime = 330000; // 5.5 minute timer
-
 HUD hud1,hud2,hud3;
 
 // separate jobs array into three arrays depending on slot count
@@ -41,7 +38,7 @@ private String[] description = { "MACHINE QUEUE VISUALIZATION",
                                  "5. Color along cylinder represents time used" };
          
 private String[] jobBox = new String[7];
-private String[] title = new String[3]; 
+private String[] title = new String[2]; 
 
 boolean FULLSCREEN = false;
 boolean USE_TUIO = false;
@@ -75,17 +72,20 @@ void initSketch() {
   // viewing the entire queue at once is cool but not as useful.
   // breaking the queue into three smaller helixes should make it easier
   // for the user to search the visualization for specific jobs
+  println("smallJobs size = " + smallJobs.size());
+  println("mediumJobs size = " + mediumJobs.size());
+  println("largeJobs size = " + largeJobs.size());
+  
   smallJobsHelix = new Helix(smallJobs, getMaxSlotsPosition(smallJobs)); smallJobsHelix.createHelix();  
   mediumJobsHelix = new Helix(mediumJobs, getMaxSlotsPosition(mediumJobs)); mediumJobsHelix.createHelix();
   largeJobsHelix = new Helix(largeJobs, getMaxSlotsPosition(largeJobs)); largeJobsHelix.createHelix();
    
   initHUDs();
-  startTime = millis();
 } 
 
 void draw() {
-  if (millis()-startTime > totalTime) {
-    println("Restarting Sketch");
+  if (second() == 30) {
+    println("\nRestarting Sketch");
     smallJobs.clear(); smallJobsHelix = null;
     mediumJobs.clear(); mediumJobsHelix = null;
     largeJobs.clear(); largeJobsHelix = null;
@@ -260,17 +260,18 @@ void updateHUD(Helix helix, ArrayList<Job> jobs, int jobIndex, String helixDescr
   
   title[0] = helixDescription + "  "; // added extra space in string to better center text within HUD
   title[1] = "Running Jobs = " + helix.getRunningJobCount();
-  title[2] = "Reload data in " + (totalTime - (millis()-startTime))/1000 + " seconds   ";
 }
 
 void keyPressed() {
   if (key == CODED){
-    if (keyCode == UP) {
-      helixType++;
-      if(helixType > 3) helixType = 1;
+    if (keyCode == UP) {  
+      if(helixType == 1 && mediumJobs.size() > 0) helixType = 2;
+      else if(helixType == 2 && largeJobs.size() > 0) helixType = 3;
+      else if(helixType == 3 && smallJobs.size() > 0) helixType = 1;
     } else if (keyCode == DOWN) {
-      helixType--;
-      if(helixType < 1) helixType = 3;
+      if(helixType == 3 && mediumJobs.size() > 0) helixType = 2;
+      else if(helixType == 2 && smallJobs.size() > 0) helixType = 1;
+      else if(helixType == 1 && largeJobs.size() > 0) helixType = 3;  
     }  
   } 
 }

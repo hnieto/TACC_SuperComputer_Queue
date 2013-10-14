@@ -3,18 +3,18 @@ class Helix {
   private int runningJobCnt = 0;
   
   private ArrayList<Job> jobs;
-  private int maxSlots;
+  private int maxSlotsIndex;
   private float helixRadius;
   private float x,y,z, deltaZ;
   PShape helix;
   
-  Helix(ArrayList<Job> _jobs, int _maxSlotsPosition) {
+  Helix(ArrayList<Job> _jobs, int _maxSlotsIndex) {
     jobs = _jobs;
-    maxSlots = jobs.get(_maxSlotsPosition).getSlots();
+    maxSlotsIndex = _maxSlotsIndex;
     helixRadius = 400;
     deltaZ = 2;
   }
-
+  
   public void createHelix() {
     helix = createShape(GROUP);
     x = 0; y = 0; z = 0;
@@ -22,7 +22,7 @@ class Helix {
     for (int i=0; i<jobs.size(); i++) { 
       runningJobCnt++;          
       color jobColor = color(random(0, 255), random(0, 255), random(0, 255)); // color running jobs      
-      float thisSphereRadius = calculateRadius(jobs.get(i).getSlots(), maxSlots); 
+      float thisSphereRadius = calculateRadius(jobs.get(i).getSlots(), jobs.get(maxSlotsIndex).getSlots()); 
       int nodesPerJob = jobs.get(i).getSlots()/SLOTS_PER_NODE;
       if(nodesPerJob == 0) nodesPerJob = 1; // jobs with less than SLOTS_PER_NODE cores get rounded to 1 node
       
@@ -57,7 +57,7 @@ class Helix {
         
         // distance between the radii of neighboring spheres dictates theta
         if ((j == nodesPerJob-1) && (i != jobs.size()-1)) {
-          float nextSphereRadius = calculateRadius(jobs.get(i+1).getSlots(), maxSlots); 
+          float nextSphereRadius = calculateRadius(jobs.get(i+1).getSlots(), jobs.get(maxSlotsIndex).getSlots()); 
           theta += asin((thisSphereRadius+nextSphereRadius)/helixRadius);  
         }else {
           theta += asin((thisSphereRadius*2)/helixRadius);
