@@ -142,4 +142,4 @@ Otherwise, the `PeasyCam` library will be used for camera control.
 
 # Issues
 
-If you encounter the following issue, `java.lang.OutOfMemoryError: Java heap space`, just increase the maximum available memory in the Processing IDE Preferences menu. To increase performance speed, all of the helix’s vertex data is uploaded into buffers in video memory during initialization, from where they can be read very quickly by the GPU in order to render the scene. This, however, can be very taxing on your system. This is why I would suggest using the smaller XML file for testing purposes and the full XML file on a system with enough GPU memory to handle large visualizations.
+If you encounter the following issue, `java.lang.OutOfMemoryError: Java heap space`, just increase the maximum available memory in the Processing IDE Preferences menu. To increase performance speed, all of the helix’s vertex data is uploaded into buffers in video memory during initialization, from where they can be read very quickly by the GPU in order to render the scene. This, however, can be very taxing on your system. 
