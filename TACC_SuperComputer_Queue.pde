@@ -32,7 +32,7 @@ int largeJobsUpperBound = 16385;
 // use pshape sphere to highlight jobs in draw w/o affecting performance
 PShape wireSphere; 
                            
-private String[] description = { "MACHINE QUEUE VISUALIZATION",
+private String[] description = { "TACC STAMPEDE SUPERCOMPUTER QUEUE",
                                  "1. Each job is represented by a cluster of same-colored spheres", 
                                  "2. Each sphere is a node",
                                  "3. Sphere size is proportional to the number of nodes per job",
