@@ -16,72 +16,130 @@ In our implementation,
 ### Additional libraries
 Download the following libraries (unzip them if necessary) and place them in the `/libraries` Processing directory. For additional information on how to install contributed libraries see [here](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library).
 * [PeasyCam](http://mrfeinberg.com/peasycam/)
+* [TUIO](http://www.tuio.org/?processing)
+* [CommnQ.js](https://bitbucket.org/taccaci/commnq-js)
 
 
-### Obtaining qstat output
-A bash script named `refreshQSTAT.sh` is included in this sketch’s `/data` folder that will handle the following steps:
-* SSH into remote server
-*	Run the `qstat` command line utility 
-*	Create XML file on remote server from `qstat` output with the following format
+### Obtaining HPC Queue statistics   
+A CommnQ server will return a JSON file with the queue information for TACC's Stampede Supercomputer every minute. See [Matthew Hanlon's Github Repo](https://bitbucket.org/taccaci/commnq-js) for instructions on how to setup a server and handler.   
+
+#### app.js  
+
+```
+'use strict';
+
+var config = require('./config/config')
+  , Commnq = require('./lib/commnq')
+  , MyQueueHandler = require('./lib/handlers/my-queue-handler');
+
+var server = new Commnq(config.amqp).connect(function() {
+  console.log('Commnq ready!');
+
+  // process glue2.activities message to individual host files
+  server.registerHandler(new MyQueueHandler({
+    outputPath: '/Users/User/Programming/Processing/MachineQueueVis/data/queue.json'
+    , routingKey: 'stampede.tacc.xsede.org'
+  }));
+
+});
+```  
+
+#### my-queue-handler.js   
+
+```
+'use strict';
+
+var TaccUtil = require('../tacc-util')
+  , FileHandler = require('./file-handler')
+  , logger = require('../logger')
+  , util = require('util')
+  , fs = require('fs-extra')
+  , _ = require('underscore');
+
+var MyQueueHandler = function(options) {
+  if (! (this instanceof MyQueueHandler)) {
+    return new MyQueueHandler(options);
+  }
+
+  options.exchange = options.exchange || 'glue2.activities';
+  if (options.exchange !== 'glue2.activities') {
+    throw new Error('MyQueueHandler is only compatible with the glue2.activities exchange.');
+  }
+
+  FileHandler.call(this, options);
+};
+
+util.inherits(MyQueueHandler, FileHandler);
+
+/**
+* Rewrite the message to smaller, nicer json
+*/
+MyQueueHandler.prototype.beforeProcessMessage = function(message, deliveryInfo) {
+  var hostname = TaccUtil.fixHostname(deliveryInfo.routingKey);
+  var data = { 
+    hostname: hostname,
+    queue: message.ComputingActivity
+  };  
+
+  return data;
+};
+
+MyQueueHandler.prototype.preprocessOutput = function(outputPath, message) {
+  return message.queue;
+};
+
+module.exports = MyQueueHandler;
+```
+
+#### JSON File
+The JSON file returned must be named `queue.json`, stored in the `/data` directory of your sketch,  and have the following format:
  
 ```
-<?xml version='1.0'?>
-<job_info  xmlns:xsd="http://gridengine.sunsource.net/source/browse/*checkout*/gridengine/source/dist/util/resources/schemas/qstat/qstat.xsd?revision=1.11">
-  <queue_info>
-    <job_list state="running">
-      <JB_job_number>0123456789</JB_job_number>
-      <JAT_prio>0.12345</JAT_prio>
-      <JB_name>john_doe</JB_name>
-      <JB_owner>jd012345</JB_owner>
-      <state>r</state>
-      <JAT_start_time>2012-01-01T00:00:01</JAT_start_time>
-      <queue_name>normal@hostname.edu</queue_name>
-      <slots>1234</slots>
-    </job_list>
- </queue_info>
-</job_info>
+[
+  {
+    "Queue": "normal",
+    "Name": "screen",
+    "Extension": {
+      "Priority": 3024
+    },    
+    "UserDomain": "abcd123",
+    "CreationTime": "2013-10-14T18:52:07Z",
+    "Share": "urn:glue2:ComputingShare:normal.stampede.tacc.xsede.org",
+    "ComputingManagerSubmissionTime": "2013-10-14T18:22:12Z",
+    "RequestedTotalWallTime": 7372800,
+    "LocalOwner": "user",
+    "LocalIDFromManager": "1912039",
+    "State": [
+      "ipf:running"
+    ],    
+    "ComputingManagerEndTime": "2013-10-14T22:22:12Z",
+    "StartTime": "2013-10-14T18:22:12Z",
+    "SubmissionTime": "2013-10-14T18:22:12Z",
+    "Owner": "unknown",
+    "RequestedSlots": 512,
+    "EndTime": "2013-10-14T22:22:12Z",
+    "ID": "urn:glue2:ComputingActivity:123456789.stampede.tacc.xsede.org",
+    "UsedTotalWallTime": 918528
+  }
+]
 ```
      
-*	Copy XML file from remote server to local machine running Processing sketch
-*	Create a shorter version of the XML file for debugging purposes that is based off of the full XML file returned by “qstat” (visualizing the entire queue can be resource intensive). 
+
+# How To Run  
+
+* Start CommnQ server by running `node app.js` from within the root directory of the downloaded commonq-js folder
+* Start Processing sketch
 
 
-### refreshQSTAT.sh
-Run this script to update your XML file.
-```
-USAGE: ./refreshQSTAT.sh –u user –s server –f filename
+# Interaction  
+Since viewing the entire job queue at once might be overwhelming, the sketch splits the queue into 3 smaller helixes. You can traverse them using the up/down keyboard keys. You can obtain specific job information by clicking (or touching) a set of spheres. If you have a multitouch system from which to run this sketch, make sure to set the `USE_TUIO` flag to `TRUE` to take advantage of the available multitouch gestures like  
+* single-finger camera rotation
+* pinch zoom
+* three-finger panning  
 
-This script will run qstat on remote server and return xml file on local machine
-
-OPTIONS:
-   -h      Show this message
-   -u      Username
-   -s      Server hostname
-   -f      Filename (xml extension will be added by script)
-``` 
-
-### MachineQueueVis.pde
-This is the main Processing file. You must update the `PATH` variable with the correct location of the `/data` directory on your local machine. 
-```
-String PATH = "/Users/Username/Documents/Processing/MachineQueueVis/data/";  
-```
-
-Also make sure that the `XMLFILE` variable has the full name of the XML file produced from running the `refreshQSTAT.sh` script.
-```
-String XMLFILE = "localQSTAT.xml"; 
-```
-
-
-# Running
-
-Once `refreshQSTAT.sh` has been run and you have an updated XML file, open the Processing IDE, locate your sketch, and press “Run.” 
-
+Otherwise, the `PeasyCam` library will be used for camera control. 
+  
 
 # Issues
 
 If you encounter the following issue, `java.lang.OutOfMemoryError: Java heap space`, just increase the maximum available memory in the Processing IDE Preferences menu. To increase performance speed, all of the helix’s vertex data is uploaded into buffers in video memory during initialization, from where they can be read very quickly by the GPU in order to render the scene. This, however, can be very taxing on your system. This is why I would suggest using the smaller XML file for testing purposes and the full XML file on a system with enough GPU memory to handle large visualizations.
-
-
-# To Do
-
-* update qstat information in real-time
