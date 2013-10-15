@@ -1,8 +1,8 @@
-# MachineQueueVis
+# TACC SuperComputer Queue Visualization
 
 ![MachineQueueVis](https://dl.dropbox.com/u/25652072/MachineQueueVis_Screenshot.png)
 
-MachineQueueVis is a [Processing](http://processing.org/) sketch based off of [Paul Bourke](http://paulbourke.net/miscellaneous/gqstats/)’s HPC queue statistics visualization. It converts the qstat output into pairs of spheres and cylinders arranged in a helical pattern that represents the status of the supercomputer’s queue. Our goal was to develop a visualization that could give systems administrators and users a complete understanding of the queue’s state with nothing more than a quick glance.
+This is a [Processing](http://processing.org/) sketch based off of [Paul Bourke](http://paulbourke.net/miscellaneous/gqstats/)’s HPC queue statistics visualization. It converts the CommnQ server output into pairs of spheres and cylinders arranged in a helical pattern that represents the status of the supercomputer’s queue. Our goal was to develop a visualization that could give systems administrators and users a complete understanding of the queue’s state with nothing more than a quick glance.
 
 In our implementation,
 * Each job is represented by a cluster of same-colored, consecutive spheres
@@ -37,7 +37,7 @@ var server = new Commnq(config.amqp).connect(function() {
 
   // process glue2.activities message to individual host files
   server.registerHandler(new MyQueueHandler({
-    outputPath: '/Users/User/Programming/Processing/MachineQueueVis/data/queue.json'
+    outputPath: '/Users/User/Programming/Processing/TACC_SuperComputer_Queue/data/queue.json'
     , routingKey: 'stampede.tacc.xsede.org'
   }));
 
