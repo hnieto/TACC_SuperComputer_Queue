@@ -21,7 +21,7 @@ Download the following libraries (unzip them if necessary) and place them in the
 
 
 ### Obtaining HPC Queue statistics   
-A CommnQ server will return a JSON file with the queue information for TACC's Stampede Supercomputer every minute. See [Matthew Hanlon's Github Repo](https://bitbucket.org/taccaci/commnq-js) for instructions on how to setup a server and handler.   
+A CommnQ server will return a JSON file with the queue information for TACC's [Stampede](http://www.tacc.utexas.edu/stampede/) Supercomputer every minute. See [Matthew Hanlon's Github Repo](https://bitbucket.org/taccaci/commnq-js) for instructions on how to setup a server and handler.   
 
 #### app.js  
 
@@ -132,7 +132,7 @@ The JSON file returned must be named `queue.json`, stored in the `/data` directo
 
 
 # Interaction  
-Since viewing the entire job queue at once might be overwhelming, the sketch splits the queue into 3 smaller helixes. You can traverse them using the up/down keyboard keys. You can obtain specific job information by clicking (or touching) a set of spheres. If you have a multitouch system from which to run this sketch, make sure to set the `USE_TUIO` flag to `TRUE` to take advantage of the available multitouch gestures like  
+Since viewing the entire job queue at once might be overwhelming, the sketch splits the queue into 3 smaller helixes. You can traverse them by using the up/down keyboard keys. You can also obtain specific job information by clicking (or touching) a set of spheres. If you have a multitouch system from which to run this sketch, make sure to set the `USE_TUIO` flag to `TRUE` to take advantage of the available multitouch gestures:  
 * single-finger camera rotation
 * pinch zoom
 * three-finger panning  
