@@ -1,12 +1,18 @@
 // used for vis interaction (pan, zoom, rotate)
 import peasy.*;
 PeasyCam cam;
-PMatrix3D baseMat; // used for peasycam + HUD + lights fix
+PMatrix3D baseMat; // used for peasycam + HUD + lights fix 
+
+// used for HUDs
+import controlP5.*;
+ControlP5 cp5;
+ControlGroup descriptionBox; Textlabel descriptionText;
+ControlGroup usageBox; Textlabel usageText;
+ControlGroup jobBox; Textlabel jobText;
+ControlGroup titleBox; Textlabel titleText;
 
 // used for tuio rotation support
 ArcBall arcball; 
-
-HUD hud1,hud2,hud3;
 
 // separate jobs array into three arrays depending on slot count
 ArrayList<Job> smallJobs = new ArrayList<Job>();
@@ -32,15 +38,20 @@ int largeJobsUpperBound = 16385;
 // use pshape sphere to highlight jobs in draw w/o affecting performance
 PShape wireSphere; 
                            
-private String[] description = { "TACC STAMPEDE SUPERCOMPUTER QUEUE",
-                                 "1. Each job is represented by a cluster of same-colored spheres", 
-                                 "2. Each sphere is a node",
-                                 "3. Sphere size is proportional to the number of nodes per job",
-                                 "4. Each cylinder represents allocated time", 
-                                 "5. Color along cylinder represents time used" };
+private String description = "VISUALIZATION DESCRIPTION\n\n" +
+                             "1. Each job is represented by a cluster of same-colored spheres\n" +
+                             "2. Each sphere is a node\n" +
+                             "3. Sphere size is proportional to the number of nodes per job\n" +
+                             "4. Each cylinder represents allocated time\n" +
+                             "5. Color along cylinder represents time used\n";
+                             
+private String usage = "MULTITOUCH INTERACTION (if applicable)\n\n" +
+                       "1 finger - camera rotation\n" +
+                       "2 fingers - pinch zoom in/out\n" +
+                       "3 fingers - pan\n";                          
          
-private String[] jobBox = new String[7];
-private String[] title = new String[2]; 
+private String title = ""; 
+private String jobInfo;
 
 boolean FULLSCREEN = false;
 boolean USE_TUIO = false;
@@ -49,6 +60,8 @@ void setup() {
   if(FULLSCREEN) size(displayWidth, displayHeight, OPENGL); // run from "Sketch -> Present"
   else size(1100,700,OPENGL);
   baseMat = g.getMatrix(baseMat);
+  cp5 = new ControlP5(this);
+  cp5.setAutoDraw(false);
   
   if(USE_TUIO) {
     arcball = new ArcBall(width/2, height/2, min(width - 20, height - 20) * 0.8);
@@ -66,6 +79,7 @@ void setup() {
   
   // separate method that can be re-called to restart sketch
   initSketch();
+  createHUDs();
 }
 
 void initSketch() {
@@ -82,9 +96,7 @@ void initSketch() {
   smallJobsHelix = new Helix(smallJobs, getMaxSlotsPosition(smallJobs)); smallJobsHelix.createHelix();  
   mediumJobsHelix = new Helix(mediumJobs, getMaxSlotsPosition(mediumJobs)); mediumJobsHelix.createHelix();
   largeJobsHelix = new Helix(largeJobs, getMaxSlotsPosition(largeJobs)); largeJobsHelix.createHelix();
-  allJobsHelix = new Helix(allJobs, getMaxSlotsPosition(allJobs)); allJobsHelix.createHelix();
-   
-  initHUDs();
+  allJobsHelix = new Helix(allJobs, getMaxSlotsPosition(allJobs)); allJobsHelix.createHelix();   
 } 
 
 void draw() {
@@ -125,30 +137,26 @@ void draw() {
       case 1: 
         smallJobsHelix.displayHelix();
         highlightJobNodes(highlighter1, smallJobs, smallJobsHelix);
-        updateHUD(smallJobsHelix, smallJobs, highlighter1, "SMALL JOBS (<"+ smallJobsUpperBound +" cores)");
+        updateHUD(smallJobsHelix, smallJobs, highlighter1, "small jobs (<"+ smallJobsUpperBound +" cores)");
         break;
       case 2: 
         mediumJobsHelix.displayHelix();
         highlightJobNodes(highlighter2, mediumJobs, mediumJobsHelix);
-        updateHUD(mediumJobsHelix, mediumJobs, highlighter2, "MEDIUM JOBS (" + smallJobsUpperBound + "-" + (mediumJobsUpperBound-1) + " cores)");
+        updateHUD(mediumJobsHelix, mediumJobs, highlighter2, "medium jobs (" + smallJobsUpperBound + "-" + (mediumJobsUpperBound-1) + " cores)");
         break;
       case 3: 
         largeJobsHelix.displayHelix();
         highlightJobNodes(highlighter3, largeJobs, largeJobsHelix);
-        updateHUD(largeJobsHelix, largeJobs, highlighter3, "LARGE JOBS (>" + (mediumJobsUpperBound-1) + " cores)");
+        updateHUD(largeJobsHelix, largeJobs, highlighter3, "large jobs (>" + (mediumJobsUpperBound-1) + " cores)");
         break;
       case 4: 
         allJobsHelix.displayHelix();
         highlightJobNodes(highlighter4, allJobs, allJobsHelix);
-        updateHUD(allJobsHelix, allJobs, highlighter4, "ALL JOBS");
+        updateHUD(allJobsHelix, allJobs, highlighter4, "all jobs");
         break;
     }  
-    
-    hud1.draw();
-    hud2.draw();
-    hud3.draw();
-    
-    rotz += .0009;
+    //  rotz += .0009;
+    huds();
   } 
 } 
 
@@ -175,20 +183,6 @@ void parseFile() {
       allJobs.add(new Job(num, name, owner, startTime, queue, slotNum));
     }
   }
-}
-
-void initHUDs(){
-  jobBox[0] = "Job #" + (highlighter1+1);
-  jobBox[1] = "Job Number: " + smallJobs.get(highlighter1).getJobNum();
-  jobBox[2] = "Job Name: " + smallJobs.get(highlighter1).getJobName();
-  jobBox[3] = "Job Owner: " + smallJobs.get(highlighter1).getJobOwner();
-  jobBox[4] = "Job Start Time: " + smallJobs.get(highlighter1).getStartTime();
-  jobBox[5] = "Queue Name: " + smallJobs.get(highlighter1).getQueueName(); 
-  jobBox[6] = "Slot Count: " + smallJobs.get(highlighter1).getSlots();
-  
-  hud1 = new HUD(this,description,"topLeft");
-  hud2 = new HUD(this,jobBox,"topRight");
-  hud3 = new HUD(this,title,"bottomMiddle");
 }
 
 int getMaxSlotsPosition(ArrayList<Job> jobs) {
@@ -269,18 +263,89 @@ void highlightJobNodes(int index, ArrayList<Job> jobs, Helix helix){
   } 
 }
 
-// update HUD with highlighted job's info
-void updateHUD(Helix helix, ArrayList<Job> jobs, int jobIndex, String helixDescription){
-  jobBox[0] = "Job #" + (jobIndex+1);
-  jobBox[1] = "Job Number: " + jobs.get(jobIndex).getJobNum();
-  jobBox[2] = "Job Name: " + jobs.get(jobIndex).getJobName();
-  jobBox[3] = "Job Owner: " + jobs.get(jobIndex).getJobOwner();
-  jobBox[4] = "Job Start Time: " + jobs.get(jobIndex).getStartTime();
-  jobBox[5] = "Queue Name: " + jobs.get(jobIndex).getQueueName(); 
-  jobBox[6] = "Slot Count: " + jobs.get(jobIndex).getSlots(); 
+void createHUDs(){
+  // change the default font to Verdana
+  PFont p = createFont("Times-Roman",12);
+  cp5.setControlFont(p);
   
-  title[0] = helixDescription + "  "; // added extra space in string to better center text within HUD
-  title[1] = "Running Jobs = " + helix.getRunningJobCount() + "  ";
+  jobInfo = "Job #" + (highlighter1+1) + "\n\n" +
+            "Job Number: " + smallJobs.get(highlighter1).getJobNum() + "\n" +
+            "Job Name: " + smallJobs.get(highlighter1).getJobName() + "\n" +
+            "Job Owner: " + smallJobs.get(highlighter1).getJobOwner() + "\n" +
+            "Job Start Time: " + smallJobs.get(highlighter1).getStartTime() + "\n" +
+            "Queue Name: " + smallJobs.get(highlighter1).getQueueName() + "\n" +
+            "Slot Count: " + smallJobs.get(highlighter1).getSlots() + "\n";
+  
+  // Visualization Description
+  descriptionBox = cp5.addGroup("descriptionBox", 10, 10, 345);
+  descriptionBox.setBackgroundHeight(120);
+  descriptionBox.setBackgroundColor(color(0,175));
+  descriptionBox.hideBar();
+  
+  descriptionText = cp5.addTextlabel("descriptionBoxLabel", description, 20, 20);
+  descriptionText.moveTo(descriptionBox);
+  
+  // Visualization Interaction
+  usageBox = cp5.addGroup("usageBox", 10, 150, 275);
+  usageBox.setBackgroundHeight(100);
+  usageBox.setBackgroundColor(color(0,175));
+  usageBox.hideBar();
+  
+  usageText = cp5.addTextlabel("usageBoxLabel", usage, 20, 20);
+  usageText.moveTo(usageBox);
+  
+  // Job Information
+  jobBox = cp5.addGroup("jobBox", 10, 300, 250);
+  jobBox.setBackgroundHeight(135);
+  jobBox.setBackgroundColor(color(0,175));
+  jobBox.hideBar();
+  
+  jobText = cp5.addTextlabel("jobBoxLabel", jobInfo, 20, 20);
+  jobText.moveTo(jobBox);
+  
+  // Title Information
+  titleBox = cp5.addGroup("titleBox", width/2-145, 10, 290);
+  titleBox.setBackgroundHeight(90);
+  titleBox.setBackgroundColor(color(0,175));
+  titleBox.hideBar();
+  
+  titleText = cp5.addTextlabel("titleTextLabel", title, 20, 20);
+  titleText.moveTo(titleBox);  
+}
+
+// update HUD with highlighted job's info
+void updateHUD(Helix helix, ArrayList<Job> jobs, int jobIndex, String helixDescription){  
+  jobInfo = "Job #" + (jobIndex+1) + "\n\n" +
+            "Job Number: " + jobs.get(jobIndex).getJobNum() + "\n" +
+            "Job Name: " + jobs.get(jobIndex).getJobName() + "\n" +
+            "Job Owner: " + jobs.get(jobIndex).getJobOwner() + "\n" +
+            "Job Start Time: " + jobs.get(jobIndex).getStartTime() + "\n" +
+            "Queue Name: " + jobs.get(jobIndex).getQueueName() + "\n" +
+            "Slot Count: " + jobs.get(jobIndex).getSlots() + "\n";
+
+  jobText.setValue(jobInfo);
+  
+  title = "TACC STAMPEDE SUPERCOMPUTER QUEUE\n\n" + 
+          helixDescription + "\n" +
+          "job count = " + helix.getRunningJobCount();
+              
+  titleText.setValue(title);
+}
+
+void huds(){
+  hint(DISABLE_DEPTH_TEST);
+  if(USE_TUIO) {
+    pushMatrix();
+    resetMatrix();
+    applyMatrix(baseMat); 
+    cp5.draw();
+    popMatrix();
+  } else {
+    cam.beginHUD();
+    cp5.draw();
+    cam.endHUD();
+  }
+  hint(ENABLE_DEPTH_TEST); 
 }
 
 void keyPressed() {
@@ -320,4 +385,29 @@ void mousePressed() {
       highlighter4 = pickedJob < 0 ? highlighter4 : pickedJob;
       break;
   }      
+}
+
+// MOVE HUDs
+void mouseDragged() {
+  float hudX, hudY;
+  float hudW, hudH;
+  float deltaX, deltaY;
+  
+  hudX = jobBox.getPosition().array()[0]; 
+  hudY = jobBox.getPosition().array()[1];
+  hudW = jobBox.getWidth();
+  hudH = 135; // getHeight() returns incorrect value so hardcoding is necessary
+  
+  if(mouseX >= hudX && mouseX <= hudX+hudW){
+    if(mouseY >= hudY && mouseY <= hudY+hudH){
+      if(USE_TUIO) USE_TUIO = false; 
+      else cam.setMouseControlled(false); // disable peasycam to only affect hud
+      deltaX = mouseX - pmouseX; 
+      deltaY = mouseY - pmouseY; 
+      jobBox.setPosition(hudX+deltaX, hudY+deltaY);
+    }
+  } else {
+      if(USE_TUIO) USE_TUIO = true; 
+      else cam.setMouseControlled(true); 
+  }
 }
