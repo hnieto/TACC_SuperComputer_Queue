@@ -1,4 +1,4 @@
-// we need to import the TUIO library
+  // we need to import the TUIO library
 // and declare a TuioProcessing client variable
 import TUIO.*;
 TuioProcessing tuioClient;
@@ -82,37 +82,21 @@ void removeTuioCursor(TuioCursor tcur) {
   if (tuioCursor3 != null && tuioCursor3.getCursorID() == tcur.getCursorID()) {
     // Remove 3nd cursor
     tuioCursor3 = null;
+    
+    if (tuioCursor2 != null && tuioCursor2.getCursorID() == tcur.getCursorID()) tuioCursor2 = null;
+    if (tuioCursor1 != null && tuioCursor1.getCursorID() == tcur.getCursorID()) tuioCursor3 = null;
   }
   
   if (tuioCursor2 != null && tuioCursor2.getCursorID() == tcur.getCursorID()) {
     // Remove 2nd cursor
     tuioCursor2 = null;
-    // If 3rd cursor still exists, make it the 2nd cursor
-    if(tuioCursor3 != null){
-      tuioCursor2 = tuioCursor3;
-      tuioCursor3 = null; 
-      startDistance = getDistance(tuioCursor1, tuioCursor2);
-      prevZoomScaler = zoomScaler;
-    }
+    
+    if (tuioCursor1 != null && tuioCursor1.getCursorID() == tcur.getCursorID()) tuioCursor3 = null;
   }
 
   if (tuioCursor1 != null && tuioCursor1.getCursorID() == tcur.getCursorID()) {
     // Remove 1st cursor
     tuioCursor1 = null;
-
-    // If 2nd still is on object, switch cursors
-    if (tuioCursor2 != null) {
-      tuioCursor1 = tuioCursor2;
-      tuioCursor2 = null;
-      arcball.mousePressed(tuioCursor1.getScreenX(width),tuioCursor1.getScreenY(height));    
-    }
-    // If 3rd cursor still exists, make it the 2nd cursor
-    if(tuioCursor3 != null){
-      tuioCursor2 = tuioCursor3;
-      tuioCursor3 = null; 
-      startDistance = getDistance(tuioCursor1, tuioCursor2);
-      prevZoomScaler = zoomScaler;
-    }
   } 
 }
 

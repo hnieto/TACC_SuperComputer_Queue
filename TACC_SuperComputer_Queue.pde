@@ -39,14 +39,14 @@ int largeJobsUpperBound = 16385;
 PShape wireSphere; 
                            
 private String description = "VISUALIZATION DESCRIPTION\n\n" +
-                             "1. Each job is represented by a cluster of same-colored spheres\n" +
-                             "2. Each sphere is a node\n" +
-                             "3. Sphere size is proportional to the number of nodes per job\n" +
+                             "1. A job is a series of programs that run on Stampede\n" +
+                             "2. Each job is represented by a group of same-colored spheres\n" +
+                             "3. Each sphere represents 16 CPU cores\n" +
                              "4. Each cylinder represents allocated time\n" +
-                             "5. Color along cylinder represents time used\n";
+                             "5. Color along cylinder represents elapsed used\n";
                              
 private String usage = "MULTITOUCH INTERACTION (if applicable)\n\n" +
-                       "1 finger - camera rotation\n" +
+                       "1 finger  - camera rotation\n" +
                        "2 fingers - pinch zoom in/out\n" +
                        "3 fingers - pan\n";                          
          
@@ -100,7 +100,7 @@ void initSketch() {
 } 
 
 void draw() {
-  if (second() == 30) {
+  if (minute() == 0 && second() == 30) { // update every hour
     println("\nRestarting Sketch");
     smallJobs.clear(); 
     smallJobsHelix = null; 
@@ -155,7 +155,7 @@ void draw() {
         updateHUD(allJobsHelix, allJobs, highlighter4, "all jobs");
         break;
     }  
-    //  rotz += .0009;
+    rotz += .0009;
     huds();
   } 
 } 
@@ -271,10 +271,10 @@ void createHUDs(){
   jobInfo = "Job #" + (highlighter1+1) + "\n\n" +
             "Job Number: " + smallJobs.get(highlighter1).getJobNum() + "\n" +
             "Job Name: " + smallJobs.get(highlighter1).getJobName() + "\n" +
-            "Job Owner: " + smallJobs.get(highlighter1).getJobOwner() + "\n" +
-            "Job Start Time: " + smallJobs.get(highlighter1).getStartTime() + "\n" +
-            "Queue Name: " + smallJobs.get(highlighter1).getQueueName() + "\n" +
-            "Slot Count: " + smallJobs.get(highlighter1).getSlots() + "\n";
+            "TACC User: " + smallJobs.get(highlighter1).getJobOwner() + "\n" +
+            "Requested Time: " + smallJobs.get(highlighter1).getAllocatedTime() + "\n" +
+            "Elapsed Time: " + smallJobs.get(highlighter1).getElapsedTime() + "\n" +
+            "Requested CPUs: " + smallJobs.get(highlighter1).getSlots() + "\n";
   
   // Visualization Description
   descriptionBox = cp5.addGroup("descriptionBox", 10, 10, 345);
@@ -295,7 +295,7 @@ void createHUDs(){
   usageText.moveTo(usageBox);
   
   // Job Information
-  jobBox = cp5.addGroup("jobBox", 10, 300, 250);
+  jobBox = cp5.addGroup("jobBox", 10, 300, 300);
   jobBox.setBackgroundHeight(135);
   jobBox.setBackgroundColor(color(0,175));
   jobBox.hideBar();
@@ -318,10 +318,10 @@ void updateHUD(Helix helix, ArrayList<Job> jobs, int jobIndex, String helixDescr
   jobInfo = "Job #" + (jobIndex+1) + "\n\n" +
             "Job Number: " + jobs.get(jobIndex).getJobNum() + "\n" +
             "Job Name: " + jobs.get(jobIndex).getJobName() + "\n" +
-            "Job Owner: " + jobs.get(jobIndex).getJobOwner() + "\n" +
-            "Job Start Time: " + jobs.get(jobIndex).getStartTime() + "\n" +
-            "Queue Name: " + jobs.get(jobIndex).getQueueName() + "\n" +
-            "Slot Count: " + jobs.get(jobIndex).getSlots() + "\n";
+            "TACC User: " + jobs.get(jobIndex).getJobOwner() + "\n" +
+            "Requested Time: " + jobs.get(jobIndex).getAllocatedTime() + "\n" +
+            "Elapsed Time: " + jobs.get(jobIndex).getElapsedTime() + "\n" +
+            "Requested CPUs: " + jobs.get(jobIndex).getSlots() + "\n";
 
   jobText.setValue(jobInfo);
   
@@ -385,29 +385,4 @@ void mousePressed() {
       highlighter4 = pickedJob < 0 ? highlighter4 : pickedJob;
       break;
   }      
-}
-
-// MOVE HUDs
-void mouseDragged() {
-  float hudX, hudY;
-  float hudW, hudH;
-  float deltaX, deltaY;
-  
-  hudX = jobBox.getPosition().array()[0]; 
-  hudY = jobBox.getPosition().array()[1];
-  hudW = jobBox.getWidth();
-  hudH = 135; // getHeight() returns incorrect value so hardcoding is necessary
-  
-  if(mouseX >= hudX && mouseX <= hudX+hudW){
-    if(mouseY >= hudY && mouseY <= hudY+hudH){
-      if(USE_TUIO) USE_TUIO = false; 
-      else cam.setMouseControlled(false); // disable peasycam to only affect hud
-      deltaX = mouseX - pmouseX; 
-      deltaY = mouseY - pmouseY; 
-      jobBox.setPosition(hudX+deltaX, hudY+deltaY);
-    }
-  } else {
-      if(USE_TUIO) USE_TUIO = true; 
-      else cam.setMouseControlled(true); 
-  }
 }

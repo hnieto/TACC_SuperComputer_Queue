@@ -1,3 +1,7 @@
+// SimpleDateFormat only works in Processing 2.0 with these imports
+import java.util.*;
+import java.text.*;
+
 class Job {
   private int jobNum;
   private String jobName;
@@ -34,6 +38,37 @@ class Job {
   
   public String getStartTime(){
     return jobStartTime; 
+  }
+  
+  public String getAllocatedTime(){
+    String allocatedTime = "";
+    if (queueName.equals("normal") || queueName.equals("largemem")) allocatedTime = "48 hours";
+    else if (queueName.equals("large") || queueName.equals("request") || queueName.equals("normal-mic") || queueName.equals("normal-2mic") || queueName.equals("gpu")) allocatedTime = "24 hours";
+    else if (queueName.equals("serial")) allocatedTime = "12 hours";
+    else if (queueName.equals("vis")) allocatedTime = "08 hours";
+    else if (queueName.equals("development") || queueName.equals("gpudev") || queueName.equals("visdev")) allocatedTime = "04 hours";
+    return allocatedTime;
+  }
+  
+  public String getElapsedTime(){
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+    Date currentDate = new Date();
+    Date jobStartDate = null;
+    try { 
+      jobStartDate = dateFormat.parse(jobStartTime);
+    } 
+    catch(ParseException e) { 
+      e.printStackTrace();
+    }
+    
+    long difference = currentDate.getTime() - jobStartDate.getTime(); 
+    int seconds = (int) (difference / 1000) % 60 ;
+    int minutes = (int) ((difference / (1000*60)) % 60);
+    int hours   = (int) ((difference / (1000*60*60)) % 24);
+    int days = (int) (difference / (1000*60*60*24));
+    String elapsedTime = str(days) + " days " + str(hours) + " hours " + str(minutes) + " minutes " + str(seconds) + " seconds";
+    return elapsedTime;
   }
   
   public String getQueueName(){
