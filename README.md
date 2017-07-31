@@ -1,6 +1,6 @@
 # TACC SuperComputer Queue Visualization
 
-![Stampede SuperComputer Queue](http://imgur.com/pqDclOz)
+![Stampede SuperComputer Queue](http://imgur.com/pqDclOz.png)
 
 This is a [Processing](http://processing.org/) sketch based off of [Paul Bourke](http://paulbourke.net/miscellaneous/gqstats/)’s HPC queue statistics visualization. It converts the CommnQ server output into pairs of spheres and cylinders arranged in a helical pattern that represents the status of the supercomputer’s queue. Our goal was to develop a visualization that could give systems administrators and users a complete understanding of the queue’s state with nothing more than a quick glance.
 
